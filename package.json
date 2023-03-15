@@ -11,7 +11,9 @@
   "dependencies": {
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "file-selector": "^0.6.0",
     "next": "13.2.4",
+    "node-dir": "^0.1.17",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }
