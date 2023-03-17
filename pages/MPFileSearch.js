@@ -1,70 +1,87 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 
-function Search() {
+function MPFileSearch() {
   const [folderPath, setFolderPath] = useState("");
-  const [files, setFiles] = useState([]);
-
+  const [folderName, setFolderName] = useState(null);
+  const [fileNames, setFileNames] = useState([]);
+  const [source, setSource] = useState(null);
   const handleFolderPathChange = async () => {
     const folderHandle = await window.showDirectoryPicker();
-
+    setFolderName(folderHandle.name);
     setFolderPath(folderHandle);
   };
-
+  useEffect(() => {
+    console.log(" audio playing: ", source);
+  }, [source]);
   const handleSearch = async () => {
-    const getMp3FilesInDirectory = async (directoryPath) => {
-      const mp3Files = [];
+    const getMpFilesInDirectory = async (directoryPath, extn) => {
+      const mpFiles = [];
       for await (const fileHandle of directoryPath.values()) {
-        if (fileHandle.kind === "file" && fileHandle.name.endsWith(".mp3")) {
-          // fileHandle
-          //   .getFile()
-          //   .then((file) => {
-          //     console.log(file);
-          //     let source = URL.createObjectURL(
-          //       new Blob([file], { type: file.type })
-          //     );
-          //     setSources([...sources, source]);
-          //   })
-          //   .catch((error) => console.error(`Error getting file`, error));
+        if (fileHandle.kind === "file" && fileHandle.name.endsWith(extn)) {
           let file = await fileHandle.getFile();
 
-          mp3Files.push(file);
+          mpFiles.push(file.name);
         } else if (fileHandle.kind === "directory") {
           const subDirectoryPath = fileHandle;
-          const subDirectoryMp3Files = await getMp3FilesInDirectory(
-            subDirectoryPath
+          const subDirectoryMpFiles = await getMpFilesInDirectory(
+            subDirectoryPath,
+            extn
           );
-          mp3Files.push(...subDirectoryMp3Files);
+          mpFiles.push(...subDirectoryMpFiles);
         }
       }
-      return mp3Files;
+      return mpFiles;
     };
 
-    const MPFiles = await getMp3FilesInDirectory(folderPath);
-    setFiles(MPFiles);
+    const MPFiles = await getMpFilesInDirectory(folderPath, ".mp3");
+    setFileNames(MPFiles);
+  };
+  const getMPFile = async (name, directoryPath) => {
+    try {
+      for await (let fileHandle of directoryPath.values()) {
+        if (fileHandle.kind == "file" && fileHandle.name == name) {
+          let file = await fileHandle.getFile();
+
+          return file;
+        } else if (fileHandle.kind == "directory") {
+          let subDirectoryPath = fileHandle;
+          let subDirectoryFile = await getMPFile(name, subDirectoryPath);
+
+          if (subDirectoryFile) return subDirectoryFile;
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   const showMpFiles = () => {
-    return files.map((file, index) => {
+    const handleClick = async (e) => {
+      let file = await getMPFile(e.target.getAttribute("data-name"), folderPath);
+      setSource(URL.createObjectURL(new Blob([file], { type: file.type })));
+    };
+    return fileNames.map((name, index) => {
       return (
-        <div key={index}>
-          {file.name}
-          <audio controls>
-            <source src={URL.createObjectURL( new Blob([file], { type: file.type }))} type="audio/mp3" />
-          </audio>
+        <div key={index} onClick={handleClick} data-name={name}>
+          {name}
         </div>
       );
     });
   };
   return (
     <div>
+      {source && (
+        <audio controls>
+          <source src={source} type="audio/mp3" />
+        </audio>
+      )}
       <label htmlFor="folder-path-input">Select a folder:</label>
-      <button onClick={handleFolderPathChange}>Select Folder</button>
+      <button onClick={handleFolderPathChange}>Folder</button>
+      {folderName && <h3>Watching : {folderName}</h3>}
       <button onClick={handleSearch}>Search</button>
 
-      <br />
-      <br />
-      {files.length ? showMpFiles() : ""}
+      {fileNames.length ? showMpFiles() : ""}
     </div>
   );
 }
 
-export default Search;
+export default MPFileSearch;
