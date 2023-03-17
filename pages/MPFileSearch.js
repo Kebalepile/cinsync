@@ -1,4 +1,4 @@
-import { useState , useEffect} from "react";
+import { useState, useEffect, useRef } from "react";
 
 function MPFileSearch() {
   const [folderPath, setFolderPath] = useState("");
@@ -11,8 +11,23 @@ function MPFileSearch() {
     setFolderPath(folderHandle);
   };
   useEffect(() => {
-    console.log(" audio playing: ", source);
+    if (source) {
+      console.log(source);
+      let audio = audioRef.current;
+      console.log(audio?.currentSrc)
+      if (audio?.currentSrc) {
+        let sourceElement = audio.querySelector("source");
+        sourceElement.src = source;
+        audio.load();
+      }
+    }
   }, [source]);
+  const audioRef = useRef(null);
+
+  const handlePlay = () => {
+    let audio = audioRef.current;
+    audio.paused ? audio.play() : audio.pause();
+  };
   const handleSearch = async () => {
     const getMpFilesInDirectory = async (directoryPath, extn) => {
       const mpFiles = [];
@@ -56,7 +71,10 @@ function MPFileSearch() {
   };
   const showMpFiles = () => {
     const handleClick = async (e) => {
-      let file = await getMPFile(e.target.getAttribute("data-name"), folderPath);
+      let file = await getMPFile(
+        e.target.getAttribute("data-name"),
+        folderPath
+      );
       setSource(URL.createObjectURL(new Blob([file], { type: file.type })));
     };
     return fileNames.map((name, index) => {
@@ -70,9 +88,12 @@ function MPFileSearch() {
   return (
     <div>
       {source && (
-        <audio controls>
-          <source src={source} type="audio/mp3" />
-        </audio>
+        <section>
+          <audio ref={audioRef} autoPlay>
+            <source src={source} type="audio/mp3" />
+          </audio>
+          <button onClick={handlePlay}>Play</button>
+        </section>
       )}
       <label htmlFor="folder-path-input">Select a folder:</label>
       <button onClick={handleFolderPathChange}>Folder</button>
