@@ -5,7 +5,7 @@ export default () => {
   return (
     <nav className={styles.navigation}>
       <Link href="/">Home</Link>
-      <Link href="/MPFileSearch">Mp file search</Link>
+      <Link href="/files">Mp file search</Link>
       <Link href="/about">About</Link>
     </nav>
   );
