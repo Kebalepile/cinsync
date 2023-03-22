@@ -12,23 +12,35 @@ export default () => {
   } = useContext(MPFileContext);
 
   const mediaRef = useRef(null);
- 
+
   useEffect(() => {
- console.log(mediaFile)
+    console.log(mediaFile);
     if (mediaFile) {
       loadMedia(extn);
-    
     }
   }, [mediaFile]);
 
-
+  const handleVolume = (change) => {
+    const media = mediaRef.current,
+      volume = Math.min(Math.max(media.volume + change, 0), 1);
+    media.volume = volume;
+  };
   const handlePlay = () => {
     let media = mediaRef.current;
     media.paused ? media.play() : media.pause();
   };
+  const handlePlayBackRate = (change) => {
+    let media = mediaRef.current;
+    media.playbackRate = Math.min(
+      Math.max(media.playbackRate + change, 0.25),
+      5.0
+    );
+  };
   const handleMediaEnded = (e) => {
-    AutoPlayFiles(mediaRef.current.getAttribute("data-name"));
-    e.target.removeEventListener("ended", handleMediaEnded);
+    setTimeout(() => {
+      AutoPlayFiles(mediaRef.current.getAttribute("data-name"));
+      e.target.removeEventListener("ended", handleMediaEnded);
+    }, 3000);
   };
 
   const handleSkip = (seconds, direction) => {
@@ -43,10 +55,6 @@ export default () => {
       default:
         break;
     }
-  };
-  const handlePlayBackRate = (change) => {
-    let media = mediaRef.current;
-    media.playbackRate = Math.min(Math.max(media.playbackRate + change, 0.25), 5.0);
   };
 
   const loadMedia = (mediaType) => {
@@ -133,6 +141,8 @@ export default () => {
             <button onClick={() => handleSkip(10, "backward")}>
               skip backward
             </button>
+            <button onClick={() => handleVolume(0.1)}>volume +</button>
+            <button onClick={() => handleVolume(-0.1)}>volume -</button>
             <button onClick={() => EnableAutoPlay()}>auto play</button>
           </section>
         </section>
