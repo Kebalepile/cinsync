@@ -5,7 +5,7 @@ export default () => {
   const { LoadFile, mpFileNames } = useContext(MPFileContext);
 
   const handleClick = async (e) => {
-  
+
     LoadFile(e.target.getAttribute("data-name"));
   };
   return (

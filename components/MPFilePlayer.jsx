@@ -1,37 +1,71 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import MPFileContext from "@/contexts/media/context";
 export default () => {
-  const { mediaFile, extn, filePresent, LoadNextFile, LoadPreviousFile } =
-    useContext(MPFileContext);
+  const {
+    mediaFile,
+    extn,
+    filePresent,
+    LoadNextFile,
+    LoadPreviousFile,
+    EnableAutoPlay,
+    AutoPlayFiles,
+  } = useContext(MPFileContext);
+
   const mediaRef = useRef(null);
+ 
   useEffect(() => {
+ console.log(mediaFile)
     if (mediaFile) {
       loadMedia(extn);
+    
     }
   }, [mediaFile]);
+
+
   const handlePlay = () => {
     let media = mediaRef.current;
     media.paused ? media.play() : media.pause();
   };
+  const handleMediaEnded = (e) => {
+    AutoPlayFiles(mediaRef.current.getAttribute("data-name"));
+    e.target.removeEventListener("ended", handleMediaEnded);
+  };
+
+  const handleSkip = (seconds, direction) => {
+    const mediaElement = mediaRef.current;
+    switch (direction) {
+      case "forward":
+        mediaElement.currentTime += seconds;
+        break;
+      case "backward":
+        mediaElement.currentTime -= seconds;
+        break;
+      default:
+        break;
+    }
+  };
+  const handlePlayBackRate = (change) => {
+    let media = mediaRef.current;
+    media.playbackRate = Math.min(Math.max(media.playbackRate + change, 0.25), 5.0);
+  };
+
   const loadMedia = (mediaType) => {
-    // console.log(mediaFile?.name);
-    // console.log(mediaRef.current.getAttribute("data-name"));
+    let mediaElement = mediaRef.current;
+    mediaElement.addEventListener("ended", handleMediaEnded);
+
     switch (mediaType) {
       case ".mp3":
-        let audio = mediaRef.current;
-
-        let sourceElement = audio.querySelector("source");
+        let sourceElement = mediaElement.querySelector("source");
         sourceElement.src = URL.createObjectURL(
           new Blob([mediaFile], { type: mediaFile?.type })
         );
-        audio.load();
+        mediaElement.load();
         break;
       case ".mp4":
-        let video = mediaRef.current;
-        video.src = URL.createObjectURL(
+        mediaElement.src = URL.createObjectURL(
           new Blob([mediaFile], { type: mediaFile?.type })
         );
-        video.load();
+        mediaElement.load();
         break;
       default:
         break;
@@ -74,19 +108,32 @@ export default () => {
           <section className="controls">
             <button onClick={handlePlay}>play/pause</button>
             <button
-              onClick={(e) => {
+              onClick={() => {
                 LoadNextFile(mediaRef.current.getAttribute("data-name"));
               }}
             >
               next
             </button>
             <button
-              onClick={(e) => {
+              onClick={() => {
                 LoadPreviousFile(mediaRef.current.getAttribute("data-name"));
               }}
             >
               prev
             </button>
+            <button onClick={() => handlePlayBackRate(0.5)}>
+              increase speed
+            </button>
+            <button onClick={() => handlePlayBackRate(-0.5)}>
+              decrease speed
+            </button>
+            <button onClick={() => handleSkip(10, "forward")}>
+              skip forward
+            </button>
+            <button onClick={() => handleSkip(10, "backward")}>
+              skip backward
+            </button>
+            <button onClick={() => EnableAutoPlay()}>auto play</button>
           </section>
         </section>
       )}

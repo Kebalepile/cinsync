@@ -1,6 +1,14 @@
-import { File_Names, Folder_Handler, Media_Extension, MP_File } from "../types";
+import {
+  File_Names,
+  Folder_Handler,
+  Media_Extension,
+  MP_File,
+  AUTO_PLAY,
+} from "../types";
 export default (state, action) => {
   switch (action.type) {
+    case AUTO_PLAY:
+      return updateState(state, action.payload);
     case MP_File:
       return updateState(state, action.payload);
     case File_Names:

@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import MPFileContext from "./context";
 import reducer from "./reducer";
-import { Folder_Handler, Media_Extension, File_Names, MP_File } from "../types";
+import { Folder_Handler, Media_Extension, File_Names, MP_File , AUTO_PLAY} from "../types";
 import { fileNameSearch, mpFile } from "@/utils/searchFiles";
 function MPFileProvider({ children }) {
   const initialState = {
@@ -11,6 +11,7 @@ function MPFileProvider({ children }) {
     mpFileNames: [],
     mediaFile: null,
     filePresent: false,
+    autoPlay: true
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
@@ -20,6 +21,7 @@ function MPFileProvider({ children }) {
     mpFileNames,
     filePresent,
     mediaFile,
+    autoPlay
   } = state;
   /**
    * @param {Object} handler
@@ -66,12 +68,12 @@ function MPFileProvider({ children }) {
   };
   /**
    *
-   * @param {String} current
+   * @param {String} current_file_name
    * @description Takes name of current file being used by End-User and finds next file by
    * incrementing ther current files index.
    */
-  const LoadNextFile = (current) => {
-    let curIndex = mpFileNames.findIndex((value) => value == current);
+  const LoadNextFile = (current_file_name) => {
+    let curIndex = mpFileNames.findIndex((value) => value == current_file_name);
     let index = curIndex !== -1 ? curIndex + 1 : curIndex;
     index = index > mpFileNames.length - 1 ? mpFileNames.length - 1 : index;
 
@@ -79,21 +81,30 @@ function MPFileProvider({ children }) {
   };
   /**
    *
-   * @param {String} current
+   * @param {String} current_file_name
    * @description Takes name of current file being used by End-User and finds previous file by
    * decrementing ther current files index.
    */
-  const LoadPreviousFile = (current) => {
-   let curIndex = mpFileNames.findIndex(value => value == current);
+  const LoadPreviousFile = (current_file_name) => {
+   let curIndex = mpFileNames.findIndex(value => value == current_file_name);
    let index = curIndex !== -1 ? curIndex - 1 : curIndex;
    index = index < 0 ? curIndex : index;
   
    LoadFile(mpFileNames[index])
   };
   /**
-   * @description automatically loads next file once current file ends rendering.
+   * @param {String} current_file_name
+   * @description a wrapper around LoadNextFile method,
+   * automatically loads next file once current_file_name file ends rendering.
    */
-  const autoPlayFiiles = () => {};
+  const AutoPlayFiles = (current_file_name) => {
+    if(autoPlay) LoadNextFile(current_file_name);
+  };
+  const EnableAutoPlay = () => {
+    autoPlay ? 
+    dispatch({type: AUTO_PLAY, playload: {autoPlay: false}}) :
+    dispatch({type: AUTO_PLAY, playload: {autoPlay: true}})
+  }
   const MediaTypeOk = () => (extn ? true : false);
   const MediaExtension = () => extn;
   const FolderInfoAvailable = () => typeof folderHandle === "object";
@@ -113,6 +124,8 @@ function MPFileProvider({ children }) {
         LoadFile,
         LoadNextFile,
         LoadPreviousFile,
+        EnableAutoPlay,
+        AutoPlayFiles,
         extn,
         folderHandle,
         folderName,
