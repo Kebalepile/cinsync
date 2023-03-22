@@ -51,8 +51,8 @@ function MPFileProvider({ children }) {
    * in given folder and sub folders if any.
    */
   const SearchMPFileNames = async () => {
-    const mpFileNames = await fileNameSearch(folderHandle, extn);
-
+    let mpFileNames = await fileNameSearch(folderHandle, extn);
+    mpFileNames = [...new Set(mpFileNames)];
     dispatch({ type: File_Names, payload: { mpFileNames } });
   };
 
@@ -65,26 +65,42 @@ function MPFileProvider({ children }) {
     dispatch({ type: MP_File, payload: { mediaFile, filePresent: true } });
   };
   /**
-   * 
-   * @param {String} current 
+   *
+   * @param {String} current
    * @description Takes name of current file being used by End-User and finds next file by
    * incrementing ther current files index.
    */
- const LoadNextFile = (current) => {}
+  const LoadNextFile = (current) => {
+    let curIndex = mpFileNames.findIndex((value) => value == current);
+    let index = curIndex !== -1 ? curIndex + 1 : curIndex;
+    index = index > mpFileNames.length - 1 ? mpFileNames.length - 1 : index;
+
+    LoadFile(mpFileNames[index]);
+  };
   /**
-   * 
-   * @param {String} current 
+   *
+   * @param {String} current
    * @description Takes name of current file being used by End-User and finds previous file by
    * decrementing ther current files index.
    */
- const loadPreviouseFile = (current) => {}
-/**
- * @description automatically loads next file once current file ends rendering.
- */
- const autoPlayFiiles = () => {}
+  const LoadPreviousFile = (current) => {
+   let curIndex = mpFileNames.findIndex(value => value == current);
+   let index = curIndex !== -1 ? curIndex - 1 : curIndex;
+   index = index < 0 ? curIndex : index;
+  
+   LoadFile(mpFileNames[index])
+  };
+  /**
+   * @description automatically loads next file once current file ends rendering.
+   */
+  const autoPlayFiiles = () => {};
   const MediaTypeOk = () => (extn ? true : false);
   const MediaExtension = () => extn;
   const FolderInfoAvailable = () => typeof folderHandle === "object";
+  /**
+   * @description saves folderhandler to localStorage
+   */
+  const folderHandlerStore = () => {};
   return (
     <MPFileContext.Provider
       value={{
@@ -95,6 +111,8 @@ function MPFileProvider({ children }) {
         MediaExtension,
         FolderInfoAvailable,
         LoadFile,
+        LoadNextFile,
+        LoadPreviousFile,
         extn,
         folderHandle,
         folderName,

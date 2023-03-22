@@ -1,12 +1,9 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import MPFileContext from "@/contexts/media/context";
 export default () => {
-  const { mediaFile, extn, filePresent } = useContext(MPFileContext);
-  const [state, setState] = useState({
-    mediaRef: useRef(null),
-  });
-  const { mediaRef } = state;
-
+  const { mediaFile, extn, filePresent, LoadNextFile, LoadPreviousFile } =
+    useContext(MPFileContext);
+  const mediaRef = useRef(null);
   useEffect(() => {
     if (mediaFile) {
       loadMedia(extn);
@@ -17,8 +14,8 @@ export default () => {
     media.paused ? media.play() : media.pause();
   };
   const loadMedia = (mediaType) => {
-    console.log(mediaFile?.name);
-    console.log(mediaRef.current.getAttribute("data-name"));
+    // console.log(mediaFile?.name);
+    // console.log(mediaRef.current.getAttribute("data-name"));
     switch (mediaType) {
       case ".mp3":
         let audio = mediaRef.current;
@@ -76,6 +73,20 @@ export default () => {
           {mediaPlayer(extn)}
           <section className="controls">
             <button onClick={handlePlay}>play/pause</button>
+            <button
+              onClick={(e) => {
+                LoadNextFile(mediaRef.current.getAttribute("data-name"));
+              }}
+            >
+              next
+            </button>
+            <button
+              onClick={(e) => {
+                LoadPreviousFile(mediaRef.current.getAttribute("data-name"));
+              }}
+            >
+              prev
+            </button>
           </section>
         </section>
       )}
