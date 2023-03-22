@@ -42,7 +42,7 @@ export default () => {
       e.target.removeEventListener("ended", handleMediaEnded);
     }, 3000);
   };
-
+const handleContextMenu = e => { e.preventDefault()}
   const handleSkip = (seconds, direction) => {
     const mediaElement = mediaRef.current;
     switch (direction) {
@@ -60,7 +60,8 @@ export default () => {
   const loadMedia = (mediaType) => {
     let mediaElement = mediaRef.current;
     mediaElement.addEventListener("ended", handleMediaEnded);
-
+mediaElement.addEventListener('contextmenu', handleContextMenu)
+mediaElement.addEventListener('click', handlePlay)
     switch (mediaType) {
       case ".mp3":
         let sourceElement = mediaElement.querySelector("source");
