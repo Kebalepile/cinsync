@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import MPFileContext from "./context";
 import reducer from "./reducer";
-import { Folder_Handler, Media_Extension, File_Names, MP_File , AUTO_PLAY} from "../types";
+import { Folder_Handler, Media_Extension, File_Names, MP_File } from "../types";
 import { fileNameSearch, mpFile } from "@/utils/searchFiles";
 function MPFileProvider({ children }) {
   const initialState = {
@@ -10,8 +10,7 @@ function MPFileProvider({ children }) {
     folderHandle: "",
     mpFileNames: [],
     mediaFile: null,
-    filePresent: false,
-    autoPlay: true
+    filePresent: false
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
@@ -20,9 +19,9 @@ function MPFileProvider({ children }) {
     folderHandle,
     mpFileNames,
     filePresent,
-    mediaFile,
-    autoPlay
+    mediaFile
   } = state;
+  
   /**
    * @param {Object} handler
    * @description Sets folderName & folderHandle
@@ -97,21 +96,17 @@ function MPFileProvider({ children }) {
    * @description a wrapper around LoadNextFile method,
    * automatically loads next file once current_file_name file ends rendering.
    */
-  const AutoPlayFiles = (current_file_name) => {
+  const AutoPlayFiles = (current_file_name, autoPlay = true) => {
     if(autoPlay) LoadNextFile(current_file_name);
   };
-  const EnableAutoPlay = () => {
-    autoPlay ? 
-    dispatch({type: AUTO_PLAY, playload: {autoPlay: false}}) :
-    dispatch({type: AUTO_PLAY, playload: {autoPlay: true}})
-  }
+ 
   const MediaTypeOk = () => (extn ? true : false);
   const MediaExtension = () => extn;
   const FolderInfoAvailable = () => typeof folderHandle === "object";
   /**
    * @description saves folderhandler to localStorage
    */
-  const folderHandlerStore = () => {};
+  
   return (
     <MPFileContext.Provider
       value={{
@@ -124,7 +119,6 @@ function MPFileProvider({ children }) {
         LoadFile,
         LoadNextFile,
         LoadPreviousFile,
-        EnableAutoPlay,
         AutoPlayFiles,
         extn,
         folderHandle,

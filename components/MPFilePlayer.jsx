@@ -1,5 +1,13 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import MPFileContext from "@/contexts/media/context";
+import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
+import {
+  handlePlay,
+  handleVolume,
+  handlePlayBackRate,
+  handleSkip,
+  handleAutoPlay
+} from "@/utils/videoControls";
 export default () => {
   const {
     mediaFile,
@@ -7,115 +15,28 @@ export default () => {
     filePresent,
     LoadNextFile,
     LoadPreviousFile,
-    EnableAutoPlay,
     AutoPlayFiles,
   } = useContext(MPFileContext);
 
   const mediaRef = useRef(null);
 
   useEffect(() => {
-    console.log(mediaFile);
+  
     if (mediaFile) {
-      loadMedia(extn);
+      LoadMedia(extn,mediaFile, mediaRef.current, AutoPlayFiles);
     }
   }, [mediaFile]);
-
-  const handleVolume = (change) => {
-    const media = mediaRef.current,
-      volume = Math.min(Math.max(media.volume + change, 0), 1);
-    media.volume = volume;
-  };
-  const handlePlay = () => {
-    let media = mediaRef.current;
-    media.paused ? media.play() : media.pause();
-  };
-  const handlePlayBackRate = (change) => {
-    let media = mediaRef.current;
-    media.playbackRate = Math.min(
-      Math.max(media.playbackRate + change, 0.25),
-      5.0
-    );
-  };
-  const handleMediaEnded = (e) => {
-    setTimeout(() => {
-      AutoPlayFiles(mediaRef.current.getAttribute("data-name"));
-      e.target.removeEventListener("ended", handleMediaEnded);
-    }, 3000);
-  };
-const handleContextMenu = e => { e.preventDefault()}
-  const handleSkip = (seconds, direction) => {
-    const mediaElement = mediaRef.current;
-    switch (direction) {
-      case "forward":
-        mediaElement.currentTime += seconds;
-        break;
-      case "backward":
-        mediaElement.currentTime -= seconds;
-        break;
-      default:
-        break;
-    }
-  };
-
-  const loadMedia = (mediaType) => {
-    let mediaElement = mediaRef.current;
-    mediaElement.addEventListener("ended", handleMediaEnded);
-mediaElement.addEventListener('contextmenu', handleContextMenu)
-mediaElement.addEventListener('click', handlePlay)
-    switch (mediaType) {
-      case ".mp3":
-        let sourceElement = mediaElement.querySelector("source");
-        sourceElement.src = URL.createObjectURL(
-          new Blob([mediaFile], { type: mediaFile?.type })
-        );
-        mediaElement.load();
-        break;
-      case ".mp4":
-        mediaElement.src = URL.createObjectURL(
-          new Blob([mediaFile], { type: mediaFile?.type })
-        );
-        mediaElement.load();
-        break;
-      default:
-        break;
-    }
-  };
-  const mediaPlayer = (mediaType) => {
-    let mediaSrc = URL.createObjectURL(
-      new Blob([mediaFile], { type: mediaFile?.type })
-    );
-
-    switch (mediaType) {
-      case ".mp3":
-        return (
-          <audio autoPlay ref={mediaRef} data-name={mediaFile?.name}>
-            <source src={mediaSrc} type="audio/mp3" />
-          </audio>
-        );
-      case ".mp4":
-        return (
-          <video
-            autoPlay
-            ref={mediaRef}
-            src={mediaSrc}
-            data-name={mediaFile?.name}
-            width={500}
-            height={200}
-          />
-        );
-
-      default:
-        break;
-    }
-  };
+  
   return (
     <>
       {filePresent && (
         <section>
           <h1>Media Player</h1>
-          {mediaPlayer(extn)}
+          {MediaPlayer(extn, mediaFile, mediaRef)}
           <section className="controls">
-            <button onClick={handlePlay}>play/pause</button>
+            <button onClick={e => {
+              handlePlay(mediaRef.current)
+            }}>play/pause</button>
             <button
               onClick={() => {
                 LoadNextFile(mediaRef.current.getAttribute("data-name"));
@@ -130,21 +51,21 @@ mediaElement.addEventListener('click', handlePlay)
             >
               prev
             </button>
-            <button onClick={() => handlePlayBackRate(0.5)}>
+            <button onClick={() => handlePlayBackRate(mediaRef.current,0.5)}>
               increase speed
             </button>
-            <button onClick={() => handlePlayBackRate(-0.5)}>
+            <button onClick={() => handlePlayBackRate(mediaRef.current,-0.5)}>
               decrease speed
             </button>
-            <button onClick={() => handleSkip(10, "forward")}>
+            <button onClick={() => handleSkip(mediaRef.current,10, "forward")}>
               skip forward
             </button>
-            <button onClick={() => handleSkip(10, "backward")}>
+            <button onClick={() => handleSkip(mediaRef.current,10, "backward")}>
               skip backward
             </button>
-            <button onClick={() => handleVolume(0.1)}>volume +</button>
-            <button onClick={() => handleVolume(-0.1)}>volume -</button>
-            <button onClick={() => EnableAutoPlay()}>auto play</button>
+            <button onClick={() => handleVolume(mediaRef.current,0.1)}>volume +</button>
+            <button onClick={() => handleVolume(mediaRef.current,-0.1)}>volume -</button>
+            <button onClick={handleAutoPlay}>auto play</button>
           </section>
         </section>
       )}
