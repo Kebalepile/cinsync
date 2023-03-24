@@ -39,18 +39,32 @@ function handleMediaEnded(element, media, autoPlayFiles, ms = 3000) {
 function handleContextMenu(event) {
   event.preventDefault();
 }
-
 function handleAutoPlay() {
   const autoPlay = JSON.parse(localStorage.getItem("auto_play"));
-  autoPlay == null
-    ? localStorage.setItem("auto_play", JSON.stringify(false))
-    : autoPlay
-    ? localStorage.setItem("auto_play", JSON.stringify(false))
-    : localStorage.setItem("auto_play", JSON.stringify(true));
+  if (autoPlay === null) {
+    localStorage.setItem("auto_play", JSON.stringify(false));
+  } else {
+    localStorage.setItem("auto_play", JSON.stringify(!autoPlay));
+  }
 }
-function fullScreen(){}
-function pictureInPicture(){}
-function mediaTime(){}
+
+function fullScreen() {}
+function pictureInPicture() {}
+function durationChange(mediaTime) {
+  return formatTime(Math.floor(mediaTime));
+}
+
+function formatTime(time) {
+  const hours = Math.floor(time / 3600),
+    minutes = Math.floor((time - hours * 3600) / 60),
+    seconds = time - hours * 3600 - minutes * 60;
+  const displayNothing = "";
+  return `${
+    (hours && `${hours.toString().padStart(2, "0")}:`) || displayNothing
+  }${
+    (minutes && `${minutes.toString().padStart(2, "0")}:`) || displayNothing
+  }${seconds.toString().padStart(2, "0")}`;
+}
 
 export {
   handleVolume,
@@ -62,5 +76,5 @@ export {
   handleAutoPlay,
   fullScreen,
   pictureInPicture,
-  mediaTime
+  durationChange,
 };

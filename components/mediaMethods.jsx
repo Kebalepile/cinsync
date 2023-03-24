@@ -1,7 +1,6 @@
 
 import {
   handleMediaEnded,
-  handlePlay,
   handleContextMenu,
 } from "../utils/videoControls";
 
@@ -36,15 +35,13 @@ function MediaPlayer(mediaType, mediaFile, mediaRef) {
   }
 }
 
-function LoadMedia(mediaType, mediaFile, mediaElement, callBack) {
+function LoadMedia(mediaType, mediaFile, mediaElement, autoplay) {
 
   mediaElement?.addEventListener("ended", (e) => {
-    handleMediaEnded(e.target, mediaElement, callBack);
+    handleMediaEnded(e.target, mediaElement, autoplay);
   });
   mediaElement?.addEventListener("contextmenu", handleContextMenu);
-  mediaElement?.addEventListener("click", (e) => {
-    handlePlay(mediaElement);
-  });
+
   switch (mediaType) {
     case ".mp3":
       let sourceElement = mediaElement.querySelector("source");

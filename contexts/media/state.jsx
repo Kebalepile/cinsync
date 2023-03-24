@@ -97,7 +97,7 @@ function MPFileProvider({ children }) {
    * automatically loads next file once current_file_name file ends rendering.
    */
   const AutoPlayFiles = (current_file_name, autoPlay = true) => {
-    if(autoPlay) LoadNextFile(current_file_name);
+    if(autoPlay == null || autoPlay) LoadNextFile(current_file_name);
   };
  
   const MediaTypeOk = () => (extn ? true : false);
