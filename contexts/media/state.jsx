@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import MPFileContext from "./context";
 import reducer from "./reducer";
 import { Folder_Handler, Media_Extension, File_Names, MP_File } from "../types";
-import { fileNameSearch, mpFile } from "@/utils/searchFiles";
+import { fileNameSearch, mpFile } from "@/library/searchFiles";
 function MPFileProvider({ children }) {
   const initialState = {
     extn: null,
