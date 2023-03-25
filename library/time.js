@@ -11,9 +11,9 @@ function formatTime(time) {
   const displayNothing = "";
   return `${
     (hours && `${hours.toString().padStart(2, "0")}:`) || displayNothing
-  }${
-    (minutes && `${minutes.toString().padStart(2, "0")}:`) || displayNothing
-  }${seconds.toString().padStart(2, "0")}`;
+  }${(minutes && `${minutes.toString().padStart(2, "0")}:`) || "0:"}${seconds
+    .toString()
+    .padStart(2, "0")}`;
 }
 
 export { formatTime };

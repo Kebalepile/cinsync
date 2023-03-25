@@ -10,7 +10,7 @@ function MPFileProvider({ children }) {
     folderHandle: "",
     mpFileNames: [],
     mediaFile: null,
-    filePresent: false
+    filePresent: false,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
@@ -19,9 +19,9 @@ function MPFileProvider({ children }) {
     folderHandle,
     mpFileNames,
     filePresent,
-    mediaFile
+    mediaFile,
   } = state;
-  
+
   /**
    * @param {Object} handler
    * @description Sets folderName & folderHandle
@@ -85,11 +85,11 @@ function MPFileProvider({ children }) {
    * decrementing ther current files index.
    */
   const LoadPreviousFile = (current_file_name) => {
-   let curIndex = mpFileNames.findIndex(value => value == current_file_name);
-   let index = curIndex !== -1 ? curIndex - 1 : curIndex;
-   index = index < 0 ? curIndex : index;
-  
-   LoadFile(mpFileNames[index])
+    let curIndex = mpFileNames.findIndex((value) => value == current_file_name);
+    let index = curIndex !== -1 ? curIndex - 1 : curIndex;
+    index = index < 0 ? curIndex : index;
+
+    LoadFile(mpFileNames[index]);
   };
   /**
    * @param {String} current_file_name
@@ -97,35 +97,45 @@ function MPFileProvider({ children }) {
    * automatically loads next file once current_file_name file ends rendering.
    */
   const AutoPlayFiles = (current_file_name, autoPlay = true) => {
-    if(autoPlay == null || autoPlay) LoadNextFile(current_file_name);
+    if (autoPlay == null || autoPlay) LoadNextFile(current_file_name);
   };
- 
+
   const MediaTypeOk = () => (extn ? true : false);
   const MediaExtension = () => extn;
   const FolderInfoAvailable = () => typeof folderHandle === "object";
-  /**
-   * @description saves folderhandler to localStorage
-   */
-  
+
+  const SearchFileName = (name) => {
+    try {
+      if (mpFileNames.includes(name)) {
+        // return a file present componet which displays files with name charectors
+        // the include method isn't going to work as method would be search when end-user enter more than 3 charactors
+        // something like string.includes might work.
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <MPFileContext.Provider
       value={{
+        extn,
+        mediaFile,
+        LoadFile,
         FileInfo,
         MediaType,
-        SearchMPFileNames,
-        MediaTypeOk,
-        MediaExtension,
-        FolderInfoAvailable,
-        LoadFile,
-        LoadNextFile,
-        LoadPreviousFile,
-        AutoPlayFiles,
-        extn,
-        folderHandle,
         folderName,
         mpFileNames,
         filePresent,
-        mediaFile,
+        folderHandle,
+        MediaTypeOk,
+        LoadNextFile,
+        AutoPlayFiles,
+        MediaExtension,
+        SearchFileName,
+        LoadPreviousFile,
+        SearchMPFileNames,
+        FolderInfoAvailable,
       }}
     >
       {children}

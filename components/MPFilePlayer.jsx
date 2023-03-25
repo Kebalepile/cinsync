@@ -39,9 +39,9 @@ export default () => {
       currentTime: trackVideoTime(mediaRef.current.currentTime),
     };
 
-    mediaTimeRef.current.textContent = `Duration: ${
+    mediaTimeRef.current.textContent = `${mediaTime.currentTime} / ${
       mediaTime.duration || ""
-    }, Current Time: ${mediaTime.currentTime}`; // update the div element with the media time information
+    },`; // update the div element with the media time information
   };
 
   const startInterval = () => {
