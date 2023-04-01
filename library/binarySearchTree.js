@@ -28,12 +28,13 @@ class BST {
       let nextItem = callBack(item, curItem, curIndex, arr);
 
       if (nextItem) return nextItem;
-      if (curItem < item) lowIndex = curIndex + 1;
-      else if (curItem > item) hightIndex = curIndex - 1;
+      if (curItem.id < item.id) lowIndex = curIndex + 1;
+      else if (curItem.id > item.id) hightIndex = curIndex - 1;
     }
   }
 
   insert(data) {
+   
     let node = this.#Root;
     if (!node) {
       this.#Root = new Node(data);
@@ -51,17 +52,17 @@ class BST {
      * @returns undefined || string
      */
     function traverseInsert(node, data) {
-      if (data < node.data) {
+      if (data.id < node.data.id) {
         if (!node.L) {
           node.L = new Node(data);
 
           return;
         }
         return traverseInsert(node.L, data);
-      } else if (data > node.data) {
+      } else if (data.id > node.data.id) {
         if (!node.R) {
           node.R = new Node(data);
-
+          
           return;
         }
         return traverseInsert(node.R, data);
@@ -72,10 +73,10 @@ class BST {
   }
   has(data) {
     let node = this.#Root;
-    while (node.data !== data) {
-      if (data < node.data) {
+    while (node.data.id !== data.id) {
+      if (data.id < node.data.id) {
         node = node.L;
-      } else if (data > node.data) {
+      } else if (data.id > node.data.id) {
         node = node.R;
       }
 
@@ -83,9 +84,6 @@ class BST {
         return false;
       }
 
-      // if (node.data.includes(data)) {
-      //   console.log(`Found possible match for ${data}, ==> ${node.data}`);
-      // }
     }
     return true;
   }
@@ -109,17 +107,17 @@ class BST {
       });
     }
   }
-  rotate() {}
-  get(data) {
+ 
+  get(id) {
     let node = this.#Root;
-    while (node.data !== data) {
-      if (data < node.data) {
+    while (node.data.id !== id) {
+      if (id < node.data.id) {
         node = node.L;
-      } else if (data > node.data) {
+      } else if (id > node.data.id) {
         node = node.R;
       }
       if (!node) {
-        return `${data} not available !`;
+        return `${id} not available !`;
       }
     }
 
@@ -131,17 +129,17 @@ class BST {
     /**
      *
      * @param {Node} node
-     * @param {string} data
+     * @param {object} data
      * @returns
      */
     function _delete(node, data) {
       if (!node) {
         return null;
       }
-      if (data < node.data) {
+      if (data.id < node.data.id) {
         node.L = _delete(node.L, data);
         return node;
-      } else if (data > node.data) {
+      } else if (data.id > node.data.id) {
         node.R = _delete(node.R, data);
         return node;
       } else {
@@ -283,26 +281,9 @@ class BST {
   }
 }
 
-const tree = new BST();
+export const Tree = new BST();
 
 // ================================
-tree.insert(9);
-tree.insert(4);
-tree.insert(17);
-tree.insert(12);
-tree.insert(3);
-tree.insert(6);
-tree.insert(22);
-tree.insert(5);
-tree.insert(7);
-tree.insert(20);
-tree.insert(10);
-
-console.log("Next number is : ", tree.next(5));
-console.log("Previous number is : ", tree.prev(12));
-
-console.log(tree.inOrder());
-
 // next(node = this.#Root) {
 //   if (node.R) {
 //     return _LeftDescendant(node.R);

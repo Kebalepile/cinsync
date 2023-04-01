@@ -1,15 +1,16 @@
 import React, { useReducer } from "react";
 import MPFileContext from "./context";
 import reducer from "./reducer";
-import { Folder_Handler, Media_Extension, File_Names, MP_File } from "../types";
+import { Folder_Handler, Media_Extension, File_Names, MP_File, Unique_Id } from "../types";
 import { fileNameSearch, mpFile } from "@/library/searchFiles";
 function MPFileProvider({ children }) {
   const initialState = {
     extn: null,
     folderName: null,
     folderHandle: "",
-    mpFileNames: [],
+    mpFileNames: null,
     mediaFile: null,
+    uniqueId: null,
     filePresent: false,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -20,6 +21,7 @@ function MPFileProvider({ children }) {
     mpFileNames,
     filePresent,
     mediaFile,
+    uniqueId
   } = state;
 
   /**
@@ -52,52 +54,47 @@ function MPFileProvider({ children }) {
    * in given folder and sub folders if any.
    */
   const SearchMPFileNames = async () => {
-    let mpFileNames = await fileNameSearch(folderHandle, extn);
-    mpFileNames = [...new Set(mpFileNames)];
-    dispatch({ type: File_Names, payload: { mpFileNames } });
+    let BST = await fileNameSearch(folderHandle, extn);
+    // mpFileNames = [...new Set(mpFileNames)];
+    dispatch({ type: File_Names, payload: { mpFileNames : BST} });
   };
 
   /**
    * @param {string} fileName
    * @description adds *.mp* file to media player.
    */
-  const LoadFile = async (fileName) => {
+  const LoadFile = async (fileName, id) => {
     let mediaFile = await mpFile(fileName, folderHandle);
+   
     dispatch({ type: MP_File, payload: { mediaFile, filePresent: true } });
+    dispatch({type:Unique_Id, payload:{uniqueId: id}})
   };
-  /**
-   *
-   * @param {String} current_file_name
-   * @description Takes name of current file being used by End-User and finds next file by
-   * incrementing ther current files index.
-   */
-  const LoadNextFile = (current_file_name) => {
-    let curIndex = mpFileNames.findIndex((value) => value == current_file_name);
-    let index = curIndex !== -1 ? curIndex + 1 : curIndex;
-    index = index > mpFileNames.length - 1 ? mpFileNames.length - 1 : index;
+  
+  const LoadNextFile = () => {
+    try{
+     
+      let fileDetails = mpFileNames.get(Number(uniqueId))
+   
+    let {name, id}   = mpFileNames.next(fileDetails?.data)
+    LoadFile(name, id)
+    }catch(error){
+      console.error(error)
+    }
+  };
 
-    LoadFile(mpFileNames[index]);
+  const LoadPreviousFile = () => {
+    try{
+      let fileDetails = mpFileNames.get(Number(uniqueId))
+   
+      let {name, id}   = mpFileNames.prev(fileDetails?.data)
+      LoadFile(name, id)
+    }catch(error){
+      console.error(error)
+    }
   };
-  /**
-   *
-   * @param {String} current_file_name
-   * @description Takes name of current file being used by End-User and finds previous file by
-   * decrementing ther current files index.
-   */
-  const LoadPreviousFile = (current_file_name) => {
-    let curIndex = mpFileNames.findIndex((value) => value == current_file_name);
-    let index = curIndex !== -1 ? curIndex - 1 : curIndex;
-    index = index < 0 ? curIndex : index;
-
-    LoadFile(mpFileNames[index]);
-  };
-  /**
-   * @param {String} current_file_name
-   * @description a wrapper around LoadNextFile method,
-   * automatically loads next file once current_file_name file ends rendering.
-   */
-  const AutoPlayFiles = (current_file_name, autoPlay = true) => {
-    if (autoPlay == null || autoPlay) LoadNextFile(current_file_name);
+ 
+  const AutoPlayFiles = (autoPlay = true) => {
+    if (autoPlay == null || autoPlay) LoadNextFile();
   };
 
   const MediaTypeOk = () => (extn ? true : false);

@@ -3,16 +3,14 @@ import {
   Folder_Handler,
   Media_Extension,
   MP_File,
- 
+  Unique_Id,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
+    case Unique_Id:
     case MP_File:
-      return updateState(state, action.payload);
     case File_Names:
-      return updateState(state, action.payload);
     case Media_Extension:
-      return updateState(state, action.payload);
     case Folder_Handler:
       return updateState(state, action.payload);
     default:

@@ -31,7 +31,6 @@ function skip(media, seconds, direction) {
 function mediaEnded(element, media, autoPlayFiles, ms = 3000) {
   setTimeout(() => {
     autoPlayFiles(
-      media.getAttribute("data-name"),
       JSON.parse(localStorage.getItem("auto_play"))
     );
     element.removeEventListener("ended", mediaEnded);

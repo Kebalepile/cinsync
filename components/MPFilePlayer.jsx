@@ -71,14 +71,14 @@ export default () => {
             </button>
             <button
               onClick={() => {
-                LoadNextFile(mediaRef.current.getAttribute("data-name"));
+                LoadNextFile();
               }}
             >
               next
             </button>
             <button
               onClick={() => {
-                LoadPreviousFile(mediaRef.current.getAttribute("data-name"));
+                LoadPreviousFile();
               }}
             >
               prev

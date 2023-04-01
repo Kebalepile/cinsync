@@ -6,17 +6,17 @@ export default () => {
 
   const handleClick = async (e) => {
 
-    LoadFile(e.target.getAttribute("data-name"));
+    LoadFile(e.target.getAttribute("data-name"), e.target.getAttribute("data-id"));
   };
   return (
     <>
-      {mpFileNames.length > 0 && (
+      {mpFileNames && (
         <article>
           <h1>Playlist below:</h1>
-          {mpFileNames.map((name, index) => {
+          {mpFileNames.inOrder().map((data) => {
             return (
-              <div key={index} data-name={name} onClick={handleClick}>
-                {name}
+              <div key={data.id} data-name={data.name} data-id={data.id} onClick={handleClick}>
+                {data.name}
               </div>
             );
           })}

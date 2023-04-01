@@ -1,26 +1,32 @@
+import { Tree } from "./binarySearchTree";
 /**
  *
  * @param {string} directoryPath
  * @param {string} extn
  * @returns search's for file name(s) of files with given extn in given directory path.
  */
-export async function fileNameSearch(directoryPath, extn) {
-  try{
-    const names = [];
-  for await (const fileHandle of directoryPath.values()) {
-    if (fileHandle.kind === "file" && fileHandle.name.endsWith(extn)) {
-      let file = await fileHandle.getFile();
-
-      names.push(file.name);
-    } else if (fileHandle.kind === "directory") {
-      const subDirectoryPath = fileHandle;
-      const subDirectoryMpFiles = await fileNameSearch(subDirectoryPath, extn);
-      names.push(...subDirectoryMpFiles);
+export async function fileNameSearch(directoryPath, extn, id = 1) {
+  try {
+    
+    for await (const fileHandle of directoryPath.values()) {
+      if (fileHandle.kind === "file" && fileHandle.name.endsWith(extn)) {
+        let file = await fileHandle.getFile();
+        Tree.insert({
+          name: file.name,
+          id: id++,
+        });
+       
+      } else if (fileHandle.kind === "directory") {
+        const subDirectoryPath = fileHandle;
+        fileNameSearch(subDirectoryPath, extn, id++);
+       
+      }
     }
-  }
-  return names;
-  }catch (error) {
-    console.error(error)
+
+  
+    return Tree;
+  } catch (error) {
+    console.error(error);
   }
 }
 
