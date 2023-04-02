@@ -2,8 +2,13 @@ class Node {
   constructor(data) {
     this.data = data;
     this.L = null; // left child
-    this.R = null; // rightt child
+    this.R = null; // right child
     this.P = null; //parent node
+  }
+  rotateRight(){
+    let tempRoot = this.L;
+    
+
   }
 }
 
@@ -34,11 +39,9 @@ class BST {
   }
 
   insert(data) {
-   
     let node = this.#Root;
     if (!node) {
       this.#Root = new Node(data);
-
       return;
     }
     return traverseInsert(node, data);
@@ -55,14 +58,14 @@ class BST {
       if (data.id < node.data.id) {
         if (!node.L) {
           node.L = new Node(data);
-
+          node.L.P = node;
           return;
         }
         return traverseInsert(node.L, data);
       } else if (data.id > node.data.id) {
         if (!node.R) {
           node.R = new Node(data);
-          
+          node.R.P = node;
           return;
         }
         return traverseInsert(node.R, data);
@@ -83,7 +86,6 @@ class BST {
       if (!node) {
         return false;
       }
-
     }
     return true;
   }
@@ -107,7 +109,7 @@ class BST {
       });
     }
   }
- 
+
   get(id) {
     let node = this.#Root;
     while (node.data.id !== id) {
