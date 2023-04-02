@@ -5,11 +5,6 @@ class Node {
     this.R = null; // right child
     this.P = null; //parent node
   }
-  rotateRight(){
-    let tempRoot = this.L;
-    
-
-  }
 }
 
 class BST {
@@ -44,7 +39,11 @@ class BST {
       this.#Root = new Node(data);
       return;
     }
-    return traverseInsert(node, data);
+    traverseInsert(node, data);
+    if (this.isBalanced() === false) {
+      this.balance();
+    }
+    return;
     /**
      *
      * @param {Node} node
@@ -59,6 +58,7 @@ class BST {
         if (!node.L) {
           node.L = new Node(data);
           node.L.P = node;
+
           return;
         }
         return traverseInsert(node.L, data);
@@ -196,6 +196,37 @@ class BST {
 
     return node.data;
   }
+  minHeight(node = this.#Root) {
+    if (!node) {
+      return -1;
+    }
+
+    let left = this.minHeight(node.L),
+      right = this.minHeight(node.R);
+
+    if (left < right) {
+      return left + 1;
+    } else {
+      return right + 1;
+    }
+  }
+  maxHeight(node = this.#Root) {
+    if (!node) {
+      return -1;
+    }
+
+    let left = this.maxHeight(node.L),
+      right = this.maxHeight(node.R);
+
+    if (left > right) {
+      return left + 1;
+    } else {
+      return right + 1;
+    }
+  }
+  isBalanced() {
+    return this.minHeight() >= this.maxHeight() - 1;
+  }
   /**
    *
    * @param {Node} node
@@ -280,6 +311,26 @@ class BST {
       return results;
     }
     return null;
+  }
+
+  balance() {
+    // Get an array of all nodes in the BST
+    let nodes = this.inOrder();
+
+    // Rebuild the BST by recursively dividing the array in half and inserting the middle element into the BST
+    let rebuildBST = (arr, start, end) => {
+      if (start > end) {
+        return null;
+      }
+      let mid = Math.floor((start + end) / 2);
+      console.log("balancing tree ==> " ,arr[mid])
+      let node = new Node(arr[mid]);
+      node.L = rebuildBST(arr, start, mid - 1);
+      node.R = rebuildBST(arr, mid + 1, end);
+      return node;
+    };
+
+    this.#Root = rebuildBST(nodes, 0, nodes.length - 1);
   }
 }
 
