@@ -1,7 +1,13 @@
 import React, { useReducer } from "react";
 import MPFileContext from "./context";
 import reducer from "./reducer";
-import { Folder_Handler, Media_Extension, File_Names, MP_File, Unique_Id } from "../types";
+import {
+  Folder_Handler,
+  Media_Extension,
+  File_Names,
+  MP_File,
+  Unique_Id,
+} from "../types";
 import { fileNameSearch, mpFile } from "@/library/searchFiles";
 function MPFileProvider({ children }) {
   const initialState = {
@@ -21,7 +27,7 @@ function MPFileProvider({ children }) {
     mpFileNames,
     filePresent,
     mediaFile,
-    uniqueId
+    uniqueId,
   } = state;
 
   /**
@@ -56,7 +62,7 @@ function MPFileProvider({ children }) {
   const SearchMPFileNames = async () => {
     let BST = await fileNameSearch(folderHandle, extn);
     // mpFileNames = [...new Set(mpFileNames)];
-    dispatch({ type: File_Names, payload: { mpFileNames : BST} });
+    dispatch({ type: File_Names, payload: { mpFileNames: BST } });
   };
 
   /**
@@ -65,34 +71,33 @@ function MPFileProvider({ children }) {
    */
   const LoadFile = async (fileName, id) => {
     let mediaFile = await mpFile(fileName, folderHandle);
-   
+
     dispatch({ type: MP_File, payload: { mediaFile, filePresent: true } });
-    dispatch({type:Unique_Id, payload:{uniqueId: id}})
+    dispatch({ type: Unique_Id, payload: { uniqueId: id } });
   };
-  
+
   const LoadNextFile = () => {
-    try{
-     
-      let fileDetails = mpFileNames.get(Number(uniqueId))
-   
-    let {name, id}   = mpFileNames.next(fileDetails?.data)
-    LoadFile(name, id)
-    }catch(error){
-      console.error(error)
+    try {
+      let fileDetails = mpFileNames.get(Number(uniqueId));
+
+      let { name, id } = mpFileNames.next(fileDetails?.data);
+      LoadFile(name, id);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const LoadPreviousFile = () => {
-    try{
-      let fileDetails = mpFileNames.get(Number(uniqueId))
-   
-      let {name, id}   = mpFileNames.prev(fileDetails?.data)
-      LoadFile(name, id)
-    }catch(error){
-      console.error(error)
+    try {
+      let fileDetails = mpFileNames.get(Number(uniqueId));
+
+      let { name, id } = mpFileNames.prev(fileDetails?.data);
+      LoadFile(name, id);
+    } catch (error) {
+      console.error(error);
     }
   };
- 
+
   const AutoPlayFiles = (autoPlay = true) => {
     if (autoPlay == null || autoPlay) LoadNextFile();
   };
