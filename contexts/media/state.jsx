@@ -79,7 +79,6 @@ function MPFileProvider({ children }) {
   const LoadNextFile = () => {
     try {
       let fileDetails = mpFileNames.get(Number(uniqueId));
-
       let { name, id } = mpFileNames.next(fileDetails?.data);
       LoadFile(name, id);
     } catch (error) {

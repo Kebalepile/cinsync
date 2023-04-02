@@ -1,14 +1,15 @@
 class Node {
-  constructor(data) {
+  constructor(data, P = null, L = null, R = null) {
     this.data = data;
-    this.L = null; // left child
-    this.R = null; // right child
-    this.P = null; //parent node
+    this.L = L; // left child
+    this.R = R; // right child
+    this.P = P; //parent node
   }
 }
 
 class BST {
   #Root = null;
+  #cachedInOrder
   /**
    *
    * @param {number} item
@@ -18,7 +19,7 @@ class BST {
    * @returns number
    */
   #binarySearch(item, callBack) {
-    let arr = this.inOrder(),
+    let arr = this.#cachedInOrder,
       lowIndex = 0,
       hightIndex = arr.length - 1;
     while (lowIndex <= hightIndex) {
@@ -43,6 +44,7 @@ class BST {
     if (this.isBalanced() === false) {
       this.balance();
     }
+    this.#cachedInOrder = this.inOrder();
     return;
     /**
      *
@@ -323,7 +325,6 @@ class BST {
         return null;
       }
       let mid = Math.floor((start + end) / 2);
-      console.log("balancing tree ==> " ,arr[mid])
       let node = new Node(arr[mid]);
       node.L = rebuildBST(arr, start, mid - 1);
       node.R = rebuildBST(arr, mid + 1, end);
@@ -336,20 +337,3 @@ class BST {
 
 export const Tree = new BST();
 
-// ================================
-// next(node = this.#Root) {
-//   if (node.R) {
-//     return _LeftDescendant(node.R);
-//   }
-//   _RightAncestor(node);
-//   function _LeftDescendant(node) {
-//     if (node.L) return node.data;
-//     return _LeftDescendant(node?.L);
-//   }
-//   function _RightAncestor(node) {
-//     if (node.data < node.P.data) {
-//       return node.P.data;
-//     }
-//     return _RightAncestor(node.P);
-//   }
-// }
