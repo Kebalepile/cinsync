@@ -6,7 +6,7 @@ export default () => {
   const suggestionsRef = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-    let res = mpFileNames.hasName(
+    let res = mpFileNames.nameIncludes(
       e.target.querySelector('input[name="search"]').value
     );
     console.log(res);
@@ -18,6 +18,7 @@ export default () => {
       console.log(res);
     }
   };
+
   return (
     <Fragment>
       <form id="search_file_name" onSubmit={handleSubmit}>
