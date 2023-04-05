@@ -1,10 +1,10 @@
-import MPFileSearch from "@/components/MPFileSearch";
+import LoadMPFiles from "@/components/LoadMPFiles";
 import MPFileList from "@/components/MPFileList";
 import MPFilePlayer from "@/components/MPFilePlayer";
 function file() {
   return (
     <>
-      <MPFileSearch />
+      <LoadMPFiles />
       <MPFilePlayer />
       <MPFileList />
       
