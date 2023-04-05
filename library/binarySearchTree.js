@@ -91,21 +91,7 @@ class BST {
     }
     return true;
   }
-  hasName(name) {
-    let node = this.#Root;
-    while (node.data.name !== name) {
-      if (name < node.data.name) {
-        node = node.L;
-      } else if (name > node.data.name) {
-        node = node.R;
-      }
-
-      if (!node) {
-        return false;
-      }
-    }
-    return { bool: true, ...node.data };
-  }
+  
   /**
    * 
    * @param {string} name 
@@ -185,22 +171,6 @@ class BST {
     }
 
     return node;
-    // if (!node) {
-    //   return "not available !";
-    // }
-    // if (node.data.id == id) {
-    
-    //   return node;
-    // }
-    // const lR = this.getById(id, node.L);
-    // if (lR !== null) {
-    //   return lR;
-    // }
-    // const rR = this.getById(id, node.R);
-    // if (rR !== null) {
-    //   return rR;
-    // }
-    // return null;
   }
   del(data) {
     this.#Root = _delete(this.#Root, data);
