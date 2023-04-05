@@ -1,27 +1,37 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import MPFileContext from "@/contexts/media/context";
-
+import MPFileNameSearch from "./MPFileNameSearch";
 export default () => {
   const { LoadFile, mpFileNames } = useContext(MPFileContext);
 
   const handleClick = async (e) => {
-
-    LoadFile(e.target.getAttribute("data-name"), e.target.getAttribute("data-id"));
+    LoadFile(
+      e.target.getAttribute("data-name"),
+      e.target.getAttribute("data-id")
+    );
   };
   return (
-    <>
+    <Fragment>
       {mpFileNames && (
-        <article>
-          <h1>Playlist below:</h1>
-          {mpFileNames.inOrder().map((data) => {
-            return (
-              <div key={data.id} data-name={data.name} data-id={data.id} onClick={handleClick}>
-                {data.name}
-              </div>
-            );
-          })}
-        </article>
+        <>
+          <MPFileNameSearch />
+          <article>
+            <h1>Playlist below:</h1>
+            {mpFileNames.inOrder().map((data) => {
+              return (
+                <div
+                  key={data.id}
+                  data-name={data.name}
+                  data-id={data.id}
+                  onClick={handleClick}
+                >
+                  {data.name}
+                </div>
+              );
+            })}
+          </article>
+        </>
       )}
-    </>
+    </Fragment>
   );
 };
