@@ -14,10 +14,15 @@ export default () => {
   const handleInputChange = (e) => {
     console.log(mpFileNames)
     if (e.target.value.length >= 3) {
-      let res = mpFileNames.nameIncludes(e.target.value.trim().toLowerCase());
-      console.log(res);
+      let res = mpFileNames.searchByName(sanitizeInput(e.target.value));
+
+      handleSuggestions(res);
+    } else {
+      clearSuggestions();
     }
   };
+  const handleSuggestions = (results) => {
+    const elem = suggestionsRef.current;
 
   return (
     <Fragment>

@@ -91,45 +91,18 @@ class BST {
     }
     return true;
   }
-  
-  /**
-   * 
-   * @param {string} name 
-   * @param {Node} node 
-   * @description method takes 2 arguments `name` to search for and `node` to start the search.
-   * The `node` argument should be te root node of the binary search tree.
-   * The `name` argument should be a string representing name to search for.
-   * 
-   * The method first checks if `node` argument is null. if this condition is true, the method returns null.
-   * Next, the method creates a regular expersion using `name` argument as pattern to match, The "i" flag
-   * is used to make the match case insensitve.
-   * 
-   * The method then tests if the `node`s `name` property mathes the regular expression. if true, the
-   *`node.data` is returned as search result. if not the method rescursively searchs the left and right subtrees,
-    passing each subtree as the `node`argument to recursive call to `nameIncludes`. if either recursive calls return a non-null value,
-    that value is returned as the search result.
 
-    if the name is node found in the node or it's subtrees, the method returns null.
-   * @returns 
-   */
-  nameIncludes(name, node = this.#Root) {
-    if (!node) {
-      return null;
+  searchByName(name, node = this.#Root, suggestions = []) {
+    if (node) {
+      const regex = new RegExp(name, "i");
+      if (regex.test(node.data.name)) {
+        suggestions.push(node.data);
+      }
+      suggestions.concat(this.searchByName(name, node.L, suggestions));
+      suggestions.concat(this.searchByName(name, node.R, suggestions));
     }
-    const regex = new RegExp(name, "i");
-    if (regex.test(node.data.name)) {
-      return node.data;
-    }
-    // recursively search left & right subtrees.
-    const lR = this.nameIncludes(name, node.L);
-    if (lR !== null) {
-      return lR;
-    }
-    const rR = this.nameIncludes(name, node.R);
-    if (rR !== null) {
-      return rR;
-    }
-    return null;
+
+    return suggestions;
   }
   next(item) {
     if (this.has(item)) {
@@ -154,7 +127,7 @@ class BST {
    *
    * @param {number} id
    * @param {Node} node
-   * @description akin to `nameIncludes`. just uses number instead of string
+   * @description akin to `Includes`. just uses number instead of string
    * @returns
    */
   getById(id) {
