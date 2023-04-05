@@ -9,7 +9,7 @@ class Node {
 
 class BST {
   #Root = null;
-  #cachedInOrder
+  #cachedInOrder;
   /**
    *
    * @param {number} item
@@ -91,7 +91,60 @@ class BST {
     }
     return true;
   }
+  hasName(name) {
+    let node = this.#Root;
+    while (node.data.name !== name) {
+      if (name < node.data.name) {
+        node = node.L;
+      } else if (name > node.data.name) {
+        node = node.R;
+      }
 
+      if (!node) {
+        return false;
+      }
+    }
+    return { bool: true, ...node.data };
+  }
+  /**
+   * 
+   * @param {string} name 
+   * @param {Node} node 
+   * @description method takes 2 arguments `name` to search for and `node` to start the search.
+   * The `node` argument should be te root node of the binary search tree.
+   * The `name` argument should be a string representing name to search for.
+   * 
+   * The method first checks if `node` argument is null. if this condition is true, the method returns null.
+   * Next, the method creates a regular expersion using `name` argument as pattern to match, The "i" flag
+   * is used to make the match case insensitve.
+   * 
+   * The method then tests if the `node`s `name` property mathes the regular expression. if true, the
+   *`node.data` is returned as search result. if not the method rescursively searchs the left and right subtrees,
+    passing each subtree as the `node`argument to recursive call to `nameIncludes`. if either recursive calls return a non-null value,
+    that value is returned as the search result.
+
+    if the name is node found in the node or it's subtrees, the method returns null.
+   * @returns 
+   */
+  nameIncludes(name, node = this.#Root) {
+    if (!node) {
+      return null;
+    }
+    const regex = new RegExp(name, "i");
+    if (regex.test(node.data.name)) {
+      return node.data;
+    }
+    // recursively search left & right subtrees.
+    const lR = this.nameIncludes(name, node.L);
+    if (lR !== null) {
+      return lR;
+    }
+    const rR = this.nameIncludes(name, node.R);
+    if (rR !== null) {
+      return rR;
+    }
+    return null;
+  }
   next(item) {
     if (this.has(item)) {
       if (this.max() === item) return item;
@@ -111,8 +164,14 @@ class BST {
       });
     }
   }
-
-  get(id) {
+  /**
+   *
+   * @param {number} id
+   * @param {Node} node
+   * @description akin to `nameIncludes`. just uses number instead of string
+   * @returns
+   */
+  getById(id) {
     let node = this.#Root;
     while (node.data.id !== id) {
       if (id < node.data.id) {
@@ -121,11 +180,27 @@ class BST {
         node = node.R;
       }
       if (!node) {
-        return `${id} not available !`;
+        return "Not available!";
       }
     }
 
     return node;
+    // if (!node) {
+    //   return "not available !";
+    // }
+    // if (node.data.id == id) {
+    
+    //   return node;
+    // }
+    // const lR = this.getById(id, node.L);
+    // if (lR !== null) {
+    //   return lR;
+    // }
+    // const rR = this.getById(id, node.R);
+    // if (rR !== null) {
+    //   return rR;
+    // }
+    // return null;
   }
   del(data) {
     this.#Root = _delete(this.#Root, data);
@@ -336,4 +411,3 @@ class BST {
 }
 
 export const Tree = new BST();
-

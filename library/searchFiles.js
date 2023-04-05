@@ -14,16 +14,12 @@ export async function fileNameSearch(directoryPath, extn, id = 1) {
         Tree.insert({
           name: file.name,
           id: id++,
-        });
-       
+        });    
       } else if (fileHandle.kind === "directory") {
         const subDirectoryPath = fileHandle;
-        fileNameSearch(subDirectoryPath, extn, id++);
-       
+        fileNameSearch(subDirectoryPath, extn, id++);   
       }
-    }
-
-  
+    }  
     return Tree;
   } catch (error) {
     console.error(error);
