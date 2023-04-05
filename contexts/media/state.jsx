@@ -78,9 +78,12 @@ function MPFileProvider({ children }) {
 
   const LoadNextFile = () => {
     try {
-      let fileDetails = mpFileNames.get(Number(uniqueId));
-      let { name, id } = mpFileNames.next(fileDetails?.data);
-      LoadFile(name, id);
+      let currentFileDetails = mpFileNames.getById(Number(uniqueId));
+      if (currentFileDetails !== "Not available!") {
+        let nextFileDetails = mpFileNames.next(currentFileDetails?.data),
+          { name, id } = nextFileDetails;
+        LoadFile(name, id);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -88,10 +91,13 @@ function MPFileProvider({ children }) {
 
   const LoadPreviousFile = () => {
     try {
-      let fileDetails = mpFileNames.get(Number(uniqueId));
+      let currentFileDetails = mpFileNames.getById(Number(uniqueId));
 
-      let { name, id } = mpFileNames.prev(fileDetails?.data);
-      LoadFile(name, id);
+      if (currentFileDetails !== "Not available") {
+        let nextFileDetails = mpFileNames.prev(currentFileDetails?.data),
+          { name, id } = nextFileDetails;
+        LoadFile(name, id);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -104,18 +110,6 @@ function MPFileProvider({ children }) {
   const MediaTypeOk = () => (extn ? true : false);
   const MediaExtension = () => extn;
   const FolderInfoAvailable = () => typeof folderHandle === "object";
-
-  const SearchFileName = (name) => {
-    try {
-      if (mpFileNames.includes(name)) {
-        // return a file present componet which displays files with name charectors
-        // the include method isn't going to work as method would be search when end-user enter more than 3 charactors
-        // something like string.includes might work.
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <MPFileContext.Provider
@@ -133,7 +127,6 @@ function MPFileProvider({ children }) {
         LoadNextFile,
         AutoPlayFiles,
         MediaExtension,
-        SearchFileName,
         LoadPreviousFile,
         SearchMPFileNames,
         FolderInfoAvailable,
