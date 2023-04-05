@@ -1,18 +1,18 @@
 import React, { Fragment, useContext, useRef } from "react";
 import MPFileContext from "@/contexts/media/context";
+import sanitizeInput from "@/library/sanitizeInput";
 export default () => {
-    const {mpFileNames } = useContext(MPFileContext);
- 
+  const { mpFileNames, LoadFile } = useContext(MPFileContext);
+
   const suggestionsRef = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-    let res = mpFileNames.nameIncludes(
-      e.target.querySelector('input[name="search"]').value
+    let res = mpFileNames.searchByName(
+      sanitizeInput(e.target.querySelector('input[name="search"]').value)
     );
-    console.log(res);
+    handleSuggestions(res);
   };
   const handleInputChange = (e) => {
-    console.log(mpFileNames)
     if (e.target.value.length >= 3) {
       let res = mpFileNames.searchByName(sanitizeInput(e.target.value));
 
@@ -24,6 +24,34 @@ export default () => {
   const handleSuggestions = (results) => {
     const elem = suggestionsRef.current;
 
+    if (results.length) {
+      elem.textContent = ``;
+      for (let result of results) {
+        let div = document.createElement("div");
+        div.onclick = e => {
+          LoadFile(
+            e.target.getAttribute("data-name"),
+            e.target.getAttribute("data-id")
+          );
+        }
+        div.setAttribute('data-id',result.id)
+        div.setAttribute('data-name',result.name)
+        div.textContent = result.name;
+        elem.appendChild(div);
+      }
+    } else {
+      noSuchFileAlert()
+    }
+  };
+  const clearSuggestions = () => {
+    suggestionsRef.current.textContent = ``;
+  };
+  const noSuchFileAlert = () => {
+    suggestionsRef.current.textContent = "No such media file!"
+    setTimeout(() => {
+      clearSuggestions()
+    }, 1000)
+  }
   return (
     <Fragment>
       <form id="search_file_name" onSubmit={handleSubmit}>
