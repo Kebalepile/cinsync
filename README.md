@@ -1,5 +1,32 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+## About web application
+      
+        CineSync is a cutting-edge web application that brings movie lovers
+        together in a unique and exciting way. With CineSync, users can stream
+        their favorite movies and TV shows online while engaging in a shared
+        viewing experience with friends and family from all over the world.
+        CineSync allows users to create private screening rooms where they can
+        watch movies together in real-time, share comments and reactions, and
+        enjoy an immersive and interactive movie-watching experience like no
+        other.
+      
+        CineSync offers a wide range of features designed to enhance the
+        movie-watching experience, including high-quality video and audio
+        streaming, built-in chat functionality, customizable subtitles, and
+        more. With its user-friendly interface and powerful search capabilities,
+        CineSync makes it easy to find and stream the latest and greatest movies
+        and TV shows from around the world.
+      
+        One of the standout features of CineSync is its use of webRTC
+        technology, which allows users to watch movies together anonymously and
+        securely without having to reveal their personal information or
+        location. This ensures that users can enjoy their movies without
+        worrying about their privacy or security being compromised.
+      
+        Whether you're looking for a fun and social way to watch movies with
+        friends or simply want to enjoy your favorite films in a new and
+        exciting way, CineSync is the perfect web application for movie lovers
+        everywhere.
 ## Getting Started
 
 First, run the development server:
@@ -37,33 +64,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 "# cinsync" 
-## About web application
-      
-        CineSync is a cutting-edge web application that brings movie lovers
-        together in a unique and exciting way. With CineSync, users can stream
-        their favorite movies and TV shows online while engaging in a shared
-        viewing experience with friends and family from all over the world.
-        CineSync allows users to create private screening rooms where they can
-        watch movies together in real-time, share comments and reactions, and
-        enjoy an immersive and interactive movie-watching experience like no
-        other.
-      
-        CineSync offers a wide range of features designed to enhance the
-        movie-watching experience, including high-quality video and audio
-        streaming, built-in chat functionality, customizable subtitles, and
-        more. With its user-friendly interface and powerful search capabilities,
-        CineSync makes it easy to find and stream the latest and greatest movies
-        and TV shows from around the world.
-      
-        One of the standout features of CineSync is its use of webRTC
-        technology, which allows users to watch movies together anonymously and
-        securely without having to reveal their personal information or
-        location. This ensures that users can enjoy their movies without
-        worrying about their privacy or security being compromised.
-      
-        Whether you're looking for a fun and social way to watch movies with
-        friends or simply want to enjoy your favorite films in a new and
-        exciting way, CineSync is the perfect web application for movie lovers
-        everywhere.
-     
-     
