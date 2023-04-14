@@ -137,7 +137,14 @@
   grid-column: 3/3;
   grid-row: 8/8;
 }
-
+.mediaTitle {
+  grid-column: 1/10;
+  grid-row: 10/10;
+  text-align: center;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin: auto;
+}
 @media screen and (max-width: 375px) {
   .settings {
     grid-column: 8/8;
@@ -146,7 +153,7 @@
     height: 40px;
   }
   .trackbackground {
-    grid-column: 2/9;
+    grid-column: 1/10;
     grid-row: 9/9;
     height: 5px;
     width: 100%;

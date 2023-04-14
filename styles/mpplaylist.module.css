@@ -9,12 +9,11 @@
   background-color: #2d2d2d;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-    position: -webkit-sticky; /* Safari */
+  position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 40px;
-  
 }
-.search{
+.search {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 230px;
@@ -37,7 +36,7 @@
   border: 1px solid #353434;
 }
 .mplist > header > p {
-    margin:20px auto auto 40px;
+  margin: 20px auto auto 40px;
 }
 .mediaCard {
   background-color: #252525;

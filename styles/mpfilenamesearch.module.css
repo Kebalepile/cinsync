@@ -20,8 +20,8 @@
 }
 .searchName input[type="submit"] {
   width: 60px;
-  height:30px;
+  height: 30px;
   margin-left: 5px;
   border-radius: 3px;
-  background-image: linear-gradient(70deg, #0742e6, #0548ac, #2a48ce);
+  background-image: linear-gradient(10deg, #084175, #0084ff, #003c74);
 }

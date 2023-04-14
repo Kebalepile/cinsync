@@ -36,7 +36,10 @@ export default () => {
       mediaRef.current.ondurationchange = () => {
         startInterval();
       };
-      // console.log(mediaFile.name);
+      console.dir(mediaRef.current)
+      mediaRef.current.onended = () => stopInterval()
+
+      titleRef.current.textContent = mediaFile.name;
     }
   }, [mediaFile]);
 
@@ -52,9 +55,7 @@ export default () => {
 
     durationTimeRef.current.textContent = duration;
     currentTimeRef.current.textContent = currentTime;
-    // mediaTimeRef.current.textContent = `${mediaTime.currentTime} / ${
-    //   mediaTime.duration || ""
-    // },`; // update the div element with the media time information
+    
   };
 
   const startInterval = () => {
@@ -110,6 +111,7 @@ export default () => {
 
           <div className={styles.durationTime} ref={durationTimeRef}></div>
           <div className={styles.currentTime} ref={currentTimeRef}></div>
+          <div className={styles.mediaTitle} ref={titleRef}></div>
           {/* <button onClick={() => playBackRate(mediaRef.current, 0.5)}>
               increase speed
             </button>
