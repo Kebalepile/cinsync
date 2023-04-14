@@ -54,14 +54,31 @@
   border-radius: 50%;
   background-color: red;
 }
+.trackbackground {
+  grid-column: 2/9;
+  grid-row: 9/9;
+  height: 5px;
+  width: 100%;
+  background-color: rgb(78, 78, 77);
+}
 .durationtrack {
+  display:flex;
+ flex-direction: row-reverse;
   grid-column: 2/9;
   grid-row: 9/9;
   height: 5px;
   width: 100%;
   background-color: rgb(255, 123, 0);
   transition: width 0.5s ease;
+  z-index:2;
  
+}
+.durationtrack div {
+align-self: center;
+border-radius: 50%;
+background-color:inherit;
+width:14px;
+height:14px;
 }
 
 .fullscreen{

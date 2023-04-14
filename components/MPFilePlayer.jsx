@@ -26,9 +26,9 @@ export default () => {
   const mediaRef = useRef(null);
   const mediaTimeRef = useRef(null); // create a ref for the div element
   const intervalRef = useRef(null),
-  durationTimeRef = useRef(null),
-  currentTimeRef = useRef(null),
-  titleRef = useRef(null);
+    durationTimeRef = useRef(null),
+    currentTimeRef = useRef(null),
+    titleRef = useRef(null);
 
   useEffect(() => {
     if (mediaFile) {
@@ -41,18 +41,17 @@ export default () => {
   }, [mediaFile]);
 
   const handletrackVideoTime = () => {
-    
-    let  duration= trackVideoTime(mediaRef.current.duration),
-      currentTime= trackVideoTime(mediaRef.current.currentTime);
-   
-    mediaTimeRef.current.style.width =`${ (
+    let duration = trackVideoTime(mediaRef.current.duration),
+      currentTime = trackVideoTime(mediaRef.current.currentTime);
+
+    mediaTimeRef.current.style.width = `${(
       (Math.floor(mediaRef.current.currentTime) /
         Math.floor(mediaRef.current.duration)) *
       100
     ).toFixed(0)}%`;
 
-  durationTimeRef.current.textContent = duration;
-  currentTimeRef.current.textContent = currentTime;
+    durationTimeRef.current.textContent = duration;
+    currentTimeRef.current.textContent = currentTime;
     // mediaTimeRef.current.textContent = `${mediaTime.currentTime} / ${
     //   mediaTime.duration || ""
     // },`; // update the div element with the media time information
@@ -99,7 +98,10 @@ export default () => {
           >
             prev
           </button>
-          <div ref={mediaTimeRef} className={styles.durationtrack}></div>
+          <div className={styles.trackbackground}></div>
+          <div ref={mediaTimeRef} className={styles.durationtrack}>
+            <div></div>
+          </div>
           <div className={styles.settings}>settings</div>
           <div className={styles.durationTime} ref={durationTimeRef}></div>
           <div className={styles.currentTime} ref={currentTimeRef}></div>
@@ -136,7 +138,6 @@ export default () => {
             >
               picture in picture
             </button> */}
-        
         </section>
       )}
     </>
