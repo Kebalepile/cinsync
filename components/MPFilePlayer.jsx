@@ -76,30 +76,38 @@ export default () => {
               play(mediaRef.current);
             }}
           >
-           <div className={styles.triangle}></div>
+            <div className={styles.triangle}></div>
           </button>
-          <button
+          <div
             className={styles.next}
             onClick={() => {
               LoadNextFile();
             }}
-          >
-            <div className={styles.nextArrow}></div>
-          </button>
-          <button
+          ></div>
+          <div
             className={styles.prev}
             onClick={() => {
               LoadPreviousFile();
             }}
+          ></div>
+          <button
+            className={styles.skipForward}
+            onClick={() => skip(mediaRef.current, 10, "forward")}
           >
-            <div className={styles.prevArrow}></div>
+            10s
+          </button>
+          <button
+            className={styles.skipBackward}
+            onClick={() => skip(mediaRef.current, 10, "backward")}
+          >
+            10s
           </button>
           <button className={styles.settings}>settings</button>
           <div className={styles.trackbackground}></div>
           <div ref={mediaTimeRef} className={styles.durationtrack}>
             <div></div>
           </div>
-        
+
           <div className={styles.durationTime} ref={durationTimeRef}></div>
           <div className={styles.currentTime} ref={currentTimeRef}></div>
           {/* <button onClick={() => playBackRate(mediaRef.current, 0.5)}>
@@ -107,12 +115,6 @@ export default () => {
             </button>
             <button onClick={() => playBackRate(mediaRef.current, -0.5)}>
               decrease speed
-            </button>
-            <button onClick={() => skip(mediaRef.current, 10, "forward")}>
-              skip forward
-            </button>
-            <button onClick={() => skip(mediaRef.current, 10, "backward")}>
-              skip backward
             </button>
             <button onClick={() => volume(mediaRef.current, 0.1)}>
               volume +
