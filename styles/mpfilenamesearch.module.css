@@ -1,0 +1,27 @@
+.searchName {
+  margin: 7px auto 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.searchName * {
+  text-align: center;
+  height: 20px;
+  border: none;
+
+  color: white;
+  box-shadow: 0 0 10px rgba(66, 62, 62, 0.815), 0 0 20px rgba(80, 79, 79, 0.822),
+    0 0 50px rgb(7, 7, 7);
+}
+.searchName input[type="text"] {
+  padding: 15px;
+  background-color: rgba(46, 43, 43, 0.445);
+  border-bottom: 0.1rem rgb(201, 195, 195) solid;
+}
+.searchName input[type="submit"] {
+  width: 60px;
+  height:30px;
+  margin-left: 5px;
+  border-radius: 3px;
+  background-image: linear-gradient(70deg, #0742e6, #0548ac, #2a48ce);
+}
