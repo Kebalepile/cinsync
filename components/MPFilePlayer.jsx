@@ -98,11 +98,12 @@ export default () => {
           >
             prev
           </button>
+          <button className={styles.settings}>settings</button>
           <div className={styles.trackbackground}></div>
           <div ref={mediaTimeRef} className={styles.durationtrack}>
             <div></div>
           </div>
-          <div className={styles.settings}>settings</div>
+        
           <div className={styles.durationTime} ref={durationTimeRef}></div>
           <div className={styles.currentTime} ref={currentTimeRef}></div>
           {/* <button onClick={() => playBackRate(mediaRef.current, 0.5)}>
