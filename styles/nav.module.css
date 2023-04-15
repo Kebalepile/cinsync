@@ -17,7 +17,7 @@
   background-color: rgb(238, 63, 194);
   border-radius: 3px;
 }
-#media-type {
+.mediafiles {
   grid-column: 3/7;
   grid-row: 3/4;
  
