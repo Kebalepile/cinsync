@@ -5,10 +5,12 @@
   padding: 0;
   margin: 0;
   text-align: justify;
+  --main:#252525;
 }
 
 body {
- 
+ background-color:var(--main);
+ color: white;
 }
 
 a {

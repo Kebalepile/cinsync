@@ -1,0 +1,39 @@
+
+
+.button{
+border:none;
+width: 70px;
+height: 30px;
+text-align: center;
+color:white;
+}
+.mp3Button{
+    background-image: linear-gradient(90deg,#521CCA,#8d6ada,#f3d9f2);
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+.mp4Button{
+    background-image: linear-gradient(90deg, #d16acc,#ff0af3,#f3d9f2);
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.folderButton{
+    background-color:#1b84e6;
+    border-radius:5px;
+    width:120px;
+    grid-column: 0/2;
+    grid-row: 2/3;
+}
+.searchForm{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+@media screen and (max-width:320px){
+    .mp4Button, .mp3Button{
+        width:60px;
+    }
+    .folderButton{
+        width:100px;
+    }
+}

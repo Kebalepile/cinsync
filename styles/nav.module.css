@@ -1,8 +1,43 @@
-.navigation{
-background-color: pink;
-width: 40vw;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-align-items: center;
+.navigation {
+  width: 100vw;
+  height: 200px;
+  display: grid;
+ row-gap: 25px;
+ column-gap:4px;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  
+}
+
+.logo {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  width: 70px;
+  height: 40px;
+  background-color: rgb(238, 63, 194);
+  border-radius: 3px;
+}
+#media-type {
+  grid-column: 3/7;
+  grid-row: 3/4;
+ 
+}
+
+.about {
+  grid-column: 7/8;
+  grid-row: 3/4;
+
+  align-self: center;
+  justify-content: center;
+  flex-basis: auto;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  background-image: radial-gradient(#46039e, #9e5cf5);
+}
+.center {
+  display: flex;
+  flex-basis: auto;
+  justify-content: center;
+  align-items: center;
 }
