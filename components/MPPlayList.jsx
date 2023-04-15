@@ -1,6 +1,6 @@
 
 import React, { useContext, Fragment } from "react";
-import styles from "@/styles/mpfilelist.module.css";
+import styles from "@/styles/mpplaylist.module.css";
 import MPFileContext from "@/contexts/media/context";
 import Image from "next/image"
 import mp3Icon from "@/assests/mp3.png"
@@ -43,7 +43,10 @@ export default () => {
     <Fragment>
       {mpFileNames && (
         <>
-          {/* <MPFileNameSearch /> */}
+          <details>
+            <summary>Search</summary>
+            <MPFileNameSearch />
+          </details>
 
           <article className={styles.mplist}>
            <header>
