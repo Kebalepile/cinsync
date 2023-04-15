@@ -10,8 +10,8 @@ export default () => {
     MediaTypeOk,
     FolderInfoAvailable,
     folderHandle,
-    folderName,
     extn
+  
   } = useContext(MPFileContext);
 
   useEffect(() => {
@@ -28,30 +28,7 @@ export default () => {
     FileInfo(folderHandle);
   };
 
-  /**
-   *
-   * @param {string} extn
-   * @param {string} folderName
-   * @returns Is a jsx alert message, alerting End-User on type of media being displayed from which folder.
-   */
-  const SearchAlert = (extn, folderName) => {
-    switch (extn) {
-      case ".mp3":
-        return (
-          <p aria-readonly>
-            playing {extn.slice(1)} files from {folderName} folder.
-          </p>
-        );
-      case ".mp4":
-        return (
-          <p aria-readonly>
-            playing {extn.slice(1)} files from {folderName} folder.
-          </p>
-        );
-      default:
-        break;
-    }
-  };
+
 
   return (
     <>
@@ -84,7 +61,7 @@ export default () => {
           >
             Select Folder
           </button>
-          {folderName && SearchAlert(extn, folderName)}
+       
         </section>
       )}
       
