@@ -1,20 +1,27 @@
-
 import React, { useContext, Fragment } from "react";
 import styles from "@/styles/mpplaylist.module.css";
 import MPFileContext from "@/contexts/media/context";
-import Image from "next/image"
-import mp3Icon from "@/assests/mp3.png"
+import Image from "next/image";
+import mp3Icon from "@/assests/mp3.png";
 
 import MPFileNameSearch from "./MPFileNameSearch";
 export default () => {
   const { LoadFile, mpFileNames, folderName, extn } = useContext(MPFileContext);
 
   const handleClick = async (e) => {
-    LoadFile(
-      e.target.getAttribute("data-name"),
-      e.target.getAttribute("data-id")
-    );
+    e.target.getAttribute("data-relative") == "parent" &&
+      LoadFile(
+        e.target.getAttribute("data-name"),
+        e.target.getAttribute("data-id")
+      );
+    const clickEvent = new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    });
+    e.target.parentNode.dispatchEvent(clickEvent);
   };
+
   /**
    *
    * @param {string} extn
@@ -49,22 +56,27 @@ export default () => {
           </details>
 
           <article className={styles.mplist}>
-           <header>
-           {MediaLocation(extn, folderName)}
-           <br />
-            <hr />
-           </header>
-           
+            <header>
+              {MediaLocation(extn, folderName)}
+              <br />
+              <hr />
+            </header>
+
             {mpFileNames.inOrder().map((data, index) => {
               return (
                 <div
                   key={data.id}
+                  data-relative="parent"
                   data-name={data.name}
                   data-id={data.id}
                   onClick={handleClick}
                   className={styles.mediaCard}
                 >
-                  <Image src={mp3Icon} alt="mp3 icon" className={styles.mpIcon}/>
+                  <Image
+                    src={mp3Icon}
+                    alt="mp3 icon"
+                    className={styles.mpIcon}
+                  />
                   <p className={styles.name}>{data.name}</p>
                 </div>
               );
