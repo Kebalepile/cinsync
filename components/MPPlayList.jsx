@@ -1,9 +1,13 @@
+
 import React, { useContext, Fragment } from "react";
+import styles from "@/styles/mpfilelist.module.css";
 import MPFileContext from "@/contexts/media/context";
+import Image from "next/image"
+import mp3Icon from "@/assests/mp3.png"
+
 import MPFileNameSearch from "./MPFileNameSearch";
 export default () => {
-  const { LoadFile, mpFileNames,folderName,
-    extn } = useContext(MPFileContext);
+  const { LoadFile, mpFileNames, folderName, extn } = useContext(MPFileContext);
 
   const handleClick = async (e) => {
     LoadFile(
@@ -11,7 +15,7 @@ export default () => {
       e.target.getAttribute("data-id")
     );
   };
-    /**
+  /**
    *
    * @param {string} extn
    * @param {string} folderName
@@ -22,13 +26,13 @@ export default () => {
       case ".mp3":
         return (
           <p aria-readonly>
-            playing {extn.slice(1)} files from {folderName} folder.
+            {extn.slice(1)} files from {folderName}
           </p>
         );
       case ".mp4":
         return (
           <p aria-readonly>
-            playing {extn.slice(1)} files from {folderName} folder.
+            {extn.slice(1)} files from {folderName}
           </p>
         );
       default:
@@ -39,19 +43,26 @@ export default () => {
     <Fragment>
       {mpFileNames && (
         <>
-          <MPFileNameSearch />
-         { MediaLocation(extn, folderName)}
-          <article>
-            <h1>Playlist below:</h1>
-            {mpFileNames.inOrder().map((data) => {
+          {/* <MPFileNameSearch /> */}
+
+          <article className={styles.mplist}>
+           <header>
+           {MediaLocation(extn, folderName)}
+           <br />
+            <hr />
+           </header>
+           
+            {mpFileNames.inOrder().map((data, index) => {
               return (
                 <div
                   key={data.id}
                   data-name={data.name}
                   data-id={data.id}
                   onClick={handleClick}
+                  className={styles.mediaCard}
                 >
-                  {data.name}
+                  <Image src={mp3Icon} alt="mp3 icon" className={styles.mpIcon}/>
+                  <p className={styles.name}>{data.name}</p>
                 </div>
               );
             })}

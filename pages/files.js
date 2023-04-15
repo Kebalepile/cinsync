@@ -1,12 +1,12 @@
 // import LoadMPFiles from "@/components/LoadMPFiles";
-import MPFileList from "@/components/MPFileList";
+import MPPlayList from "@/components/MPPlayList";
 import MPFilePlayer from "@/components/MPFilePlayer";
 function file() {
   return (
     <>
       {/* <LoadMPFiles /> */}
       <MPFilePlayer />
-      <MPFileList />
+      <MPPlayList />
       
     </>
   );
