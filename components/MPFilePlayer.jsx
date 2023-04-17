@@ -74,13 +74,9 @@ export default () => {
             className={styles.playpause}
             onClick={(e) => {
               play(mediaRef.current);
-              // code below handles the displaying of
-              // video.duration & currentTime to the DOM
-              // replace it when developing the frontend.
-              // mediaFile.current?.paused ? stopInterval() : startInterval();
             }}
           >
-            play/pause
+           <div className={styles.triangle}></div>
           </button>
           <button
             className={styles.next}
@@ -88,7 +84,7 @@ export default () => {
               LoadNextFile();
             }}
           >
-            next
+            <div className={styles.nextArrow}></div>
           </button>
           <button
             className={styles.prev}
@@ -96,7 +92,7 @@ export default () => {
               LoadPreviousFile();
             }}
           >
-            prev
+            <div className={styles.prevArrow}></div>
           </button>
           <button className={styles.settings}>settings</button>
           <div className={styles.trackbackground}></div>
