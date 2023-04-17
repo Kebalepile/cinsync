@@ -1,0 +1,78 @@
+.mediaPlayer {
+    position:sticky;
+    top:20px;
+    margin:auto;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 95vw;
+  height: 200px;
+}
+.mediaPlayer video {
+  grid-column: 1/10;
+  grid-row: 1/10;
+  width:100%;
+  height:100%;
+  position:relative;
+  background-color:#252525;
+  box-shadow: 0 0 500px rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+.mediaPlayer button {
+  color: white;
+  background-color: black;
+  border: none;
+} 
+.mediaPlayer *:not(video){
+    z-index:1;
+    border-radius: 5px;
+}
+.playpause {
+  grid-column: 5/5;
+  grid-row: 5/5;
+  height: 60px;
+}
+.prev {
+  grid-column: 2/3;
+  grid-row: 5/5;
+  height: 50px;
+  width: 50px;
+}
+.next {
+  grid-column: 8/9;
+  grid-row: 5/5;
+  height: 50px;
+  width: 50px;
+}
+
+.settings {
+  grid-column: 8/9;
+  grid-row: 2/2;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: red;
+}
+.durationtrack {
+  grid-column: 2/9;
+  grid-row: 9/9;
+  height: 5px;
+  width: 100%;
+  background-color: rgb(255, 123, 0);
+  transition: width 0.5s ease;
+ 
+}
+
+.fullscreen{
+    grid-column:8/9;
+    grid-row:9/9;
+}
+.durationTime{
+  grid-column:9/9;
+    grid-row:9/9;
+}
+.currentTime{
+  grid-column:1/1;
+    grid-row:9/9;
+}

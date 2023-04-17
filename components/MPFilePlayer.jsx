@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useEffect } from "react";
+import styles from "@/styles/mpplayer.module.css";
 import MPFileContext from "@/contexts/media/context";
 import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
 import {
@@ -24,24 +25,37 @@ export default () => {
 
   const mediaRef = useRef(null);
   const mediaTimeRef = useRef(null); // create a ref for the div element
-  const intervalRef = useRef(null);
+  const intervalRef = useRef(null),
+  durationTimeRef = useRef(null),
+  currentTimeRef = useRef(null),
+  titleRef = useRef(null);
 
   useEffect(() => {
     if (mediaFile) {
       LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
-      console.log(mediaFile.name);
+      mediaRef.current.ondurationchange = () => {
+        startInterval();
+      };
+      // console.log(mediaFile.name);
     }
   }, [mediaFile]);
 
   const handletrackVideoTime = () => {
-    const mediaTime = {
-      duration: trackVideoTime(mediaRef.current.duration),
-      currentTime: trackVideoTime(mediaRef.current.currentTime),
-    };
+    
+    let  duration= trackVideoTime(mediaRef.current.duration),
+      currentTime= trackVideoTime(mediaRef.current.currentTime);
+   
+    mediaTimeRef.current.style.width =`${ (
+      (Math.floor(mediaRef.current.currentTime) /
+        Math.floor(mediaRef.current.duration)) *
+      100
+    ).toFixed(0)}%`;
 
-    mediaTimeRef.current.textContent = `${mediaTime.currentTime} / ${
-      mediaTime.duration || ""
-    },`; // update the div element with the media time information
+  durationTimeRef.current.textContent = duration;
+  currentTimeRef.current.textContent = currentTime;
+    // mediaTimeRef.current.textContent = `${mediaTime.currentTime} / ${
+    //   mediaTime.duration || ""
+    // },`; // update the div element with the media time information
   };
 
   const startInterval = () => {
@@ -54,36 +68,42 @@ export default () => {
   return (
     <>
       {filePresent && (
-        <section>
-          <h1>Media Player</h1>
+        <section className={styles.mediaPlayer}>
           {MediaPlayer(extn, mediaFile, mediaRef)}
-          <section className="controls">
-            <button
-              onClick={(e) => {
-                play(mediaRef.current);
-                // code below handles the displaying of
-                // video.duration & currentTime to the DOM
-                // replace it when developing the frontend.
-                mediaFile.current?.paused ? stopInterval() : startInterval();
-              }}
-            >
-              play/pause
-            </button>
-            <button
-              onClick={() => {
-                LoadNextFile();
-              }}
-            >
-              next
-            </button>
-            <button
-              onClick={() => {
-                LoadPreviousFile();
-              }}
-            >
-              prev
-            </button>
-            <button onClick={() => playBackRate(mediaRef.current, 0.5)}>
+
+          <button
+            className={styles.playpause}
+            onClick={(e) => {
+              play(mediaRef.current);
+              // code below handles the displaying of
+              // video.duration & currentTime to the DOM
+              // replace it when developing the frontend.
+              // mediaFile.current?.paused ? stopInterval() : startInterval();
+            }}
+          >
+            play/pause
+          </button>
+          <button
+            className={styles.next}
+            onClick={() => {
+              LoadNextFile();
+            }}
+          >
+            next
+          </button>
+          <button
+            className={styles.prev}
+            onClick={() => {
+              LoadPreviousFile();
+            }}
+          >
+            prev
+          </button>
+          <div ref={mediaTimeRef} className={styles.durationtrack}></div>
+          <div className={styles.settings}>settings</div>
+          <div className={styles.durationTime} ref={durationTimeRef}></div>
+          <div className={styles.currentTime} ref={currentTimeRef}></div>
+          {/* <button onClick={() => playBackRate(mediaRef.current, 0.5)}>
               increase speed
             </button>
             <button onClick={() => playBackRate(mediaRef.current, -0.5)}>
@@ -115,10 +135,8 @@ export default () => {
               }}
             >
               picture in picture
-            </button>
-            <div ref={mediaTimeRef}></div> // add a div element that will
-            display the media time information
-          </section>
+            </button> */}
+        
         </section>
       )}
     </>

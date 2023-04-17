@@ -50,7 +50,7 @@ export default () => {
     let fileNames = mpFileNames.inOrder();
     return fileNames.length > 0 ? (
       <>
-        <details>
+        <details className={styles.search}>
           <summary>Search</summary>
           <MPFileNameSearch />
         </details>
