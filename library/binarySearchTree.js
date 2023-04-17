@@ -259,14 +259,19 @@ class BST {
     _traverse(node);
     return results;
     function _traverse(node) {
-      if (node.L) {
-        _traverse(node.L);
-      }
-      results.push(node.data);
-      if (node.R) {
-        _traverse(node.R);
-      }
-    }
+try{
+  if (node.L) {
+    _traverse(node.L);
+  }
+  results.push(node.data);
+  if (node.R) {
+    _traverse(node.R);
+  }
+}catch (error)
+{
+  console.error(error)
+  return []
+}    }
   }
   /**
    *

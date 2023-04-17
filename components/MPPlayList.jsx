@@ -46,42 +46,50 @@ export default () => {
         break;
     }
   };
+  const showFileNames = () => {
+    let fileNames = mpFileNames.inOrder();
+    return fileNames.length > 0 ? (
+      <>
+        <details>
+          <summary>Search</summary>
+          <MPFileNameSearch />
+        </details>
+        <article className={styles.mplist}>
+          <header>
+            {MediaLocation(extn, folderName)}
+            <br />
+            <hr />
+          </header>
+
+          {mpFileNames.inOrder().map((data, index) => {
+            return (
+              <div
+                key={data.id}
+                data-relative="parent"
+                data-name={data.name}
+                data-id={data.id}
+                onClick={handleClick}
+                className={styles.mediaCard}
+              >
+                <Image src={mp3Icon} alt="mp3 icon" className={styles.mpIcon} />
+                <p className={styles.name}>{data.name}</p>
+              </div>
+            );
+          })}
+        </article>
+      </>
+    ) : (
+      <p aria-readonly>
+        No {extn.slice(1)} files from {folderName}, Try diffrent Folder.
+      </p>
+    );
+  };
   return (
     <Fragment>
       {mpFileNames && (
         <>
-          <details>
-            <summary>Search</summary>
-            <MPFileNameSearch />
-          </details>
-
-          <article className={styles.mplist}>
-            <header>
-              {MediaLocation(extn, folderName)}
-              <br />
-              <hr />
-            </header>
-
-            {mpFileNames.inOrder().map((data, index) => {
-              return (
-                <div
-                  key={data.id}
-                  data-relative="parent"
-                  data-name={data.name}
-                  data-id={data.id}
-                  onClick={handleClick}
-                  className={styles.mediaCard}
-                >
-                  <Image
-                    src={mp3Icon}
-                    alt="mp3 icon"
-                    className={styles.mpIcon}
-                  />
-                  <p className={styles.name}>{data.name}</p>
-                </div>
-              );
-            })}
-          </article>
+          {showFileNames()}
+          <br />
         </>
       )}
     </Fragment>
