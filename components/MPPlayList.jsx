@@ -21,7 +21,7 @@ export default () => {
     });
     e.target.parentNode.dispatchEvent(clickEvent);
   };
-
+  const selectOption = (options) => (extn === ".mp3" ? options[0] : options[1]);
   /**
    *
    * @param {string} extn
@@ -54,7 +54,9 @@ export default () => {
           <summary>Search</summary>
           <MPFileNameSearch />
         </details>
-        <article className={styles.mplist}>
+        <article
+          className={`${selectOption([styles.mp3List, styles.mp4List])}`}
+        >
           <header>
             {MediaLocation(extn, folderName)}
             <br />
@@ -62,7 +64,6 @@ export default () => {
           </header>
 
           {mpFileNames.inOrder().map((data) => {
-
             return (
               <div
                 key={data.id}
@@ -70,16 +71,19 @@ export default () => {
                 data-name={data.name}
                 data-id={data.id}
                 onClick={handleClick}
-                className={styles.mediaCard}
+                className={`${selectOption([
+                  styles.mp3MediaCard,
+                  styles.mp4MediaCard,
+                ])}`}
               >
                 <Image
-                  src={data.imageSrc ||  mp3Icon}
-                  alt="mp3 icon"
-                  className={styles.mpIcon}
+                  src={data.imageSrc || mp3Icon}
+                  alt={selectOption(["mp3 Icon", "mp4 Icon"])}
+                  className={selectOption([styles.mp3Icon, styles.mp4Icon])}
                   width={640}
                   height={360}
                 />
-                <p className={styles.name}>{data.name}</p>
+                {/* <p className={styles.name}>{data.name}</p> */}
               </div>
             );
           })}
