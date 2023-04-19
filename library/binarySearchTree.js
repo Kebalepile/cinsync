@@ -93,16 +93,20 @@ class BST {
   }
 
   searchByName(name, node = this.#Root, suggestions = []) {
-    if (node) {
-      const regex = new RegExp(name, "i");
-      if (regex.test(node.data.name)) {
-        suggestions.push(node.data);
+    try {
+      if (node) {
+        const regex = new RegExp(name, "i");
+        if (regex.test(node.data.name)) {
+          suggestions.push(node.data);
+        }
+        suggestions.concat(this.searchByName(name, node.L, suggestions));
+        suggestions.concat(this.searchByName(name, node.R, suggestions));
       }
-      suggestions.concat(this.searchByName(name, node.L, suggestions));
-      suggestions.concat(this.searchByName(name, node.R, suggestions));
-    }
 
-    return suggestions;
+      return suggestions;
+    } catch (error) {
+      // console.error(error)
+    }
   }
   next(item) {
     if (this.has(item)) {
@@ -259,19 +263,19 @@ class BST {
     _traverse(node);
     return results;
     function _traverse(node) {
-try{
-  if (node.L) {
-    _traverse(node.L);
-  }
-  results.push(node.data);
-  if (node.R) {
-    _traverse(node.R);
-  }
-}catch (error)
-{
-  console.error(error)
-  return []
-}    }
+      try {
+        if (node.L) {
+          _traverse(node.L);
+        }
+        results.push(node.data);
+        if (node.R) {
+          _traverse(node.R);
+        }
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    }
   }
   /**
    *
