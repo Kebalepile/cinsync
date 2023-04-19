@@ -52,7 +52,7 @@ export default () => {
                   LoadFile(result.name, result.id);
                 }}
               >
-                {result.name}
+                <p>{result.name}</p>
               </div>
             );
           })}
