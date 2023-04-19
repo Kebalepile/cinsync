@@ -1,8 +1,6 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import styles from "@/styles/home.module.css";
-import Compile from "@/components/Compile"
-const inter = Inter({ subsets: ["latin"] });
+import Compile from "@/components/Compile";
 
 export default function Home() {
   return (
@@ -24,7 +22,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Compile/>
+        <Compile />
       </main>
     </>
   );

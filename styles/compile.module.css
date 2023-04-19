@@ -1,3 +1,12 @@
+.prompt {
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  text-align:center;
+  transform: translate(-25%, -25%);
+  font-size: large;
+}
+ 
 @media screen and (max-width: 425px) {
   .playListIcon {
     height: 80px;
@@ -8,6 +17,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    font-size:12px;
   }
   .container {
     position: relative;
