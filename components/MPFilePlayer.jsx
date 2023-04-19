@@ -2,7 +2,6 @@ import React, { useContext, useRef, useEffect } from "react";
 import styles from "@/styles/mpplayer.module.css";
 import MPFileContext from "@/contexts/media/context";
 import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
-// import { IoSettings } from "react-icons/io5";
 import { BsFullscreen } from "react-icons/bs";
 import { TbPictureInPictureOn } from "react-icons/tb";
 import { ImVolumeIncrease, ImVolumeDecrease } from "react-icons/im";

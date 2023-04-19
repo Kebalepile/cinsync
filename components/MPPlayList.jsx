@@ -61,7 +61,8 @@ export default () => {
             <hr />
           </header>
 
-          {mpFileNames.inOrder().map((data, index) => {
+          {mpFileNames.inOrder().map((data) => {
+
             return (
               <div
                 key={data.id}
@@ -71,7 +72,13 @@ export default () => {
                 onClick={handleClick}
                 className={styles.mediaCard}
               >
-                <Image src={mp3Icon} alt="mp3 icon" className={styles.mpIcon} />
+                <Image
+                  src={data.imageSrc ||  mp3Icon}
+                  alt="mp3 icon"
+                  className={styles.mpIcon}
+                  width={640}
+                  height={360}
+                />
                 <p className={styles.name}>{data.name}</p>
               </div>
             );

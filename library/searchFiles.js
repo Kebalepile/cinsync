@@ -1,27 +1,30 @@
 import { Tree } from "./binarySearchTree";
+import {getMPFileImage} from "./ImageProcessing"
 /**
  *
- * 
+ *
  * @param {string} directoryPath
  * @param {string} extn
  * @returns search's for file name(s) of files with given extn in given directory path.
  */
 export async function fileNameSearch(directoryPath, extn, id = 1) {
   try {
-    
     for await (const fileHandle of directoryPath.values()) {
       if (fileHandle.kind === "file" && fileHandle.name.endsWith(extn)) {
         let file = await fileHandle.getFile();
-       
-        typeof file === "object" && file !== null &&  Tree.insert({
-          name: file.name,
-          id: id++,
-        });    
+
+        typeof file === "object" &&
+          file !== null &&
+          Tree.insert({
+            name: file.name,
+            id: id++,
+            imageSrc: await getMPFileImage(file)
+          });
       } else if (fileHandle.kind === "directory") {
         const subDirectoryPath = fileHandle;
-        fileNameSearch(subDirectoryPath, extn, id++);   
+        fileNameSearch(subDirectoryPath, extn, id++);
       }
-    }  
+    }
     return Tree;
   } catch (error) {
     console.error(error);
