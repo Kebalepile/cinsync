@@ -2,6 +2,15 @@ import React, { useContext, useRef, useEffect } from "react";
 import styles from "@/styles/mpplayer.module.css";
 import MPFileContext from "@/contexts/media/context";
 import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
+// import { IoSettings } from "react-icons/io5";
+import { BsFullscreen } from "react-icons/bs";
+import { TbPictureInPictureOn } from "react-icons/tb";
+import { ImVolumeIncrease, ImVolumeDecrease } from "react-icons/im";
+import {
+  IoSettings,
+  IoPlayForwardOutline,
+  IoPlayBackOutline,
+} from "react-icons/io5";
 import {
   play,
   volume,
@@ -23,12 +32,13 @@ export default () => {
     AutoPlayFiles,
   } = useContext(MPFileContext);
 
-  const mediaRef = useRef(null);
-  const mediaTimeRef = useRef(null); // create a ref for the div element
-  const intervalRef = useRef(null),
-    durationTimeRef = useRef(null),
+  const mediaRef = useRef(null),
+    mediaTimeRef = useRef(null),
+    intervalRef = useRef(null),
+    autoPlayRef = useRef(null),
     currentTimeRef = useRef(null),
-    titleRef = useRef(null);
+    titleRef = useRef(null),
+    settingOptionsRef = useRef(null);
 
   useEffect(() => {
     if (mediaFile) {
@@ -36,8 +46,8 @@ export default () => {
       mediaRef.current.ondurationchange = () => {
         startInterval();
       };
-      console.dir(mediaRef.current)
-      mediaRef.current.onended = () => stopInterval()
+      console.dir(mediaRef.current);
+      mediaRef.current.onended = () => stopInterval();
 
       titleRef.current.textContent = mediaFile.name;
     }
@@ -53,9 +63,7 @@ export default () => {
       100
     ).toFixed(0)}%`;
 
-    durationTimeRef.current.textContent = duration;
-    currentTimeRef.current.textContent = currentTime;
-    
+    currentTimeRef.current.textContent = `${currentTime} / ${duration}`;
   };
 
   const startInterval = () => {
@@ -65,6 +73,19 @@ export default () => {
   const stopInterval = () => {
     clearInterval(intervalRef.current);
   };
+  const DisplaySettingOptions = () => {
+    let elem = settingOptionsRef.current;
+
+    elem.style.display = elem.style.display === "none" ? "flex" : "none";
+  };
+  const setAutoPlay = () => {
+    let elem = autoPlayRef.current;
+
+    autoPlay();
+    elem.style.color =
+      elem.style.color === "rgb(241, 242, 243)" ? "gray" : "rgb(241, 242, 243)";
+  };
+
   return (
     <>
       {filePresent && (
@@ -103,42 +124,47 @@ export default () => {
           >
             10s
           </button>
-          <button className={styles.settings}>settings</button>
-          <div className={styles.trackbackground}></div>
-          <div ref={mediaTimeRef} className={styles.durationtrack}>
-            <div></div>
+
+          <div
+            className={styles.fullscreen}
+            onClick={() => fullScreen(mediaRef.current)}
+          >
+            <BsFullscreen />
           </div>
 
-          <div className={styles.durationTime} ref={durationTimeRef}></div>
-          <div className={styles.currentTime} ref={currentTimeRef}></div>
+          <div ref={mediaTimeRef} className={styles.durationtrack}></div>
+
+          <span className={styles.currentTime} ref={currentTimeRef}></span>
           <div className={styles.mediaTitle} ref={titleRef}></div>
-          {/* <button onClick={() => playBackRate(mediaRef.current, 0.5)}>
-              increase speed
-            </button>
-            <button onClick={() => playBackRate(mediaRef.current, -0.5)}>
-              decrease speed
-            </button>
-            <button onClick={() => volume(mediaRef.current, 0.1)}>
-              volume +
-            </button>
-            <button onClick={() => volume(mediaRef.current, -0.1)}>
-              volume -
-            </button>
-            <button onClick={autoPlay}>auto play</button>
-            <button
-              onClick={() => {
-                fullScreen(mediaRef.current);
-              }}
+          <div className={styles.settings} onClick={DisplaySettingOptions}>
+            <IoSettings />
+          </div>
+          <div className={styles.settingOptions} ref={settingOptionsRef}>
+            <ImVolumeIncrease onClick={() => volume(mediaRef.current, 0.1)} />
+
+            <ImVolumeDecrease onClick={() => volume(mediaRef.current, -0.1)} />
+
+            <IoPlayForwardOutline
+              onClick={() => playBackRate(mediaRef.current, 0.5)}
+            />
+
+            <IoPlayBackOutline
+              onClick={() => playBackRate(mediaRef.current, -0.5)}
+            />
+            <div
+              onClick={setAutoPlay}
+              ref={autoPlayRef}
+              className={styles.autoPlayBtn}
             >
-              full screen
-            </button>
-            <button
+              autoPlay
+            </div>
+
+            <TbPictureInPictureOn
               onClick={() => {
                 pictureInPicture(mediaRef.current);
               }}
-            >
-              picture in picture
-            </button> */}
+            />
+          </div>
         </section>
       )}
     </>
