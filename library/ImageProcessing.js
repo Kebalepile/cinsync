@@ -46,12 +46,7 @@ async function getMP3Image(file) {
       if (offset !== -1) {
         const imageData = extractID3v2ImageData(mp3Data, offset);
         if (imageData) {
-          const base64String = btoa(
-            new Uint8Array(imageData).reduce(
-              (data, byte) => data + String.fromCharCode(byte),
-              ""
-            )
-          );
+          const base64String = encodeBase64(new Uint8Array(imageData));
           resolve(`data:image/jpeg;base64,${base64String}`);
         } else {
           reject(new Error("No album art found."));
@@ -62,6 +57,13 @@ async function getMP3Image(file) {
     };
     reader.readAsArrayBuffer(file);
   });
+}
+
+function encodeBase64(data) {
+  const encoder = new TextEncoder();
+  const str = String.fromCharCode.apply(null, data);
+  const encoded = btoa(encoder.encode(str));
+  return encoded;
 }
 
 function findID3v2Offset(mp3Data) {
@@ -105,6 +107,7 @@ function extractID3v2ImageData(mp3Data, offset) {
   }
   return null;
 }
+
 
 async function getMPFileImage(file) {
   let extension = file.name.split(".").pop().toLowerCase();

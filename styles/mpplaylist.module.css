@@ -74,19 +74,21 @@
 /* mp4 media list styling */
 .mp4Icon {
   height: 150px;
-  width:110px;
+  width:120px;
   border-radius: 4px;
+  border:2px solid rgb(92, 87, 87);
 }
 .mp4List {
   justify-content: space-between;
   flex-flow: row nowrap;
   width: 100vw;
   overflow-x: scroll;
-  background-color: red;;
+  background-color: rgba(70, 70, 70, 0.473);
 }
 .mp4MediaCard {
  
   justify-content: center;
-  margin-left:5px;
-  background-color:blue;
+  margin-left:2px;
+
+  /* background-color:blue; */
 }

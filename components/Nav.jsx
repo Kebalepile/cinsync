@@ -2,8 +2,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "@/styles/nav.module.css";
 import LoadMPFiles from "@/components/LoadMPFiles";
-import { SiPlayerfm, SiPlayerdotme } from "react-icons/si";
+import { SiWikimediacommons, SiMusicbrainz } from "react-icons/si";
 import { TbArrowRoundaboutRight } from "react-icons/tb";
+
+
 export default () => {
   const router = useRouter(),
     currentPath = router.pathname;
@@ -18,7 +20,7 @@ export default () => {
           className={`${styles.logo} ${styles.center}`}
           href="/"
         >
-          <SiPlayerdotme />
+          <SiMusicbrainz />
         </Link>
       )}
       {isFiles && (
@@ -32,7 +34,7 @@ export default () => {
           href="/files"
           className={styles["mediafiles"]}
         >
-          <SiPlayerfm />
+          <SiWikimediacommons />
         </Link>
       )}
 

@@ -75,6 +75,7 @@ export default () => {
                   styles.mp3MediaCard,
                   styles.mp4MediaCard,
                 ])}`}
+                
               >
                 <Image
                   src={data.imageSrc || mp3Icon}
