@@ -84,7 +84,7 @@ export default () => {
                   width={640}
                   height={360}
                 />
-                {/* <p className={styles.name}>{data.name}</p> */}
+                <p className={styles.name}>{data.name}</p>
               </div>
             );
           })}

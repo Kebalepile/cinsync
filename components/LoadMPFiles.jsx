@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import MPFileContext from "@/contexts/media/context";
-import styles from "@/styles/loadmpfiles.module.css"
+import styles from "@/styles/loadmpfiles.module.css";
 
 export default () => {
   const {
@@ -10,8 +10,7 @@ export default () => {
     MediaTypeOk,
     FolderInfoAvailable,
     folderHandle,
-    extn
-  
+    extn,
   } = useContext(MPFileContext);
 
   useEffect(() => {
@@ -24,16 +23,15 @@ export default () => {
    * @description Handles folder path changes.
    */
   const handleClick = async (e) => {
-    const folderHandle = await window.showDirectoryPicker();
-    FileInfo(folderHandle);
+    try {
+      const folderHandle = await window.showDirectoryPicker();
+      typeof folderHandle === "object" && FileInfo(folderHandle);
+    } catch (error) {}
   };
-
-
 
   return (
     <>
       <section>
-      
         <button
           aria-roledescription="click to choose mp3 file(s) in folder to be looked at next."
           data-extn=".mp3"
@@ -52,7 +50,11 @@ export default () => {
         </button>
       </section>
       {extn && (
-        <section aria-roledescription="a search form." id="search" className={styles.searchForm}>
+        <section
+          aria-roledescription="a search form."
+          id="search"
+          className={styles.searchForm}
+        >
           <button
             aria-roledescription="click in order to search device for folder you want to search for media."
             id="folder"
@@ -61,10 +63,8 @@ export default () => {
           >
             Select Folder
           </button>
-       
         </section>
       )}
-      
     </>
   );
 };

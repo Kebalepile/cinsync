@@ -84,7 +84,7 @@ function pictureInPicture(media) {
     console.error(error);
   }
 }
-function trackVideoTime(mediaTime) {
+function mediaTrackTime(mediaTime) {
   return formatTime(Math.floor(mediaTime));
 }
 
@@ -98,6 +98,6 @@ export {
   autoPlay,
   fullScreen,
   pictureInPicture,
-  trackVideoTime,
+  mediaTrackTime,
   fullScreenChange,
 };
