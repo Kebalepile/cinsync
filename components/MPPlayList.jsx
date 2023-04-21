@@ -3,7 +3,7 @@ import styles from "@/styles/mpplaylist.module.css";
 import MPFileContext from "@/contexts/media/context";
 import Image from "next/image";
 import mp3Icon from "@/assests/mp3.png";
-
+import { GiZigzagTune } from "react-icons/gi";
 import MPFileNameSearch from "./MPFileNameSearch";
 export default () => {
   const { LoadFile, mpFileNames, folderName, extn } = useContext(MPFileContext);
@@ -22,6 +22,24 @@ export default () => {
     e.target.parentNode.dispatchEvent(clickEvent);
   };
   const selectOption = (options) => (extn === ".mp3" ? options[0] : options[1]);
+  const mediaImage = (data) =>
+    extn === ".mp3" ? (
+      <>
+      <GiZigzagTune className={styles.mp3Icon} />
+       <p className={styles.name}>{data.name}</p> 
+       </>
+    ) : (
+     <figure>
+       <Image
+        src={data.imageSrc}
+        alt="mp4 Icon"
+        className={styles.mp4Icon}
+        width={640}
+        height={360}
+      />
+      <figcaption>{data.name}</figcaption>
+     </figure>
+    );
   /**
    *
    * @param {string} extn
@@ -75,16 +93,9 @@ export default () => {
                   styles.mp3MediaCard,
                   styles.mp4MediaCard,
                 ])}`}
-                
               >
-                <Image
-                  src={data.imageSrc || mp3Icon}
-                  alt={selectOption(["mp3 Icon", "mp4 Icon"])}
-                  className={selectOption([styles.mp3Icon, styles.mp4Icon])}
-                  width={640}
-                  height={360}
-                />
-                <p className={styles.name}>{data.name}</p>
+                {mediaImage(data)}
+               
               </div>
             );
           })}
