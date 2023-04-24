@@ -16,8 +16,8 @@
   grid-row: 2/3;
   width: 70px;
   height: 40px;
-  background-color: rgb(238, 63, 194);
-  border-radius: 3px;
+  background-color:  #f527eb63;
+  border-radius: 3px 3px 5px 5px;
   padding:5px;
 }
 .mediafiles {
@@ -25,6 +25,23 @@
   grid-row: 3/4;
   width:100px;
   height:50px;
+  display: flex;
+  justify-content: center;
+}
+.mediafilesBtn {
+  background-image: linear-gradient(
+    -50deg,
+    #ff80f9,
+    #b834af,
+    #f527eb93,
+    #f527eb63,
+    #ff5ef4
+  );
+  fill:rgba(253, 253, 253, 0.815);
+  border-radius:50%;
+  width:70px;
+  height:70px;
+
 }
 
 .about {
@@ -37,13 +54,14 @@
   border-radius: 5px;
   width: 70px;
   height: 40px;
-  border: 1px white solid;
+  border-bottom: 1px white solid;
+  border-radius: 3px 3px 5px 5px;
   background-image: linear-gradient(
-    70deg,
+    -50deg,
     #ff80f9,
     #b834af,
-    #f527eb,
-    #f527eb,
+    #f527eb93,
+    #f527eb63,
     #ff5ef4
   );
 }

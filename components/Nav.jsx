@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import styles from "@/styles/nav.module.css";
 import LoadMPFiles from "@/components/LoadMPFiles";
 import { SiWikimediacommons, SiMusicbrainz } from "react-icons/si";
-import { TbArrowRoundaboutRight } from "react-icons/tb";
-
 
 export default () => {
   const router = useRouter(),
@@ -34,7 +32,7 @@ export default () => {
           href="/files"
           className={styles["mediafiles"]}
         >
-          <SiWikimediacommons />
+          <SiWikimediacommons className={styles.mediafilesBtn}/>
         </Link>
       )}
 
@@ -44,7 +42,7 @@ export default () => {
           className={`${styles.about} ${styles.center}`}
           href="/about"
         >
-          <TbArrowRoundaboutRight />
+         about
         </Link>
       )}
     </nav>
