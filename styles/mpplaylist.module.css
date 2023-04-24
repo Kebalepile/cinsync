@@ -11,7 +11,7 @@
 .mp3List {
   flex-flow: column nowrap;
   width: 90vw;
-  max-height: 45vh;
+  max-height: 400px;
   overflow-y: scroll;
   margin: 30px auto auto auto;
   border-top-right-radius: 20px;

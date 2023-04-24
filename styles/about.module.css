@@ -6,7 +6,8 @@
     padding: 1rem;
     background-color: #2d2d2d;
     width:90vw;
-    /* min-height: 100vh; */
+    max-height: 70vh;
+    overflow-y:scroll;
     border-radius: 10px;
   }
   

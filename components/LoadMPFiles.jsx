@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import { useRouter } from "next/router";
 import MPFileContext from "@/contexts/media/context";
 import styles from "@/styles/loadmpfiles.module.css";
 
@@ -12,7 +13,7 @@ export default () => {
     folderHandle,
     extn,
   } = useContext(MPFileContext);
-
+  const router = useRouter();
   useEffect(() => {
     if (MediaTypeOk() && FolderInfoAvailable()) {
       SearchMPFileNames();
@@ -25,8 +26,12 @@ export default () => {
   const handleClick = async (e) => {
     try {
       const folderHandle = await window.showDirectoryPicker();
-      typeof folderHandle === "object" && FileInfo(folderHandle);
-    } catch (error) {}
+      typeof folderHandle === "object" &&
+        FileInfo(folderHandle) &&
+        router.push("/playlist");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -35,7 +40,9 @@ export default () => {
         <button
           aria-roledescription="click to choose mp3 file(s) in folder to be looked at next."
           data-extn=".mp3"
-          onClick={(e) => MediaType(e)}
+          onClick={(e) => {
+            MediaType(e);
+          }}
           className={`${styles.button} ${styles.mp3Button}`}
         >
           MP3
@@ -43,7 +50,9 @@ export default () => {
         <button
           aria-roledescription="click to choose mp4 file(s) in folder to be looked at next."
           data-extn=".mp4"
-          onClick={(e) => MediaType(e)}
+          onClick={(e) => {
+            MediaType(e);
+          }}
           className={`${styles.button} ${styles.mp4Button}`}
         >
           MP4
