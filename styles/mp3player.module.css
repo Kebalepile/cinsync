@@ -4,11 +4,11 @@
   align-items: center;
   /* background-color:#2525256e; */
   backdrop-filter: blur(10px);
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   bottom: 0;
-  z-index: 999;
+  z-index: 4;
   
 }
 .mediaPlayer {

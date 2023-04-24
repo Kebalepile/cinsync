@@ -1,22 +1,28 @@
 .searchName {
-  margin: 7px auto 40px auto;
+  margin: 40px auto 40px auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  z-index: 5;
 }
 .searchName * {
-  text-align: center;
-  height: 20px;
+ 
+
   border: none;
 
   color: white;
-  box-shadow: 0 0 10px rgba(66, 62, 62, 0.815), 0 0 20px rgba(80, 79, 79, 0.822),
-    0 0 50px rgb(7, 7, 7);
+ 
 }
 .searchName input[type="text"] {
   padding: 15px;
   background-color: rgba(46, 43, 43, 0.445);
   border-bottom: 0.1rem rgb(201, 195, 195) solid;
+   box-shadow: 0 0 10px rgba(66, 62, 62, 0.815), 0 0 20px rgba(80, 79, 79, 0.822),
+    0 0 50px rgb(7, 7, 7);
+  height: 20px;
+   text-align: center;
 }
 .searchName input[type="submit"] {
   width: 60px;
@@ -24,4 +30,42 @@
   margin-left: 5px;
   border-radius: 3px;
   background-image: linear-gradient(10deg, #084175, #0084ff, #003c74);
+   text-align: center;
 }
+.searchField {
+  margin-bottom: 30px;
+}
+.cancelBtn {
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.cancelBtn * {
+  border-radius: inherit;
+  color: red;
+  width: 100%;
+  height: 100%;
+}
+.matchList {
+  position:absolute;
+  top:23%;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  max-height: 300px;
+  background-color:blue;
+  overflow-y: scroll;
+  z-index: 7;
+}
+
+.matchList > div {
+  margin-top: 3px;
+ height:200px;
+  text-align: justify;
+  background-color:pink;
+   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* FcOpenedFolder */

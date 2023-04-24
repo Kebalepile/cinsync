@@ -5,15 +5,17 @@ import Image from "next/image";
 import { TbMoodSearch } from "react-icons/tb";
 import { GiZigzagTune } from "react-icons/gi";
 import MPFileNameSearch from "./MPFileNameSearch";
-import { mpFile } from "@/library/searchFiles";
+
 export default () => {
   const { LoadFile, mpFileNames, folderName, extn } = useContext(MPFileContext);
 
   useEffect(() => {
-    let arr = mpFileNames.inOrder();
-    if (arr.length > 0) LoadFile(arr[0].name, arr[0].id); //AutoPlay first file if files found.
+    if (mpFileNames) {
+      let arr = mpFileNames.inOrder();
+      arr.length > 0 && LoadFile(arr[0].name, arr[0].id); //AutoPlay first file if files found.
+    }
   }, [mpFileNames]);
-  
+
   const handleClick = async (e) => {
     e.target.getAttribute("data-relative") == "parent" &&
       LoadFile(
