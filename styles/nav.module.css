@@ -1,11 +1,12 @@
 .navigation {
   width: 100vw;
-  height: 200px;
+  height: 0;
   display: grid;
   row-gap: 25px;
   column-gap: 10px;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(5, 1fr);
+  background-color:red;
 }
 .logo *,
 .about *,
@@ -57,15 +58,13 @@
   border-radius: 5px;
   width: 70px;
   height: 40px;
-  border-bottom: 1px white solid;
   border-radius: 3px 3px 5px 5px;
   background-image: linear-gradient(
-    -50deg,
+    90deg,
     #ff80f9,
     #b834af,
     #f527eb93,
-    #f527eb63,
-    #ff5ef4
+    #f527eb63
   );
 }
 .center {
