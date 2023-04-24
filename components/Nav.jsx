@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "@/styles/nav.module.css";
 import LoadMPFiles from "@/components/LoadMPFiles";
-import { SiWikimediacommons, SiMusicbrainz } from "react-icons/si";
+import { SiMusicbrainz } from "react-icons/si";
 
 export default () => {
   const router = useRouter(),
@@ -12,22 +12,15 @@ export default () => {
     isFiles = /^\/playlist$/.test(currentPath);
   return (
     <nav className={styles.navigation}>
-      
-     
-        <Link
-          title="logo"
-          className={`${styles.logo} ${styles.center}`}
-          href="/"
-        >
-          <SiMusicbrainz />
-        </Link>
-    
+      <Link title="logo" className={`${styles.logo} ${styles.center}`} href="/">
+        <SiMusicbrainz />
+      </Link>
+
       {isHome && (
-        <div className={styles["mediafiles"]} >
+        <div className={styles["mediafiles"]}>
           <LoadMPFiles />
         </div>
       )}
-     
 
       {isHome && (
         <Link
@@ -35,7 +28,7 @@ export default () => {
           className={`${styles.about} ${styles.center}`}
           href="/about"
         >
-         about
+          about
         </Link>
       )}
     </nav>

@@ -1,13 +1,19 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext, Fragment, useEffect } from "react";
 import styles from "@/styles/mpplaylist.module.css";
 import MPFileContext from "@/contexts/media/context";
 import Image from "next/image";
-import mp3Icon from "@/assests/mp3.png";
+import { TbMoodSearch } from "react-icons/tb";
 import { GiZigzagTune } from "react-icons/gi";
 import MPFileNameSearch from "./MPFileNameSearch";
+import { mpFile } from "@/library/searchFiles";
 export default () => {
   const { LoadFile, mpFileNames, folderName, extn } = useContext(MPFileContext);
 
+  useEffect(() => {
+    let arr = mpFileNames.inOrder();
+    if (arr.length > 0) LoadFile(arr[0].name, arr[0].id); //AutoPlay first file if files found.
+  }, [mpFileNames]);
+  
   const handleClick = async (e) => {
     e.target.getAttribute("data-relative") == "parent" &&
       LoadFile(
@@ -25,20 +31,20 @@ export default () => {
   const mediaImage = (data) =>
     extn === ".mp3" ? (
       <>
-      <GiZigzagTune className={styles.mp3Icon} />
-       <p className={styles.name}>{data.name}</p> 
-       </>
+        <GiZigzagTune className={styles.mp3Icon} />
+        <p className={styles.name}>{data.name}</p>
+      </>
     ) : (
-     <figure>
-       <Image
-        src={data.imageSrc}
-        alt="mp4 Icon"
-        className={styles.mp4Icon}
-        width={640}
-        height={360}
-      />
-      <figcaption>{data.name}</figcaption>
-     </figure>
+      <figure>
+        <Image
+          src={data.imageSrc}
+          alt="mp4 Icon"
+          className={styles.mp4Icon}
+          width={640}
+          height={360}
+        />
+        <figcaption>{data.name}</figcaption>
+      </figure>
     );
   /**
    *
@@ -69,7 +75,9 @@ export default () => {
     return fileNames.length > 0 ? (
       <>
         <details className={styles.search}>
-          <summary>Search</summary>
+          <summary style={{ listStyle: "none", textAlign: "center" }}>
+            Search <TbMoodSearch />
+          </summary>
           <MPFileNameSearch />
         </details>
         <article
@@ -95,7 +103,6 @@ export default () => {
                 ])}`}
               >
                 {mediaImage(data)}
-               
               </div>
             );
           })}
