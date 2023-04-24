@@ -2,19 +2,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color:#252525ce;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+  
 }
 .mediaPlayer {
   border-top: 1px solid rgb(107, 105, 105);
-  border-bottom: 1px solid rgb(107, 105, 105);
   border-radius: 2px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
-
   row-gap: 1px;
   width: 99%;
   height: 150px;
-  padding-bottom: 2px;
 }
 .mediaPlayer button {
   color: white;
@@ -90,13 +94,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   background-image: linear-gradient(
-    50deg,
-    #ff80f9a2,
-    #b834af8f,
-    #f527eb
-   
+    -90deg,
+    #b834af34,
+    #b834af79,
+    #f527eb86,
+    #f527ebea
   );
-  border-right: 1px solid rgb(61, 59, 59);
+  border-right: 1px solid rgb(248, 248, 248);
   padding-top: 15px;
   padding-left: 15px;
   height: 60px;

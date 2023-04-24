@@ -31,7 +31,7 @@ export default () => {
 
   return (
     <>
-      <section>
+      <section className={styles.mpButtons}>
         <button
           aria-roledescription="click to choose mp3 file(s) in folder to be looked at next."
           data-extn=".mp3"

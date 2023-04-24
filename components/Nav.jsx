@@ -32,7 +32,10 @@ export default () => {
           href="/files"
           className={styles["mediafiles"]}
         >
-          <SiWikimediacommons className={styles.mediafilesBtn}/>
+
+          <button className={styles.mediafilesBtn}>
+                      <SiWikimediacommons />
+          </button>
         </Link>
       )}
 

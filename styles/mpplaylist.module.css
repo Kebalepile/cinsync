@@ -1,7 +1,7 @@
 .search {
   position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 230px;
+  /* position: sticky; */
+  /* top: 230px; */
   margin: 20px auto 20px auto;
 }
 .mp3MediaCard .name {
