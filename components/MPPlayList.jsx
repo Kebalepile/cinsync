@@ -111,7 +111,7 @@ export default () => {
         </article>
       </>
     ) : (
-      <p aria-readonly>
+      <p aria-readonly className={styles.message}>
         No {extn.slice(1)} files from {folderName}, Try diffrent Folder.
       </p>
     );
