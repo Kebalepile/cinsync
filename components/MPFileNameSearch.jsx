@@ -7,56 +7,63 @@ export default () => {
   const { mpFileNames, LoadFile } = useContext(MPFileContext);
   const [suggestions, setSuggestions] = useState([]);
 
+  const flaggedQueries = (text) => {
+    return /^.?(mp3|mp4)$/.test(text);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    let results = mpFileNames.searchByName(
-      sanitizeInput(e.target.querySelector('input[name="search"]').value)
-    );
-    setSuggestions(results);
+    let queryString = e.target.querySelector('input[name="search"]').value;
+    searchQuery(queryString);
   };
   const handleInputChange = (e) => {
-    if (e.target.value.length >= 3) {
-      let results = mpFileNames.searchByName(sanitizeInput(e.target.value));
+    let queryString = e.target.value;
+    searchQuery(queryString);
+  };
+  const searchQuery = (query) => {
+    if (query.length >= 3 && !flaggedQueries(query)) {
+      let results = mpFileNames.searchByName(sanitizeInput(query));
       setSuggestions(results);
     } else {
       setSuggestions([]);
     }
   };
-  const handleCancel = (e) => {
+  const removeSuggestions = (e) => {
     setSuggestions([]);
   };
+
   return (
     <Fragment>
       <form className={styles.searchName} onSubmit={handleSubmit}>
-     <section className={styles.searchField}>
-         <input
-          type="text"
-          name="search"
-          minLength={3}
-          onChange={handleInputChange}
-          placeholder="type file name."
-          required
-        />
-        <input type="submit" value="Go" />
-
-     </section>
-        <article className={styles.matchList}>
-          <button onClick={handleCancel} className={styles.cancelBtn}>
-            <MdCancel />
-          </button>
-          {suggestions.map((result) => {
-            return (
-              <div
-                key={result.id}
-                onClick={() => {
-                  LoadFile(result.name, result.id);
-                }}
-              >
-                <p>{result.name}</p>
-              </div>
-            );
-          })}
-        </article>
+        <section className={styles.searchField}>
+          <input
+            type="text"
+            name="search"
+            minLength={3}
+            onChange={handleInputChange}
+            placeholder="type file name."
+            required
+          />
+          <input type="submit" value="Go" />
+        </section>
+        {suggestions.length > 0 && (
+          <article className={styles.matchList}>
+            <button onClick={removeSuggestions} className={styles.cancelBtn}>
+              <MdCancel />
+            </button>
+            {suggestions.map((result) => {
+              return (
+                <div
+                  key={result.id}
+                  onClick={() => {
+                    LoadFile(result.name, result.id);
+                  }}
+                >
+                  <p>{result.name}</p>
+                </div>
+              );
+            })}
+          </article>
+        )}
       </form>
     </Fragment>
   );

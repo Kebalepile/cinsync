@@ -7,9 +7,7 @@ import { SiMusicbrainz } from "react-icons/si";
 export default () => {
   const router = useRouter(),
     currentPath = router.pathname;
-  const isHome = /^\/$/.test(currentPath),
-    isAbout = /^\/about$/.test(currentPath),
-    isFiles = /^\/playlist$/.test(currentPath);
+  const isHome = /^\/$/.test(currentPath);
   return (
     <nav className={styles.navigation}>
       <Link title="logo" className={`${styles.logo} ${styles.center}`} href="/">
