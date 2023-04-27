@@ -1,4 +1,5 @@
-.mediaPlayer {
+@media screen and (max-width: 425px) {
+  .mediaPlayer {
     position: sticky;
     top: 20px;
     display: grid;
@@ -28,14 +29,14 @@
     transition: background-color 0 ease-in-out;
     text-align: center;
   }
-  
+
   .mediaPlayer *:not(video) {
     z-index: 1;
     align-content: center;
-  
+
     color: white;
   }
-  
+
   .playpause {
     grid-column: 5/5;
     grid-row: 5/5;
@@ -52,7 +53,7 @@
     margin: auto auto auto 18px;
     opacity: 0.4;
   }
-  
+
   .prev,
   .next {
     height: 100%;
@@ -111,7 +112,7 @@
     height: 19px;
     text-align: center;
   }
-  
+
   .durationtrack {
     display: flex;
     flex-direction: row-reverse;
@@ -132,7 +133,7 @@
     transition: width 0.5s ease;
     z-index: 2;
   }
-  
+
   .durationtrack:hover {
     height: 5px;
   }
@@ -142,7 +143,7 @@
     width: 45px;
     height: 25px;
   }
-  
+
   .currentTime {
     grid-column: 2/6;
     grid-row: 8/8;
@@ -162,7 +163,6 @@
     margin: auto;
   }
   .settingOptions .autoPlayBtn {
-   color: rgb(241, 242, 243) 
-    
+    color: rgb(241, 242, 243);
   }
-  
+}

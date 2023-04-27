@@ -1,113 +1,115 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(10px);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 4;
-}
-.mediaPlayer {
-  border-top: 1px solid rgb(107, 105, 105);
-  border-radius: 2px;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  row-gap: 1px;
-  width: 99%;
-  height: 150px;
-}
-.mediaPlayer button {
-  color: white;
-  border: none;
-  text-align: center;
-  border-radius: 3px;
-  height: 35px;
-  width: 50px;
-  background-color: rgba(45, 48, 45, 0.363);
-}
-.mediaPlayer button * {
-  fill: white;
-  height: inherit;
-  width: inherit;
-}
-.playpause {
-  grid-column: 4/4;
-  grid-row: 4/4;
-}
-.playpause * {
-  height: inherit;
-  width: inherit;
-}
+@media screen and (max-width: 425px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 4;
+  }
+  .mediaPlayer {
+    border-top: 1px solid rgb(107, 105, 105);
+    border-radius: 2px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    row-gap: 1px;
+    width: 99%;
+    height: 150px;
+  }
+  .mediaPlayer button {
+    color: white;
+    border: none;
+    text-align: center;
+    border-radius: 3px;
+    height: 35px;
+    width: 50px;
+    background-color: rgba(45, 48, 45, 0.363);
+  }
+  .mediaPlayer button * {
+    fill: white;
+    height: inherit;
+    width: inherit;
+  }
+  .playpause {
+    grid-column: 4/4;
+    grid-row: 4/4;
+  }
+  .playpause * {
+    height: inherit;
+    width: inherit;
+  }
 
-.next {
-  grid-column: 5/5;
-  grid-row: 4/4;
-}
-.prev {
-  grid-column: 3/3;
-  grid-row: 4/4;
-}
-.skipForward {
-  grid-column: 6/6;
-  grid-row: 4/4;
-  width: 50px;
-}
-.skipBackward {
-  grid-column: 2/2;
-  grid-row: 4/4;
-  width: 50px;
-}
+  .next {
+    grid-column: 5/5;
+    grid-row: 4/4;
+  }
+  .prev {
+    grid-column: 3/3;
+    grid-row: 4/4;
+  }
+  .skipForward {
+    grid-column: 6/6;
+    grid-row: 4/4;
+    width: 50px;
+  }
+  .skipBackward {
+    grid-column: 2/2;
+    grid-row: 4/4;
+    width: 50px;
+  }
 
-.durationtrack {
-  grid-column: 1/7;
-  grid-row: 2/2;
-  background-image: linear-gradient(
-    70deg,
-    #ff80f9,
-    #b834af,
-    #f527eb,
-    #f527eb,
-    #ff5ef4
-  );
-  box-shadow: 0 0 10px rgb(233, 17, 168);
-  border-radius: 2px;
-  transition: width 0.5s ease;
-  height: 3px;
-}
-.currentTime {
-  grid-column: 1/7;
-  grid-row: 3/3;
-  width: 100%;
-  height: 25px;
-  padding-top: 5px;
-  margin: 5px;
-}
-.mediaTitle {
-  grid-column: 1/6;
-  grid-row: 1/1;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background-image: linear-gradient(
-    -90deg,
-    #b834af34,
-    #b834af79,
-    #f527eb86,
-    #f527eb63
-  );
-  border-right: 1px solid rgb(248, 248, 248);
-  padding-top: 15px;
-  padding-left: 15px;
-  height: 60px;
-}
-.art * {
-  grid-column: 6/7;
-  grid-row: 1/1;
-  width: 80px;
-  height: 60px;
-  background-color: rgba(45, 48, 45, 0.363);
+  .durationtrack {
+    grid-column: 1/7;
+    grid-row: 2/2;
+    background-image: linear-gradient(
+      70deg,
+      #ff80f9,
+      #b834af,
+      #f527eb,
+      #f527eb,
+      #ff5ef4
+    );
+    box-shadow: 0 0 10px rgb(233, 17, 168);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+    height: 3px;
+  }
+  .currentTime {
+    grid-column: 1/7;
+    grid-row: 3/3;
+    width: 100%;
+    height: 25px;
+    padding-top: 5px;
+    margin: 5px;
+  }
+  .mediaTitle {
+    grid-column: 1/6;
+    grid-row: 1/1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-image: linear-gradient(
+      -90deg,
+      #b834af34,
+      #b834af79,
+      #f527eb86,
+      #f527eb63
+    );
+    border-right: 1px solid rgb(248, 248, 248);
+    padding-top: 15px;
+    padding-left: 15px;
+    height: 60px;
+  }
+  .art * {
+    grid-column: 6/7;
+    grid-row: 1/1;
+    width: 80px;
+    height: 60px;
+    background-color: rgba(45, 48, 45, 0.363);
+  }
 }

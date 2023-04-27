@@ -1,4 +1,4 @@
-@media screen and  (max-width:425px){
+@media screen and (max-width: 425px) {
   .searchNameMP3 {
     margin: 40px auto 40px auto;
     display: flex;
@@ -8,8 +8,8 @@
     flex-flow: column nowrap;
     z-index: 5;
   }
-  .searchNameMP4{
-     margin: 20px auto 40px auto;
+  .searchNameMP4 {
+    margin: 20px auto 40px auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,20 +17,23 @@
     flex-flow: column nowrap;
     z-index: 5;
   }
-  .searchNameMP3 * , .searchNameMP4 * {
+  .searchNameMP3 *,
+  .searchNameMP4 * {
     border: none;
     color: white;
   }
-  .searchNameMP3 input[type="text"], .searchNameMP4 input[type="text"] {
+  .searchNameMP3 input[type="text"],
+  .searchNameMP4 input[type="text"] {
     padding: 15px;
     background-color: rgba(46, 43, 43, 0.445);
     border-bottom: 0.1rem rgb(201, 195, 195) solid;
-    box-shadow: 0 0 10px rgba(66, 62, 62, 0.815), 0 0 20px rgba(80, 79, 79, 0.822),
-      0 0 50px rgb(7, 7, 7);
+    box-shadow: 0 0 10px rgba(66, 62, 62, 0.815),
+      0 0 20px rgba(80, 79, 79, 0.822), 0 0 50px rgb(7, 7, 7);
     height: 20px;
     text-align: center;
   }
-  .searchNameMP3 input[type="submit"], .searchNameMP4 input[type="submit"] {
+  .searchNameMP3 input[type="submit"],
+  .searchNameMP4 input[type="submit"] {
     width: 60px;
     height: 30px;
     margin-left: 5px;
@@ -73,7 +76,7 @@
     overflow-y: scroll;
     z-index: 7;
   }
-  
+
   .matchList > div {
     width: 80%;
     border-radius: 3px 3px 1px 1px;
@@ -99,22 +102,20 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  
+
   .matchList::-webkit-scrollbar {
     height: 4px;
     width: 5px;
   }
-  
+
   .matchList::-webkit-scrollbar-track {
     background-color: #252525;
   }
   .matchList::-webkit-scrollbar-thumb {
-    background-color:#252525;
+    background-color: #252525;
     border-radius: 10px;
   }
   .matchList::-webkit-scrollbar-thumb:hover {
     background-color: #252525;
   }
-  
-  
 }
