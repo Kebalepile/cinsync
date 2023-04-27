@@ -16,20 +16,14 @@ import {
   playBackRate,
   skip,
   autoPlay,
- 
   pictureInPicture,
   fullScreen,
   mediaTrackTime,
 } from "@/library/videoControls";
 
 export default () => {
-  const {
-    mediaFile,
-    extn,
-    LoadNextFile,
-    LoadPreviousFile,
-    AutoPlayFiles,
-  } = useContext(MPFileContext);
+  const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
+    useContext(MPFileContext);
 
   const mediaRef = useRef(null),
     mediaTimeRef = useRef(null),
@@ -45,7 +39,7 @@ export default () => {
       mediaRef.current.ondurationchange = () => {
         startInterval();
       };
-   
+
       mediaRef.current.onended = () => stopInterval();
 
       titleRef.current.textContent = mediaFile.name;
@@ -87,85 +81,83 @@ export default () => {
 
   return (
     <>
-      
-        <section className={styles.mediaPlayer}>
-          {MediaPlayer(extn, mediaFile, mediaRef)}
+      <section className={styles.mediaPlayer}>
+        {MediaPlayer(extn, mediaFile, mediaRef)}
 
-          <button
-            className={styles.playpause}
-            onClick={(e) => {
-              play(mediaRef.current);
-            }}
-          >
-            <div className={styles.triangle}></div>
-          </button>
+        <button
+          className={styles.playpause}
+          onClick={(e) => {
+            play(mediaRef.current);
+          }}
+        >
+          <div className={styles.triangle}></div>
+        </button>
+        <div
+          className={styles.next}
+          onClick={() => {
+            LoadNextFile();
+          }}
+        ></div>
+        <div
+          className={styles.prev}
+          onClick={() => {
+            LoadPreviousFile();
+          }}
+        ></div>
+        <button
+          className={styles.skipForward}
+          onClick={() => skip(mediaRef.current, 10, "forward")}
+        >
+          10s
+        </button>
+        <button
+          className={styles.skipBackward}
+          onClick={() => skip(mediaRef.current, 10, "backward")}
+        >
+          10s
+        </button>
+
+        <div
+          className={styles.fullscreen}
+          onClick={() => fullScreen(mediaRef.current)}
+        >
+          <BsFullscreen />
+        </div>
+
+        <div ref={mediaTimeRef} className={styles.durationtrack}></div>
+
+        <span className={styles.currentTime} ref={currentTimeRef}></span>
+        <div className={styles.mediaTitle} ref={titleRef}></div>
+        <div className={styles.settings} onClick={DisplaySettingOptions}>
+          <IoSettings />
+        </div>
+        <div className={styles.settingOptions} ref={settingOptionsRef}>
+          <ImVolumeIncrease onClick={() => volume(mediaRef.current, 0.1)} />
+
+          <ImVolumeDecrease onClick={() => volume(mediaRef.current, -0.1)} />
+
+          <IoPlayForwardOutline
+            onClick={() => playBackRate(mediaRef.current, 0.5)}
+          />
+
+          <IoPlayBackOutline
+            onClick={() => playBackRate(mediaRef.current, -0.5)}
+          />
           <div
-            className={styles.next}
+            onClick={setAutoPlay}
+            ref={autoPlayRef}
+            className={styles.autoPlayBtn}
+          >
+            autoPlay
+          </div>
+
+          <TbPictureInPictureOn
             onClick={() => {
-              LoadNextFile();
+              pictureInPicture(mediaRef.current);
             }}
-          ></div>
-          <div
-            className={styles.prev}
-            onClick={() => {
-              LoadPreviousFile();
-            }}
-          ></div>
-          <button
-            className={styles.skipForward}
-            onClick={() => skip(mediaRef.current, 10, "forward")}
-          >
-            10s
-          </button>
-          <button
-            className={styles.skipBackward}
-            onClick={() => skip(mediaRef.current, 10, "backward")}
-          >
-            10s
-          </button>
-
-          <div
-            className={styles.fullscreen}
-            onClick={() => fullScreen(mediaRef.current)}
-          >
-            <BsFullscreen />
-          </div>
-
-          <div ref={mediaTimeRef} className={styles.durationtrack}></div>
-
-          <span className={styles.currentTime} ref={currentTimeRef}></span>
-          <div className={styles.mediaTitle} ref={titleRef}></div>
-          <div className={styles.settings} onClick={DisplaySettingOptions}>
-            <IoSettings />
-          </div>
-          <div className={styles.settingOptions} ref={settingOptionsRef}>
-            <ImVolumeIncrease onClick={() => volume(mediaRef.current, 0.1)} />
-
-            <ImVolumeDecrease onClick={() => volume(mediaRef.current, -0.1)} />
-
-            <IoPlayForwardOutline
-              onClick={() => playBackRate(mediaRef.current, 0.5)}
-            />
-
-            <IoPlayBackOutline
-              onClick={() => playBackRate(mediaRef.current, -0.5)}
-            />
-            <div
-              onClick={setAutoPlay}
-              ref={autoPlayRef}
-              className={styles.autoPlayBtn}
-            >
-              autoPlay
-            </div>
-
-            <TbPictureInPictureOn
-              onClick={() => {
-                pictureInPicture(mediaRef.current);
-              }}
-            />
-          </div>
-        </section>
-    
+          />
+        </div>
+      </section>
     </>
   );
 };

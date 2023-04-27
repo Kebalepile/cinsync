@@ -58,54 +58,54 @@ export default () => {
     clearInterval(intervalRef.current);
   };
   return (
- <div className={styles.container}>
-       <section className={styles.mediaPlayer}>
-      {MediaPlayer(extn, mediaFile, mediaRef)}
-      <button
-        className={styles.playpause}
-        onClick={(e) => {
-          play(mediaRef.current);
-        }}
-      >
-        <HiOutlinePlayPause />
-      </button>
-      <button
-        className={styles.next}
-        onClick={() => {
-          LoadNextFile();
-        }}
-      >
-        <RxTrackNext />
-      </button>
-      <button
-        className={styles.prev}
-        onClick={() => {
-          LoadPreviousFile();
-        }}
-      >
-        <RxTrackPrevious />
-      </button>
-      <button
-        className={styles.skipForward}
-        onClick={() => skip(mediaRef.current, 10, "forward")}
-      >
-        10s
-      </button>
-      <button
-        className={styles.skipBackward}
-        onClick={() => skip(mediaRef.current, 10, "backward")}
-      >
-        10s
-      </button>
-      <div ref={mediaTimeRef} className={styles.durationtrack}></div>
+    <div className={styles.container}>
+      <section className={styles.mediaPlayer}>
+        {MediaPlayer(extn, mediaFile, mediaRef)}
+        <button
+          className={styles.playpause}
+          onClick={(e) => {
+            play(mediaRef.current);
+          }}
+        >
+          <HiOutlinePlayPause />
+        </button>
+        <button
+          className={styles.next}
+          onClick={() => {
+            LoadNextFile();
+          }}
+        >
+          <RxTrackNext />
+        </button>
+        <button
+          className={styles.prev}
+          onClick={() => {
+            LoadPreviousFile();
+          }}
+        >
+          <RxTrackPrevious />
+        </button>
+        <button
+          className={styles.skipForward}
+          onClick={() => skip(mediaRef.current, 10, "forward")}
+        >
+          10s
+        </button>
+        <button
+          className={styles.skipBackward}
+          onClick={() => skip(mediaRef.current, 10, "backward")}
+        >
+          10s
+        </button>
+        <div ref={mediaTimeRef} className={styles.durationtrack}></div>
 
-      <span className={styles.currentTime} ref={currentTimeRef}></span>
-      <div className={styles.mediaTitle} ref={titleRef}></div>
+        <span className={styles.currentTime} ref={currentTimeRef}></span>
+        <div className={styles.mediaTitle} ref={titleRef}></div>
 
-      <div className={styles.art}>
-        <SiMusicbrainz />
-      </div>
-    </section>
- </div>
+        <div className={styles.art}>
+          <SiMusicbrainz />
+        </div>
+      </section>
+    </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import MPFileContext from "@/contexts/media/context";
 import styles from "@/styles/loadmpfiles.module.css";
-import {FcOpenedFolder } from "react-icons/fc";
+import { FcOpenedFolder } from "react-icons/fc";
 export default () => {
   const {
     FileInfo,
@@ -70,7 +70,7 @@ export default () => {
             onClick={handleClick}
             className={`${styles.button} ${styles.folderButton}`}
           >
-            <FcOpenedFolder/>
+            <FcOpenedFolder />
           </button>
         </section>
       )}
