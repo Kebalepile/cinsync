@@ -72,11 +72,12 @@ export default () => {
         break;
     }
   };
+
   const showFileNames = () => {
     let fileNames = mpFileNames.inOrder();
     return fileNames.length > 0 ? (
       <>
-        <details className={styles.search}>
+        <details className={selectOption([styles.searchMp3, styles.searchMp4])}>
           <summary style={{ listStyle: "none", textAlign: "center" }}>
             Search <TbMoodSearch />
           </summary>

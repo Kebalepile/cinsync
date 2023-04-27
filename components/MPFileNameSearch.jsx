@@ -4,7 +4,7 @@ import styles from "@/styles/mpfilenamesearch.module.css";
 import sanitizeInput from "@/library/sanitizeInput";
 import { MdCancel } from "react-icons/md";
 export default () => {
-  const { mpFileNames, LoadFile } = useContext(MPFileContext);
+  const { mpFileNames, LoadFile, extn } = useContext(MPFileContext);
   const [suggestions, setSuggestions] = useState([]);
 
   const flaggedQueries = (text) => {
@@ -30,10 +30,17 @@ export default () => {
   const removeSuggestions = (e) => {
     setSuggestions([]);
   };
-
+  const selectClassName = (options) =>
+    extn === ".mp3" ? options[0] : options[1];
   return (
     <Fragment>
-      <form className={styles.searchName} onSubmit={handleSubmit}>
+      <form
+        className={selectClassName([
+          styles.searchNameMP3,
+          styles.searchNameMP4,
+        ])}
+        onSubmit={handleSubmit}
+      >
         <section className={styles.searchField}>
           <input
             type="text"
