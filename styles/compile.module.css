@@ -6,6 +6,52 @@
   transform: translate(-25%, -25%);
   font-size: large;
 }
+  .container {
+    position: absolute;
+    left: 20%;
+    top: 40%;
+     transform: translate(-25%, -25%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    
+  }
+
+  .container > *:nth-child(1) {
+    height: 40%;
+    width: 40%;
+    position: absolute;
+    left:50%;
+    top: 50%;
+    animation: spin-bottom 4s linear infinite, fade-in 4s linear infinite;
+    transform: translate(-50%, -25%);
+    transform-origin: center;
+  }
+  .container > *:nth-child(2) {
+    height: 30%;
+    width: 30%;
+    z-index: 4;
+    position: absolute;
+    left:50%;
+    top: 50%;
+    animation: spin-top 6s linear infinite, fade-in 6s linear infinite;
+    transform: translate(-25%, -25%);
+    transform-origin: center;
+  }
+  .container > h2 {
+    align-self: flex-end;
+    height: 30%;
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    animation: fade-in 5s cubic-bezier(0.19, 1, 0.22, 1) infinite;
+  }
+  .playListIcon {
+    height: 100px;
+    width: 100px;
+  }
  
 @media screen and (max-width: 425px) {
   .playListIcon {
@@ -27,14 +73,13 @@
     align-items: center;
     width: 200px;
     height: 200px;
+   
   }
 
   .container > *:nth-child(1) {
     height: 30%;
     width: 30%;
     position: absolute;
-    top: 50%;
-    left: 50%;
     top: 50%;
     left: 50%;
     animation: spin-bottom 4s linear infinite, fade-in 4s linear infinite;

@@ -10,7 +10,7 @@ import { CgPlayList } from "react-icons/cg";
 import styles from "@/styles/compile.module.css";
 
 export default () => {
-  const [compile, setCompile] = useState(false);
+  const [compile, setCompile] = useState(false); 
   const { mpFileNames, folderName, extn } = useContext(MPFileContext);
   useEffect(() => {
     folderName && extn && !mpFileNames && setCompile(!compile);
