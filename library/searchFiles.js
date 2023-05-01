@@ -1,5 +1,8 @@
 import { Tree } from "./binarySearchTree";
 import {getMPFileImage} from "./ImageProcessing"
+
+import jsmediatags from 'jsmediatags';
+
 /**
  *
  *
@@ -12,7 +15,6 @@ export async function fileNameSearch(directoryPath, extn, id = 1) {
     for await (const fileHandle of directoryPath.values()) {
       if (fileHandle.kind === "file" && fileHandle.name.endsWith(extn)) {
         let file = await fileHandle.getFile();
-
         typeof file === "object" &&
           file !== null &&
           Tree.insert({
@@ -39,6 +41,7 @@ export async function fileNameSearch(directoryPath, extn, id = 1) {
  */
 export async function mpFile(name, directoryPath) {
   try {
+    
     for await (let fileHandle of directoryPath.values()) {
       if (fileHandle.kind == "file" && fileHandle.name == name) {
         let file = await fileHandle.getFile();
@@ -55,3 +58,5 @@ export async function mpFile(name, directoryPath) {
     console.error(error);
   }
 }
+
+

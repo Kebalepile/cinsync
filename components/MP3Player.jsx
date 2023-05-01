@@ -4,8 +4,6 @@ import MPFileContext from "@/contexts/media/context";
 import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
 import {
   play,
-  volume,
-  playBackRate,
   skip,
   mediaTrackTime,
 } from "@/library/videoControls";
