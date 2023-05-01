@@ -1,9 +1,9 @@
-import React, { Fragment, useState, useEffect, useRef } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import styles from "@/styles/artwall.module.css";
 import Image from "next/image";
 
 export default () => {
-  const canvasRef = useRef(null),
+  const 
     [imageIndex, setImageIndex] = useState(0),
     imagePaths = Object.values([
       require("@/assets/1.png"),
@@ -19,19 +19,23 @@ export default () => {
       let nextImageIndex = (imageIndex + 1) % imagePaths.length;
 
       setImageIndex(nextImageIndex);
+     
+    
     }, 60000); //change delay to 1 minute.
     return () => clearInterval(interval);
   }, [imageIndex]);
 
   return (
     <Fragment>
-      <Image
+    <Image
         src={imagePaths[imageIndex]}
         width={100}
         height={100}
         className={styles.art_wall_image}
         alt="art wallpaper"
       />
+    
     </Fragment>
   );
 };
+
