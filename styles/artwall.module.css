@@ -19,7 +19,14 @@
     opacity:1;
   }
 }
-@media screen and (max-width: 425px) {
+/* tablet */
+@media screen and (max-width:932px){
+  .art_wall_image{
+    width:35vw;
+  }
+}
+/* mobile */
+@media screen and (max-width: 500px) {
   .art_wall_image {
     display: none;
   }

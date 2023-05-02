@@ -3,6 +3,8 @@
   left: 20%;
   top: 50%;
   text-align:center;
+  word-break: normal;
+  max-width:200px;
   transform: translate(-25%, -25%);
   font-size: large;
 }
@@ -53,7 +55,7 @@
     width: 100px;
   }
  
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
   .playListIcon {
     height: 80px;
     width: 80px;
@@ -63,7 +65,6 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size:12px;
   }
   .container {
     position: relative;

@@ -29,7 +29,6 @@
 .mediafiles {
   grid-column: 3/7;
   grid-row: 3/4;
-  width: 200px;
   height: 50px;
   display: flex;
   flex-flow: column;
@@ -75,9 +74,22 @@
   justify-content: center;
   align-items: center;
 }
-
+/* Tablet. */
+@media screen and (max-width:932px){
+.mediafiles{
+  width:200px;
+  grid-column:2/3;
+  margin-top:10px;
+}
+.about{
+  grid-column: 5/6;
+}
+.navigation{
+   width: 65vw;
+}
+}
 /* Large Mobile */
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
   .navigation {
     position: static;
     width: 100vw;
@@ -91,6 +103,7 @@
   .mediafiles {
     width: 100px;
     height: 50px;
+    grid-column: 3/7;
   }
   .mediafilesBtn {
     width: 50px;
@@ -100,5 +113,6 @@
   .about {
     width: 70px;
     height: 40px;
+    grid-column: 7/8;
   }
 }

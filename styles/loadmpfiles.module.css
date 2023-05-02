@@ -37,7 +37,9 @@
   border-top-right-radius: 8px;
   width: 50%;
 }
-@media screen and (max-width: 425px) {
+
+/* Large Mobile. */
+@media screen and (max-width: 500px) {
   .button {
     height: 30px;
   }
