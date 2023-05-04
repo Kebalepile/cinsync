@@ -61,7 +61,7 @@
 }
 .cancelBtn {
   border: none;
-  background-color: #252525;
+  background-color: #25252594;
   width: 100%;
   height: 40px;
   position: sticky;
@@ -69,6 +69,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 4px 4px 0 0;
+  backdrop-filter: blur(8px);
 }
 .cancelBtn * {
   border-radius: 50%;

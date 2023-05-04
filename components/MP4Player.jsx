@@ -148,7 +148,7 @@ export default () => {
             ref={autoPlayRef}
             className={styles.autoPlayBtn}
           >
-            autoPlay
+            auto
           </div>
 
           <TbPictureInPictureOn

@@ -262,6 +262,7 @@
     fill: rgb(247, 239, 245);
   }
   .settingOptions {
+    margin-top: auto;
     padding-top: 3px;
     padding-bottom: 3px;
     display: none;
