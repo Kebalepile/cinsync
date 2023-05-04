@@ -8,29 +8,14 @@
   z-index: 5;
 }
 .searchNameMP4 {
-  /* margin: 20px auto auto auto; */
   display: flex;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-flow: column nowrap;
   z-index: 5;
- 
-  /* ==== */
- 
-  /* position:absolute; */
-  /* left:1px; */
-  /* bottom:50px; */
 }
-/* .searchNameMP4 {
-  margin: 20px auto 40px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-flow: column nowrap;
-  z-index: 5;
-} */
+
 .searchNameMP3 *,
 .searchNameMP4 * {
   border: none;

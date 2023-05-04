@@ -8,12 +8,10 @@
   flex-flow: column nowrap;
   max-height: 300px;
   overflow-y: scroll;
-  /* ===== */
   margin-top: 25vh;
   position: absolute;
   left: 5%;
   width: 40%;
-  /* ====== */
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
 }
@@ -110,15 +108,11 @@
 }
 
 .searchMp4 {
-  margin-top: 4vh ;
-margin-right:40vw;
-  /* position: absolute; */
-  /* left: calc(50 / 100 * 25%); */
-  /* bottom: 150px; */
+  margin-top: 4vh;
+  margin-right: 40vw;
 }
 .searchMp3 summary,
 .searchMp4 summary {
-  /* background-color: rgb(65, 62, 62); */
   width: 100px;
   height: 30px;
   margin: auto;
@@ -126,10 +120,8 @@ margin-right:40vw;
   justify-content: center;
   align-items: center;
   border-radius: 2px;
-  
 }
 
-/* mp4 media list styling */
 .mp4Icon {
   margin-right: 5px;
   height: 150px;
@@ -139,12 +131,10 @@ margin-right:40vw;
 .mp4List {
   justify-content: space-between;
   flex-flow: row nowrap;
-  /* ====== */
   width: 45%;
   position: absolute;
   left: 2%;
   bottom: 0;
-  /* ====== */
   overflow-x: scroll;
   background-color: rgba(70, 70, 70, 0);
 }
@@ -196,6 +186,7 @@ margin-right:40vw;
 .mp4List > header {
   display: none;
 }
+
 @media screen and (max-width: 932px) {
   .mp3List {
     width: 50%;
@@ -217,7 +208,7 @@ margin-right:40vw;
   .searchMp4 {
     margin: 50px auto 5px auto;
   }
-  .searchMp3 summary{
+  .searchMp3 summary {
     margin: 20px auto 20px 45vw;
   }
 
@@ -235,7 +226,6 @@ margin-right:40vw;
     width: 70vw;
   }
 
-
   .mp4List {
     position: static;
     width: 100vw;
@@ -244,6 +234,4 @@ margin-right:40vw;
   .searchMp4 summary {
     margin: 30px auto 5px auto;
   }
-
- 
 }
