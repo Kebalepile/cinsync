@@ -55,7 +55,12 @@ function mp3MediaSession(mediaFile) {
   return initiateMediaSession(fileDetails);
 }
 function mp4MediaSession(mediaFile) {
-  let fileDetails = { title: mediaFile.name };
+  let fileDetails = {
+    title: mediaFile.name,
+    artist: undefined,
+    album: undefined,
+    artwork: [{ src: "/assets/3.png", sizes: "256x256", type: "image/png" }],
+  };
   return initiateMediaSession(fileDetails);
 }
 export { mp3MediaSession, mp4MediaSession };

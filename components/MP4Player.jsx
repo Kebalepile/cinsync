@@ -2,6 +2,7 @@ import React, { useContext, useRef, useEffect } from "react";
 import styles from "@/styles/mp4player.module.css";
 import MPFileContext from "@/contexts/media/context";
 import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
+import { mp4MediaSession } from "@/library/mediaSession";
 import { BsFullscreen } from "react-icons/bs";
 import { TbPictureInPictureOn } from "react-icons/tb";
 import { ImVolumeIncrease, ImVolumeDecrease } from "react-icons/im";
@@ -31,7 +32,8 @@ export default () => {
     autoPlayRef = useRef(null),
     currentTimeRef = useRef(null),
     titleRef = useRef(null),
-    settingOptionsRef = useRef(null);
+    settingOptionsRef = useRef(null),
+    mediaSession = navigator.mediaSession;
 
   useEffect(() => {
     if (mediaFile) {
@@ -43,6 +45,23 @@ export default () => {
       mediaRef.current.onended = () => stopInterval();
 
       titleRef.current.textContent = mediaFile.name;
+      try {
+        let setUpDone = mp4MediaSession(mediaFile);
+        if (setUpDone) {
+          mediaSession.setActionHandler("play", () => play(mediaRef.current));
+          mediaSession.setActionHandler("pause", () => play(mediaRef.current));
+          mediaSession.setActionHandler("seekbackward", () =>
+            skip(mediaRef.current, 10, "backward")
+          );
+          mediaSession.setActionHandler("seekforward", () =>
+            skip(mediaRef.current, 10, "forward")
+          );
+          mediaSession.setActionHandler("nexttrack", LoadNextFile);
+          mediaSession.setActionHandler("previoustrack", LoadPreviousFile);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   }, [mediaFile]);
 
