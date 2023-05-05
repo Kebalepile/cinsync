@@ -19,7 +19,7 @@ import {
   pictureInPicture,
   fullScreen,
   mediaTrackTime,
-} from "@/library/videoControls";
+} from "@/library/mediaControls";
 
 export default () => {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =

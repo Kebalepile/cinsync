@@ -2,15 +2,10 @@ import React, { useContext, useRef, useEffect } from "react";
 import styles from "@/styles/mp3player.module.css";
 import MPFileContext from "@/contexts/media/context";
 import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
-import {
-  play,
-  skip,
-  mediaTrackTime,
-} from "@/library/videoControls";
-
+import { play, skip, mediaTrackTime } from "@/library/mediaControls";
+import { initiateMediaSession } from "@/library/mediaSession";
 import { SiMusicbrainz } from "react-icons/si";
 import { HiOutlinePlayPause } from "react-icons/hi2";
-
 import { RxTrackNext, RxTrackPrevious } from "react-icons/rx";
 export default () => {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
@@ -28,10 +23,23 @@ export default () => {
       mediaRef.current.ondurationchange = () => {
         startInterval();
       };
-
       mediaRef.current.onended = () => stopInterval();
-
       titleRef.current.textContent = mediaFile.name;
+      let setUpDone = initiateMediaSession(mediaFile);
+      if (setUpDone) {
+        navigator.mediaSession.setActionHandler("play", () =>
+          play(mediaRef.current)
+        );
+        navigator.mediaSession.setActionHandler("pause", () =>
+          play(mediaRef.current)
+        );
+        navigator.mediaSession.setActionHandler("seekbackward", () =>
+          skip(mediaRef.current, 10, "backward")
+        );
+        navigator.mediaSession.setActionHandler("seekforward", () =>
+          skip(mediaRef.current, 10, "forward")
+        );
+      }
     }
   }, [mediaFile]);
 

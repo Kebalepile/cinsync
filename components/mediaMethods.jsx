@@ -2,7 +2,7 @@ import {
   mediaEnded,
   contextMenu,
   fullScreenChange,
-} from "../library/videoControls";
+} from "../library/mediaControls";
 
 function MediaPlayer(mediaType, mediaFile, mediaRef) {
   let mediaSrc = URL.createObjectURL(
