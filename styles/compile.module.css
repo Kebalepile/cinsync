@@ -67,8 +67,6 @@
     transform: translate(-50%, -50%);
   }
   .container {
-    /* position: relative; */
-    /* margin-top: 25vh; */
     position: absolute;
     top: 50%;
     left: 50%;
