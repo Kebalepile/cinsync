@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import { useRouter } from "next/router";
 import MPFileContext from "@/contexts/media/context";
 import styles from "@/styles/loadmpfiles.module.css";
@@ -14,25 +14,51 @@ export default () => {
     extn,
   } = useContext(MPFileContext);
   const router = useRouter();
+  const folderRef = useRef(null)
   useEffect(() => {
     if (MediaTypeOk() && FolderInfoAvailable()) {
       SearchMPFileNames();
     }
   }, [extn, folderHandle]);
+
   /**
    * @param {object} e
    * @description Handles folder path changes.
    */
   const handleClick = async (e) => {
     try {
-      const folderHandle = await window.showDirectoryPicker();
-      typeof folderHandle === "object" &&
-        FileInfo(folderHandle) &&
-        router.push("/playlist");
+      if('showDirectoryPicker' in window) {
+        const folderHandle = await window.showDirectoryPicker();
+        typeof folderHandle === "object" &&
+          FileInfo(folderHandle) &&
+          router.push("/playlist");
+      }else{
+        androidWedkitDirectory()
+      }
+      
     } catch (error) {
       console.log(error);
+     
     }
   };
+
+  function androidWedkitDirectory () {
+    try{
+      let fileInput = folderRef.current;
+      
+    
+      fileInput.click();
+      fileInput.addEventListener('change', () => {
+        const files = fileInput.files;
+        // console.log(files); // prints a FileList object
+        for (let k in files) {
+          console.log(files[k])
+        }
+      });
+  }catch (error) {
+    console.log("Android Error: ", error)
+  }
+}
 
   return (
     <>
@@ -71,6 +97,8 @@ export default () => {
             className={`${styles.button} ${styles.folderButton}`}
           >
             <FcOpenedFolder />
+            <input type="file"  multiple  style={{display:"none"}} ref={folderRef}/>
+
           </button>
         </section>
       )}

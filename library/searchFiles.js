@@ -1,8 +1,18 @@
 import { Tree } from "./binarySearchTree";
-import {getMPFileImage} from "./ImageProcessing"
+import { getMPFileImage } from "./ImageProcessing";
 
-import jsmediatags from 'jsmediatags';
-
+export function androidFileNameSearch() {
+  try {
+  } catch (error) {
+    console.log("Android Error: ", error);
+  }
+}
+export function androidMpFile(fileName) {
+  try {
+  } catch (error) {
+    console.log("Android Error: ", error);
+  }
+}
 /**
  *
  *
@@ -20,7 +30,7 @@ export async function fileNameSearch(directoryPath, extn, id = 1) {
           Tree.insert({
             name: file.name,
             id: id++,
-            imageSrc: await getMPFileImage(file)
+            imageSrc: await getMPFileImage(file),
           });
       } else if (fileHandle.kind === "directory") {
         const subDirectoryPath = fileHandle;
@@ -41,7 +51,6 @@ export async function fileNameSearch(directoryPath, extn, id = 1) {
  */
 export async function mpFile(name, directoryPath) {
   try {
-    
     for await (let fileHandle of directoryPath.values()) {
       if (fileHandle.kind == "file" && fileHandle.name == name) {
         let file = await fileHandle.getFile();
@@ -58,5 +67,3 @@ export async function mpFile(name, directoryPath) {
     console.error(error);
   }
 }
-
-
