@@ -169,12 +169,13 @@ export default () => {
           >
             auto
           </div>
-
-          <TbPictureInPictureOn
-            onClick={() => {
-              pictureInPicture(mediaRef.current);
-            }}
-          />
+          {document.pictureInPictureEnabled && (
+            <TbPictureInPictureOn
+              onClick={() => {
+                pictureInPicture(mediaRef.current);
+              }}
+            />
+          )}
         </div>
       </section>
     </>
