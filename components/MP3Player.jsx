@@ -47,16 +47,20 @@ export default () => {
   }, [mediaFile]);
 
   const handleAudioTrackTime = () => {
-    let duration = mediaTrackTime(mediaRef.current.duration),
-      currentTime = mediaTrackTime(mediaRef.current.currentTime);
+    try {
+      let duration = mediaTrackTime(mediaRef.current.duration),
+        currentTime = mediaTrackTime(mediaRef.current.currentTime);
 
-    mediaTimeRef.current.style.width = `${(
-      (Math.floor(mediaRef.current.currentTime) /
-        Math.floor(mediaRef.current.duration)) *
-      100
-    ).toFixed(0)}%`;
+      mediaTimeRef.current.style.width = `${(
+        (Math.floor(mediaRef.current.currentTime) /
+          Math.floor(mediaRef.current.duration)) *
+        100
+      ).toFixed(0)}%`;
 
-    currentTimeRef.current.textContent = `${currentTime} / ${duration}`;
+      currentTimeRef.current.textContent = `${currentTime} / ${duration}`;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const startInterval = () => {
