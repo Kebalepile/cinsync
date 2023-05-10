@@ -14,7 +14,7 @@ export default () => {
     extn,
   } = useContext(MPFileContext);
   const router = useRouter();
-  const folderRef = useRef(null)
+  const folderRef = useRef(null);
   useEffect(() => {
     if (MediaTypeOk() && FolderInfoAvailable()) {
       SearchMPFileNames();
@@ -27,38 +27,34 @@ export default () => {
    */
   const handleClick = async (e) => {
     try {
-      if('showDirectoryPicker' in window) {
+      if ("showDirectoryPicker" in window) {
         const folderHandle = await window.showDirectoryPicker();
         typeof folderHandle === "object" &&
           FileInfo(folderHandle) &&
           router.push("/playlist");
-      }else{
-        androidWedkitDirectory()
+      } else {
+        androidWedkitDirectory();
       }
-      
     } catch (error) {
       console.log(error);
-     
     }
   };
 
-  function androidWedkitDirectory () {
-    try{
+  function androidWedkitDirectory() {
+    try {
       let fileInput = folderRef.current;
-      
-    
+
       fileInput.click();
-      fileInput.addEventListener('change', () => {
-        const files = fileInput.files;
-        // console.log(files); // prints a FileList object
-        for (let k in files) {
-          console.log(files[k])
-        }
+      fileInput.addEventListener("change", () => {
+        const filesList = fileInput.files;
+        typeof filesList === "object" &&
+          FileInfo(filesList) &&
+          router.push("/playlist");
       });
-  }catch (error) {
-    console.log("Android Error: ", error)
+    } catch (error) {
+      console.log("Android Error: ", error);
+    }
   }
-}
 
   return (
     <>
@@ -97,8 +93,12 @@ export default () => {
             className={`${styles.button} ${styles.folderButton}`}
           >
             <FcOpenedFolder />
-            <input type="file"  multiple  style={{display:"none"}} ref={folderRef}/>
-
+            <input
+              type="file"
+              multiple
+              style={{ display: "none" }}
+              ref={folderRef}
+            />
           </button>
         </section>
       )}
