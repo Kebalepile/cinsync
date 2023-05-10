@@ -3,6 +3,7 @@ import MPFileContext from "./context";
 import reducer from "./reducer";
 import {
   Folder_Handler,
+  FileIterator,
   Media_Extension,
   File_Names,
   MP_File,
@@ -34,14 +35,24 @@ function MPFileProvider({ children }) {
    * @param {Object} handler
    * @description Sets folderName & folderHandle
    */
-  const FileInfo = async (handler) => {
-    dispatch({
-      type: Folder_Handler,
-      payload: {
-        folderName: handler.name,
-        folderHandle: handler,
-      },
-    });
+  const FileInfo = async (handler, device) => {
+    if (device === "mobile") {
+      dispatch({
+        type: Folder_Handler,
+        playload: {
+          folderName: "mobile",
+          folderHandle: handler,
+        },
+      });
+    } else {
+      dispatch({
+        type: Folder_Handler,
+        payload: {
+          folderName: handler.name,
+          folderHandle: handler,
+        },
+      });
+    }
   };
   /**
    *
@@ -61,7 +72,6 @@ function MPFileProvider({ children }) {
    */
   const SearchMPFileNames = async () => {
     let BST = await fileNameSearch(folderHandle, extn);
-    // mpFileNames = [...new Set(mpFileNames)];
     dispatch({ type: File_Names, payload: { mpFileNames: BST } });
   };
 
@@ -116,13 +126,13 @@ function MPFileProvider({ children }) {
       value={{
         extn,
         mediaFile,
-        LoadFile,
-        FileInfo,
-        MediaType,
         folderName,
         mpFileNames,
         filePresent,
         folderHandle,
+        LoadFile,
+        FileInfo,
+        MediaType,
         MediaTypeOk,
         LoadNextFile,
         AutoPlayFiles,
