@@ -35,7 +35,7 @@ export default () => {
         androidWedkitDirectory();
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -51,7 +51,7 @@ export default () => {
         }
       });
     } catch (error) {
-      console.log("Android Error: ", error);
+      // console.log("Android Error: ", error);
     }
   }
 
