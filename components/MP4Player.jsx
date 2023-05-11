@@ -6,6 +6,7 @@ import { mp4MediaSession } from "@/library/mediaSession";
 import { BsFullscreen } from "react-icons/bs";
 import { TbPictureInPictureOn } from "react-icons/tb";
 import { ImVolumeIncrease, ImVolumeDecrease } from "react-icons/im";
+import {RxTrackNext, RxTrackPrevious} from "react-icons/rx"
 import {
   IoSettings,
   IoPlayForwardOutline,
@@ -116,28 +117,30 @@ export default () => {
           <div className={styles.triangle}></div>
         </button>
         <div
+          className={styles.skipForward}
+          onClick={() => skip(mediaRef.current, 10, "forward")}
+          
+        ></div>
+        <div
+          className={styles.skipBackward}
+          onClick={() => skip(mediaRef.current, 10, "backward")}
+         
+        ></div>
+        <button
           className={styles.next}
           onClick={() => {
             LoadNextFile();
           }}
-        ></div>
-        <div
+        >
+          <RxTrackNext/>
+        </button>
+        <button
           className={styles.prev}
           onClick={() => {
             LoadPreviousFile();
           }}
-        ></div>
-        <button
-          className={styles.skipForward}
-          onClick={() => skip(mediaRef.current, 10, "forward")}
         >
-          10s
-        </button>
-        <button
-          className={styles.skipBackward}
-          onClick={() => skip(mediaRef.current, 10, "backward")}
-        >
-          10s
+          <RxTrackPrevious/>
         </button>
 
         <div
