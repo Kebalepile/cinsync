@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "@/styles/home.module.css";
+import GlobalHooksState from "@/components/GlobalHooksState";
 import Compile from "@/components/Compile";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <GlobalHooksState />
         <Compile />
       </main>
     </>
