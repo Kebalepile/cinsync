@@ -7,8 +7,9 @@ import {
   File_Names,
   MP_File,
   Unique_Id,
+  Default_State,
 } from "../types";
-import { fileNameSearch, mpFile } from "@/library/searchFiles";
+import { fileNameSearch, mpFile, androidDefualtGlobalState } from "@/library/searchFiles";
 function MPFileProvider({ children }) {
   const initialState = {
     extn: null,
@@ -29,6 +30,31 @@ function MPFileProvider({ children }) {
     mediaFile,
     uniqueId,
   } = state;
+
+  /**
+   * @description Rest Media Files global state to initalState.
+   */
+  const DefaultState = () => {
+    // -----------------
+    // For android End-Users.
+    androidDefualtGlobalState()
+    // ------------------
+    const resetState = () =>
+        dispatch({
+          type: Default_State,
+          payload: initialState,
+        }),
+      keys1 = Object.keys(initialState);
+    
+    if (keys1.length !== Object.keys(state)) {
+      resetState();
+    }
+    for (let key of keys1) {
+      if (initialState[key] !== state[key]) {
+        resetState();
+      }
+    }
+  };
 
   /**
    * @param {Object} handler
@@ -124,6 +150,7 @@ function MPFileProvider({ children }) {
         MediaType,
         MediaTypeOk,
         LoadNextFile,
+        DefaultState,
         AutoPlayFiles,
         MediaExtension,
         LoadPreviousFile,
