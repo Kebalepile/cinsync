@@ -9,7 +9,12 @@ import {
   Unique_Id,
   Default_State,
 } from "../types";
-import { fileNameSearch, mpFile, androidDefualtGlobalState } from "@/library/searchFiles";
+import {
+  fileNameSearch,
+  mpFile,
+  androidDefualtGlobalState,
+} from "@/library/searchFiles";
+
 function MPFileProvider({ children }) {
   const initialState = {
     extn: null,
@@ -35,24 +40,20 @@ function MPFileProvider({ children }) {
    * @description Rest Media Files global state to initalState.
    */
   const DefaultState = () => {
-    // -----------------
-    // For android End-Users.
-    androidDefualtGlobalState()
-    // ------------------
-    const resetState = () =>
-        dispatch({
-          type: Default_State,
-          payload: initialState,
-        }),
-      keys1 = Object.keys(initialState);
-    
-    if (keys1.length !== Object.keys(state)) {
-      resetState();
-    }
-    for (let key of keys1) {
-      if (initialState[key] !== state[key]) {
-        resetState();
-      }
+    if (mpFileNames) {
+      // -------------------------
+      //--For android End-Users---
+      androidDefualtGlobalState();
+      // -------------------------
+
+      //--------------------------
+      //------ Rest State.--------
+      dispatch({
+        type: Default_State,
+        payload: initialState,
+      });
+      //--------------------------
+      //--------------------------
     }
   };
 
@@ -68,7 +69,9 @@ function MPFileProvider({ children }) {
         folderHandle: handler,
       },
     });
+    return true;
   };
+  
   /**
    *
    * @param {HTMLElement} htmlElem
@@ -77,11 +80,14 @@ function MPFileProvider({ children }) {
   const MediaType = (htmlElem) => {
     dispatch({
       type: Media_Extension,
-      payload: { extn: htmlElem.target.getAttribute("data-extn") },
+      payload: {
+        extn: htmlElem.target.getAttribute("data-extn"),
+        mpFileNames: null,
+      },
     });
   };
-  /**
- 
+
+  /** 
    * @description Search's for files with given file extension
    * in given folder and sub folders if any.
    */

@@ -10,7 +10,7 @@ class Node {
 export default class BST {
   #Root = null;
   #cachedInOrder = null;
-  resetBST(){
+  resetBST() {
     this.#Root = null;
     this.#cachedInOrder = null;
   }
@@ -365,5 +365,3 @@ export default class BST {
     this.#Root = rebuildBST(nodes, 0, nodes.length - 1);
   }
 }
-
-
