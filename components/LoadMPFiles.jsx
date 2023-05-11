@@ -31,7 +31,7 @@ export default () => {
         const folderHandle = await window.showDirectoryPicker();
         typeof folderHandle === "object" &&
           FileInfo(folderHandle) &&
-          router.push("/playlist");
+          router.push("/media");
       } else {
         androidWedkitDirectory();
       }
@@ -49,7 +49,7 @@ export default () => {
         const filesList = fileInput.files;
         typeof filesList === "object" &&
           FileInfo(filesList) &&
-          router.push("/playlist");
+          router.push("/media");
       });
     } catch (error) {
       console.log("Android Error: ", error);
