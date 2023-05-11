@@ -21,7 +21,16 @@ const mediaFilesSymbol = Symbol("mediaFiles"),
         }
       }
     },
+    clearMediaFilessState(){
+      const existingFiles = this[mediaFilesSymbol];
+      if(existingFiles.length){
+        this[mediaFilesSymbol] = [];
+      }
+    }
   };
+export function androidDefualtGlobalState(){
+  mediaFilesState.clearMediaFilessState()
+}
 async function androidFileNameSearch(fileHandle, extn) {
   try {
     let targetedFiles = [];
