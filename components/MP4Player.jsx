@@ -61,7 +61,7 @@ export default () => {
           mediaSession.setActionHandler("previoustrack", LoadPreviousFile);
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     }
   }, [mediaFile]);
@@ -79,7 +79,8 @@ export default () => {
 
       currentTimeRef.current.textContent = `${currentTime} / ${duration}`;
     } catch (error) {
-      console.error(error);
+      stopInterval();
+      // console.error(error);
     }
   };
 
