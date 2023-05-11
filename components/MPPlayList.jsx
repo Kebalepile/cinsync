@@ -12,40 +12,48 @@ export default () => {
   useEffect(() => {
     if (mpFileNames) {
       let arr = mpFileNames.inOrder();
-      arr.length > 0 && LoadFile(arr[0].name, arr[0].id); //AutoPlay first file if files found.
+   
+      if (arr.length > 0 && Boolean(arr[0])) {
+        //AutoPlay first file if files found.
+        LoadFile(arr[0]?.name, arr[0]?.id);
+      }
     }
   }, [mpFileNames]);
 
   const handleClick = async (e) => {
-    e.target.getAttribute("data-relative") == "parent" &&
-      LoadFile(
-        e.target.getAttribute("data-name"),
-        e.target.getAttribute("data-id")
-      );
-    const clickEvent = new MouseEvent("click", {
-      bubbles: true,
-      cancelable: true,
-      view: window,
-    });
-    e.target.parentNode.dispatchEvent(clickEvent);
+    try {
+      e.target.getAttribute("data-relative") == "parent" &&
+        LoadFile(
+          e.target.getAttribute("data-name"),
+          e.target.getAttribute("data-id")
+        );
+      const clickEvent = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+      e.target.parentNode.dispatchEvent(clickEvent);
+    } catch (error) {
+      // console.error(error);
+    }
   };
   const selectOption = (options) => (extn === ".mp3" ? options[0] : options[1]);
   const mediaImage = (data) =>
     extn === ".mp3" ? (
       <>
         <GiZigzagTune className={styles.mp3Icon} />
-        <p className={styles.name}>{data.name}</p>
+        <p className={styles.name}>{data?.name}</p>
       </>
     ) : (
       <figure>
         <Image
-          src={data.imageSrc}
+          src={data?.imageSrc}
           alt="mp4 Icon"
           className={styles.mp4Icon}
           width={640}
           height={360}
         />
-        <figcaption>{data.name}</figcaption>
+        <figcaption>{data?.name}</figcaption>
       </figure>
     );
   /**
@@ -75,7 +83,7 @@ export default () => {
 
   const showFileNames = () => {
     let fileNames = mpFileNames.inOrder();
-    return fileNames.length > 0 ? (
+    return fileNames.length > 0 && fileNames[0] ? (
       <>
         <details className={selectOption([styles.searchMp3, styles.searchMp4])}>
           <summary style={{ listStyle: "none", textAlign: "center" }}>
@@ -93,27 +101,31 @@ export default () => {
           </header>
 
           {mpFileNames.inOrder().map((data) => {
-            return (
-              <div
-                key={data.id}
-                data-relative="parent"
-                data-name={data.name}
-                data-id={data.id}
-                onClick={handleClick}
-                className={`${selectOption([
-                  styles.mp3MediaCard,
-                  styles.mp4MediaCard,
-                ])}`}
-              >
-                {mediaImage(data)}
-              </div>
-            );
+            try {
+              return (
+                <div
+                  key={data?.id}
+                  data-relative="parent"
+                  data-name={data?.name}
+                  data-id={data?.id}
+                  onClick={handleClick}
+                  className={`${selectOption([
+                    styles.mp3MediaCard,
+                    styles.mp4MediaCard,
+                  ])}`}
+                >
+                  {mediaImage(data)}
+                </div>
+              );
+            } catch (error) {
+              // console.error(error);
+            }
           })}
         </article>
       </>
     ) : (
       <p aria-readonly className={styles.message}>
-        No {extn.slice(1)} files from {folderName}, Try diffrent Folder.
+        No {extn?.slice(1)} files from {folderName}, Try diffrent Folder.
       </p>
     );
   };
