@@ -7,9 +7,13 @@ class Node {
   }
 }
 
-class BST {
+export default class BST {
   #Root = null;
-  #cachedInOrder;
+  #cachedInOrder = null;
+  resetBST(){
+    this.#Root = null;
+    this.#cachedInOrder = null;
+  }
   /**
    *
    * @param {number} item
@@ -264,12 +268,12 @@ class BST {
     return results;
     function _traverse(node) {
       try {
-        if (node.L) {
-          _traverse(node.L);
+        if (node?.L) {
+          _traverse(node?.L);
         }
-        results.push(node.data);
-        if (node.R) {
-          _traverse(node.R);
+        results.push(node?.data);
+        if (node?.R) {
+          _traverse(node?.R);
         }
       } catch (error) {
         console.error(error);
@@ -289,13 +293,13 @@ class BST {
     _traverse(node);
     return results;
     function _traverse(node) {
-      results.push(node.data);
-      if (node.L) {
-        _traverse(node.L);
+      results.push(node?.data);
+      if (node?.L) {
+        _traverse(node?.L);
       }
 
-      if (node.R) {
-        _traverse(node.R);
+      if (node?.R) {
+        _traverse(node?.R);
       }
     }
   }
@@ -313,13 +317,13 @@ class BST {
     return results;
     function _traverse(node) {
       if (node.L) {
-        _traverse(node.L);
+        _traverse(node?.L);
       }
 
-      if (node.R) {
-        _traverse(node.R);
+      if (node?.R) {
+        _traverse(node?.R);
       }
-      results.push(node.data);
+      results.push(node?.data);
     }
   }
   levelOrder() {
@@ -362,4 +366,4 @@ class BST {
   }
 }
 
-export const Tree = new BST();
+
