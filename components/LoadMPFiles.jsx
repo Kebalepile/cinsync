@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useRef } from "react";
-import { useRouter } from "next/router";
 import MPFileContext from "@/contexts/media/context";
 import styles from "@/styles/loadmpfiles.module.css";
 import { FcOpenedFolder } from "react-icons/fc";
@@ -13,7 +12,7 @@ export default () => {
     folderHandle,
     extn,
   } = useContext(MPFileContext);
-  const router = useRouter();
+
   const folderRef = useRef(null);
   useEffect(() => {
     if (MediaTypeOk() && FolderInfoAvailable()) {
@@ -29,9 +28,9 @@ export default () => {
     try {
       if ("showDirectoryPicker" in window) {
         const folderHandle = await window.showDirectoryPicker();
-        typeof folderHandle === "object" &&
-          FileInfo(folderHandle) &&
-          router.push("/media");
+        if (typeof folderHandle === "object") {
+          FileInfo(folderHandle);
+        }
       } else {
         androidWedkitDirectory();
       }
@@ -47,9 +46,9 @@ export default () => {
       fileInput.click();
       fileInput.addEventListener("change", () => {
         const filesList = fileInput.files;
-        typeof filesList === "object" &&
-          FileInfo(filesList) &&
-          router.push("/media");
+        if (typeof filesList === "object") {
+          FileInfo(filesList);
+        }
       });
     } catch (error) {
       console.log("Android Error: ", error);
