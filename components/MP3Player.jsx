@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useEffect } from "react";
 import styles from "@/styles/mp3player.module.css";
 import MPFileContext from "@/contexts/media/context";
+import MediaUXContext from "@/contexts/mediaUX/context";
 import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
 import { play, skip, mediaTrackTime } from "@/library/mediaControls";
 import { mp3MediaSession } from "@/library/mediaSession";
@@ -10,6 +11,7 @@ import { RxTrackNext, RxTrackPrevious } from "react-icons/rx";
 export default () => {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
     useContext(MPFileContext);
+const  {MediaPlaying} = useContext(MediaUXContext);
 
   const mediaRef = useRef(null),
     mediaTimeRef = useRef(null),
@@ -39,6 +41,7 @@ export default () => {
           );
           mediaSession.setActionHandler("nexttrack", LoadNextFile);
           mediaSession.setActionHandler("previoustrack", LoadPreviousFile);
+        MediaPlaying(mediaFile.name)
         }
       } catch (error) {
         // console.error(error);

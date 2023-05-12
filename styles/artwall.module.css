@@ -1,7 +1,7 @@
 .art_wall_image {
   position:absolute;
   right:0;
-  width:50vw;
+  width:20vw;
   height:100vh;
   opacity:0.2;
   animation: fade 3s infinite alternate;
