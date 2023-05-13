@@ -4,12 +4,24 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.mp3List {
+/* .mp3List {
   flex-flow: column nowrap;
   max-height: 300px;
   overflow-y: scroll;
   margin-top: 25vh;
   position: absolute;
+  left: 5%;
+  width: 40%;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+} */
+.mp3List {
+  flex-flow: column nowrap;
+  max-height: 300px;
+  overflow-y: scroll;
+  /* margin-top: 25vh; */
+  position: absolute;
+  top:30vh;
   left: 5%;
   width: 40%;
   border-top-right-radius: 20px;
@@ -102,12 +114,19 @@
   opacity: 08;
   fill: white;
 }
-.searchMp3 {
+/* .searchMp3 {
   margin-top: 5vh;
   position: absolute;
   left: 20vw;
+  background:pink;
+} */
+.searchMp3 {
+  /* margin-top: 5vh; */
+  position: absolute;
+  top:10%;
+  left: 50%;
+  /* background:pink; */
 }
-
 .searchMp4 {
   margin-top: 5vh;
 }

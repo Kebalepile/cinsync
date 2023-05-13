@@ -3,12 +3,15 @@
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(10px);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  bottom: 0;
+  position: absolute;
+  top:40vh;
+  right:1%;
+  width:40%;
+  bottom: 30vh;
   z-index: 4;
 }
+
+
 .mediaPlayer {
   border-top: 1px solid rgb(107, 105, 105);
   border-radius: 2px;
@@ -16,21 +19,11 @@
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
   row-gap: 1px;
-  width: 50vw;
+  width: 60vw;
   height: 150px;
 }
-/* tablet */
-@media screen and (max-width:932px){
-  .mediaPlayer{
-    width:65vw;
-  }
-}
-/* mobile */
-@media screen and (max-width: 500px) {
-  .art_wall_image {
-    display: none;
-  }
-}
+
+
 .mediaPlayer button {
   color: white;
   border: none;
@@ -38,7 +31,8 @@
   border-radius: 3px;
   height: 35px;
   width: 50px;
-  background-color: rgba(45, 48, 45, 0.363);
+  /* background-color: rgba(45, 48, 45, 0.363); */
+ background-color:rgba(45, 48, 45, 0) ;
 }
 .mediaPlayer button * {
   fill: white;
@@ -123,12 +117,14 @@
   height: 60px;
   background-color: rgba(45, 48, 45, 0.363);
 }
-@media screen and (max-width: 500px) {
 
-  .mediaPlayer {
-   
-    width: 99%;
-   
+/* tablet */
+@media screen and (max-width:636px){
+  .container{
+  top:auto;
+   left: 0;
+  bottom:0;
+  width:100%;
+  height:150px;
   }
- 
 }
