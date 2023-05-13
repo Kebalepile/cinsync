@@ -20,12 +20,14 @@
   max-height: 300px;
   overflow-y: scroll;
   /* margin-top: 25vh; */
+  transform: translate(5%, 15%);
   position: absolute;
   top:30vh;
   left: 5%;
   width: 40%;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+ 
 }
 .mp3List::-webkit-scrollbar {
   height: 4px;
@@ -250,8 +252,11 @@
 
   .mp3List {
     position: static;
-    width: 90vw;
+    width: 90%;
     margin: 30px auto 150px auto;
+    /* left:50%;
+    top:50%;
+    transform: translate(-50%, -50%); */
   }
 
   .mp3List > header {
