@@ -97,7 +97,8 @@
   transition: width 0.5s ease;
   opacity: 0.2;
 }
-.mp3Icon:hover {
+
+.isPlaying{
   opacity: 08;
   fill: white;
 }

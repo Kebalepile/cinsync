@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import styles from "@/styles/mp3player.module.css";
 import MPFileContext from "@/contexts/media/context";
 import MediaUXContext from "@/contexts/mediaUX/context";
@@ -11,7 +11,7 @@ import { RxTrackNext, RxTrackPrevious } from "react-icons/rx";
 export default () => {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
     useContext(MPFileContext);
-const  {MediaPlaying} = useContext(MediaUXContext);
+  const { MediaPlaying , DimIcon} = useContext(MediaUXContext);
 
   const mediaRef = useRef(null),
     mediaTimeRef = useRef(null),
@@ -19,14 +19,18 @@ const  {MediaPlaying} = useContext(MediaUXContext);
     currentTimeRef = useRef(null),
     titleRef = useRef(null),
     mediaSession = navigator.mediaSession;
-
+  let [playingIconIterator, setPlayingIconIterator] = useState(null);
   useEffect(() => {
+    DimIcon()
     if (mediaFile) {
       LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
       mediaRef.current.ondurationchange = () => {
         startInterval();
       };
-      mediaRef.current.onended = () => stopInterval();
+      mediaRef.current.onended = async () => {
+       await  DimIcon()
+        stopInterval();
+      };
       titleRef.current.textContent = mediaFile.name;
       try {
         let setUpDone = mp3MediaSession(mediaFile);
@@ -41,7 +45,9 @@ const  {MediaPlaying} = useContext(MediaUXContext);
           );
           mediaSession.setActionHandler("nexttrack", LoadNextFile);
           mediaSession.setActionHandler("previoustrack", LoadPreviousFile);
-        MediaPlaying(mediaFile.name)
+          setPlayingIconIterator(
+            MediaPlaying(mediaFile.name)
+          );
         }
       } catch (error) {
         // console.error(error);
@@ -91,6 +97,7 @@ const  {MediaPlaying} = useContext(MediaUXContext);
           className={styles.next}
           onClick={() => {
             LoadNextFile();
+            playingIconIterator.next(true);
           }}
         >
           <RxTrackNext />
@@ -99,6 +106,7 @@ const  {MediaPlaying} = useContext(MediaUXContext);
           className={styles.prev}
           onClick={() => {
             LoadPreviousFile();
+            playingIconIterator.next(true);
           }}
         >
           <RxTrackPrevious />

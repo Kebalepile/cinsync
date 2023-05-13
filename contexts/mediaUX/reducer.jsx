@@ -1,7 +1,9 @@
-import {PLAYING} from "../types";
+import { PLAYING } from "../types";
 
-export default (state, { type, payload }) => {
-  switch (type) {
+export default (state, action) => {
+  switch (action.type) {
+    case PLAYING:
+      return { ...state, ...action.payload };
     default:
       return state;
   }
