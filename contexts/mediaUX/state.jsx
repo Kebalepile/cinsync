@@ -13,21 +13,26 @@ export default function MediaUXProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const DimIcon = () => {
-    state.iterator?.next(true);
+    try {
+      state.iterator?.next(true);
 
-    const css_class = styles.isPlaying;
-    const nodeList = document.querySelectorAll(`[class*="${css_class}"]`);
+      const css_class = styles.isPlaying;
+      const nodeList = document.querySelectorAll(`[class*="${css_class}"]`);
 
-    Array.from(nodeList).forEach((node) => {
-      const name = node.parentElement.getAttribute("data-name");
+      Array.from(nodeList).forEach((node) => {
+        const name = node.parentElement.getAttribute("data-name");
 
-      if (name !== state.playing) {
-        node.classList.forEach(
-          (class_name) =>
-            class_name.includes(css_class) && node.classList.remove(class_name)
-        );
-      }
-    });
+        if (name !== state.playing) {
+          node.classList.forEach(
+            (class_name) =>
+              class_name.includes(css_class) &&
+              node.classList.remove(class_name)
+          );
+        }
+      });
+    } catch (error) {
+      // console.error(error)
+    }
   };
   const MediaPlaying = (fileName) => {
     const iterator = illuminateIcon(Node(fileName))[Symbol.iterator]();

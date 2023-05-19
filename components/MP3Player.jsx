@@ -8,10 +8,11 @@ import { mp3MediaSession } from "@/library/mediaSession";
 import { SiMusicbrainz } from "react-icons/si";
 import { HiOutlinePlayPause } from "react-icons/hi2";
 import { RxTrackNext, RxTrackPrevious } from "react-icons/rx";
+
 export default () => {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
     useContext(MPFileContext);
-  const { MediaPlaying , DimIcon} = useContext(MediaUXContext);
+  const { MediaPlaying, DimIcon } = useContext(MediaUXContext);
 
   const mediaRef = useRef(null),
     mediaTimeRef = useRef(null),
@@ -21,18 +22,18 @@ export default () => {
     mediaSession = navigator.mediaSession;
   let [playingIconIterator, setPlayingIconIterator] = useState(null);
   useEffect(() => {
-    DimIcon()
+    DimIcon();
     if (mediaFile) {
-      LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
-      mediaRef.current.ondurationchange = () => {
-        startInterval();
-      };
-      mediaRef.current.onended = async () => {
-       await  DimIcon()
-        stopInterval();
-      };
-      titleRef.current.textContent = mediaFile.name;
       try {
+        LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
+        mediaRef.current.ondurationchange = () => {
+          startInterval();
+        };
+        mediaRef.current.onended = async () => {
+          await DimIcon();
+          stopInterval();
+        };
+        titleRef.current.textContent = mediaFile.name;
         let setUpDone = mp3MediaSession(mediaFile);
         if (setUpDone) {
           mediaSession.setActionHandler("play", () => play(mediaRef.current));
@@ -45,9 +46,7 @@ export default () => {
           );
           mediaSession.setActionHandler("nexttrack", LoadNextFile);
           mediaSession.setActionHandler("previoustrack", LoadPreviousFile);
-          setPlayingIconIterator(
-            MediaPlaying(mediaFile.name)
-          );
+          setPlayingIconIterator(MediaPlaying(mediaFile.name));
         }
       } catch (error) {
         // console.error(error);

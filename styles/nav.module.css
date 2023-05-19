@@ -9,6 +9,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index:1;
 }
 
 .logo *,
@@ -73,6 +74,26 @@
   flex-basis: auto;
   justify-content: center;
   align-items: center;
+}
+.custom_shape_divider_top{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index:-1;
+}
+
+.custom_shape_divider_top svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 282px;
+}
+
+.custom_shape_divider_top .shape_fill {
+    fill: #fa2359;
 }
 /* Tablet. */
 @media screen and (max-width:932px){

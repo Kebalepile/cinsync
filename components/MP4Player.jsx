@@ -6,7 +6,7 @@ import { mp4MediaSession } from "@/library/mediaSession";
 import { BsFullscreen } from "react-icons/bs";
 import { TbPictureInPictureOn } from "react-icons/tb";
 import { ImVolumeIncrease, ImVolumeDecrease } from "react-icons/im";
-import {RxTrackNext, RxTrackPrevious} from "react-icons/rx"
+import { RxTrackNext, RxTrackPrevious } from "react-icons/rx";
 import {
   IoSettings,
   IoPlayForwardOutline,
@@ -38,15 +38,15 @@ export default () => {
 
   useEffect(() => {
     if (mediaFile) {
-      LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
-      mediaRef.current.ondurationchange = () => {
-        startInterval();
-      };
-
-      mediaRef.current.onended = () => stopInterval();
-
-      titleRef.current.textContent = mediaFile.name;
       try {
+        LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
+        mediaRef.current.ondurationchange = () => {
+          startInterval();
+        };
+
+        mediaRef.current.onended = () => stopInterval();
+
+        titleRef.current.textContent = mediaFile.name;
         let setUpDone = mp4MediaSession(mediaFile);
         if (setUpDone) {
           mediaSession.setActionHandler("play", () => play(mediaRef.current));
@@ -120,12 +120,10 @@ export default () => {
         <div
           className={styles.skipForward}
           onClick={() => skip(mediaRef.current, 10, "forward")}
-          
         ></div>
         <div
           className={styles.skipBackward}
           onClick={() => skip(mediaRef.current, 10, "backward")}
-         
         ></div>
         <button
           className={styles.next}
@@ -133,7 +131,7 @@ export default () => {
             LoadNextFile();
           }}
         >
-          <RxTrackNext/>
+          <RxTrackNext />
         </button>
         <button
           className={styles.prev}
@@ -141,7 +139,7 @@ export default () => {
             LoadPreviousFile();
           }}
         >
-          <RxTrackPrevious/>
+          <RxTrackPrevious />
         </button>
 
         <div
