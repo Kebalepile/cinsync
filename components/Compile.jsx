@@ -1,4 +1,4 @@
-import React,{ useContext, Fragment, useEffect, useState } from "react";
+import React, { useContext, Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import MPFileContext from "@/contexts/media/context";
 import {
@@ -11,13 +11,12 @@ import { CgPlayList } from "react-icons/cg";
 import styles from "@/styles/compile.module.css";
 
 export default () => {
-  const [compile, setCompile] = useState(false); 
+  const [compile, setCompile] = useState(false);
   const { mpFileNames, folderName, extn } = useContext(MPFileContext);
- const router = useRouter();
+  const router = useRouter();
   useEffect(() => {
     folderName && extn && !mpFileNames && setCompile(!compile);
     folderName && extn && mpFileNames && router.push("/media");
-
   }, [mpFileNames, folderName, extn]);
   return (
     <Fragment>

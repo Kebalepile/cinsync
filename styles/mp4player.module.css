@@ -1,32 +1,36 @@
 .mediaPlayer {
   position: absolute;
   top: 15vh;
-  left: 0;
-  width: 500px;
+  left: 2%;
+  width: 700px;
+  height: 500px;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  height: 200px;
 }
+
 .mediaPlayer video {
   grid-column: 1/10;
   grid-row: 1/10;
-  width: 600px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
 }
 .mediaPlayer button {
   border: none;
   border-radius: 50%;
   opacity: 0;
-}
-.mediaPlayer button:hover {
-  background-color: rgba(61, 56, 56, 0.89);
-  opacity: 0.7;
-  border: 1px rgba(233, 233, 233, 0.377) solid;
+  border: 1px rgba(255, 253, 253, 0.918) solid;
   box-shadow: 5px 5px 100px rgba(39, 38, 38, 0.815),
     5px 5px 100px rgba(19, 17, 17, 0.822), 20px 20px 200px rgb(7, 7, 7);
   transition: background-color 0 ease-in-out;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mediaPlayer button:hover {
+  background-color: rgba(61, 56, 56, 0.89);
+  opacity: 0.7;
 }
 
 .mediaPlayer *:not(video) {
@@ -38,23 +42,23 @@
 .playpause {
   grid-column: 5/5;
   grid-row: 5/5;
-  height: 60px;
-  width: 60px;
+  height: 100px;
+  width: 100px;
 }
 .triangle {
   width: 0;
   height: 0;
-  border-top: 15px solid transparent;
-  border-left: 30px solid rgba(194, 194, 201, 0.863);
-  border-bottom: 15px solid transparent;
+  border-top: 30px solid transparent;
+  border-left: 50px solid rgba(194, 194, 201, 0.863);
+  border-bottom: 30px solid transparent;
   border-bottom-right-radius: 10px;
-  margin: auto auto auto 18px;
+  margin: auto auto auto 30px;
   opacity: 0.4;
 }
 
 .skipBackward,
 .skipForward {
-  height: 100%;
+  height: 90%;
   opacity: 0;
   grid-row: 3/8;
 }
@@ -67,17 +71,22 @@
 .next {
   grid-column: 6/6;
   grid-row: 5/5;
-  height: 50px;
-  width: 50px;
+  height: 100px;
+  width: 100px;
 }
 .prev {
   grid-column: 4/4;
   grid-row: 5/5;
+  height: 100px;
+  width: 100px;
+}
+.prev *,
+.next * {
+  width: 70px;
   height: 50px;
-  width: 50px;
 }
 .settings {
-  grid-column: 8/8;
+  grid-column: 9/10;
   grid-row: 2/2;
 }
 .settings > * {
@@ -138,8 +147,8 @@
   height: 5px;
 }
 .fullscreen {
-  grid-column: 8/8;
-  grid-row: 8/8;
+  grid-column: 9/10;
+  grid-row: 8/9;
   width: 50px;
   height: 25px;
 }
@@ -148,11 +157,12 @@
   height: inherit;
 }
 .currentTime {
-  grid-column: 2/6;
-  grid-row: 8/8;
+  grid-column: 1/6;
+  grid-row: 8/9;
   opacity: 0.2;
-  text-align: left;
-  padding-left: 8px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
 }
 .currentTime:hover {
   opacity: 1;
@@ -163,37 +173,63 @@
   text-align: center;
   text-overflow: ellipsis;
   width: 100%;
-  margin: auto;
 }
 .settingOptions .autoPlayBtn {
   color: rgb(241, 242, 243);
 }
-@media screen and (max-width: 1356px) {
+@media screen and (max-width: 1286px) {
   .mediaPlayer {
-    position: absolute;
     top: 20vh;
-    width: 50%;
-    height: 200px;
-  }
-  .mediaPlayer video {
-    grid-column: 1/10;
-    grid-row: 1/10;
-    width: 100%;
-    height: 100%;
+    width: 600px;
+    height: 400px;
   }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1036px) {
+  .mediaPlayer {
+    top: 30vh;
+    width: 500px;
+    height: 300px;
+  }
+}
+@media screen and (max-width: 932px) {
+  .mediaPlayer {
+    width: 600px;
+    height: 400px;
+  }
+}
+@media screen and (max-width: 789px) {
+  .mediaPlayer {
+    width: 600px;
+    height: 400px;
+  }
+}
+@media screen and (max-width: 735px) {
+  .mediaPlayer {
+    width: 550px;
+    height: 350px;
+  }
+}
+@media screen and (max-width: 676px) {
+  .mediaPlayer {
+    width: 500px;
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 632px) {
   .mediaPlayer {
     position: sticky;
-    top: 20px;
-    width: 100%;
-    height: 200px;
+    top: 40px;
+    margin: auto;
+    padding: 0;
+    width: 500px;
+    height: 400px;
   }
   .mediaPlayer video {
     grid-column: 1/10;
     grid-row: 1/10;
-    width: 100%;
-    height: 100%;
+    width: 500px;
+    height: 400px;
   }
   .mediaPlayer button {
     border: none;
@@ -213,44 +249,40 @@
   .mediaPlayer *:not(video) {
     z-index: 1;
     align-content: center;
-
     color: white;
   }
 
   .playpause {
-    grid-column: 5/5;
-    grid-row: 5/5;
     height: 60px;
     width: 60px;
   }
 
-  .skipBackward,
-  .skipForward {
-    height: 100%;
-    opacity: 0;
-    grid-row: 3/8;
-  }
-  .skipBackward {
-    grid-column: 1/4;
-  }
-  .skipForward {
-    grid-column: 7/10;
-  }
   .next {
-    grid-column: 6/6;
-    grid-row: 5/5;
     height: 50px;
     width: 50px;
   }
   .prev {
-    grid-column: 4/4;
-    grid-row: 5/5;
     height: 50px;
     width: 50px;
   }
+  .prev *,
+  .next * {
+    width: 40px;
+    height: 40px;
+  }
+  .triangle {
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-left: 30px solid rgba(194, 194, 201, 0.863);
+    border-bottom: 20px solid transparent;
+    border-bottom-right-radius: 10px;
+    margin: auto auto auto 20px;
+    opacity: 0.4;
+  }
   .settings {
-    grid-column: 8/8;
-    grid-row: 2/2;
+    grid-column: 9/9;
+    grid-row: 3/3;
   }
   .settings > * {
     width: 2rem;
@@ -262,17 +294,10 @@
     fill: rgb(247, 239, 245);
   }
   .settingOptions {
-    margin-top: auto;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
     background-color: rgba(32, 31, 31, 0.692);
     width: 70px;
-    grid-column: 7/8;
-    grid-row: 3/3;
+    grid-column: 8/9;
+    grid-row: 4/4;
   }
   .settingOptions > *:not(:first-child) {
     margin-top: 2px;
@@ -289,7 +314,7 @@
     flex-direction: row-reverse;
     grid-column: 1/10;
     margin: auto;
-    grid-row: 9/9;
+    grid-row: 8/9;
     height: 6px;
     background-image: linear-gradient(
       70deg,
@@ -309,15 +334,15 @@
     height: 5px;
   }
   .fullscreen {
-    grid-column: 8/8;
-    grid-row: 8/8;
+    grid-column: 9/9;
+    grid-row: 7/7;
     width: 30px;
     height: 15px;
   }
 
   .currentTime {
-    grid-column: 2/6;
-    grid-row: 8/8;
+    grid-column: 1/6;
+    grid-row: 7/7;
     opacity: 0.2;
     text-align: left;
     padding-left: 8px;
@@ -327,13 +352,44 @@
   }
   .mediaTitle {
     grid-column: 1/10;
-    grid-row: 10/10;
+    grid-row: 9/9;
     text-align: center;
     text-overflow: ellipsis;
-    width: 100%;
+    width: 90%;
     margin: auto;
   }
   .settingOptions .autoPlayBtn {
     color: rgb(241, 242, 243);
+  }
+}
+@media screen and (max-width: 500px) {
+  .mediaPlayer {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: auto;
+  }
+  .mediaPlayer video {
+    grid-column: 1/10;
+    grid-row: 1/10;
+    width: 100%;
+    height: 100%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .mediaPlayer {
+    width: 350px;
+    height: 350px;
+    margin: auto;
+  }
+  .mediaPlayer video {
+    grid-column: 1/10;
+    grid-row: 1/10;
+    width: 100%;
+    height: 100%;
+  }
+  .settingOptions {
+    grid-column: 8/9;
+    width: 55px;
   }
 }
