@@ -10,6 +10,7 @@ function Media() {
     if (!folderName) {
       router.replace("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderName]);
   return (
     <>
