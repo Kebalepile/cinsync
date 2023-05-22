@@ -1,0 +1,60 @@
+{
+    "name": "CineSync",
+    "short_name": "CineSync",
+    "start_url": ".",
+    "display": "standalone",
+    "description":"Our app allows you to easily play and manage your MP3 and MP4 files across all devices. With a user-friendly interface and powerful features, you can enjoy your favorite music and videos like never before. Some of the features of our app include: Support for both MP3 and MP4 files Easy-to-use playback controls Advanced search and filtering options And much more! We are constantly working to improve our app and add new features.",
+    "theme_color": "#852b6a",
+    "background_color": "#252525",
+    "icons": [
+      {
+        "src": "/assets/icons/maskable_icon_x96.png",
+        "sizes": "96x96",
+        "type": "image/png",
+        "density": "0.75",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/maskable_icon_x48.png",
+        "sizes": "48x48",
+        "type": "image/png",
+        "density": "1.0",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/maskable_icon_x72.png",
+        "sizes": "72x72",
+        "type": "image/png",
+        "density": "1.5",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/maskable_icon_x128.png",
+        "sizes": "128x128",
+        "type": "image/png",
+        "density": "2.0",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/maskable_icon_x384.png",
+        "sizes": "384x384",
+        "type": "image/png",
+        "density": "3.0",
+        "purpose": "any maskable"
+      }, {
+        "src": "/assets/icons/maskable_icon_x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "density": "3.0",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/maskable_icon_x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "density": "4.0",
+        "purpose": "any maskable"
+      }
+    ]
+  }
+  
