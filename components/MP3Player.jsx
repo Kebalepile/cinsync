@@ -9,7 +9,7 @@ import { SiMusicbrainz } from "react-icons/si";
 import { HiOutlinePlayPause } from "react-icons/hi2";
 import { RxTrackNext, RxTrackPrevious } from "react-icons/rx";
 
-export default () => {
+export default function MP3Player() {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
     useContext(MPFileContext);
   const { MediaPlaying, DimIcon } = useContext(MediaUXContext);

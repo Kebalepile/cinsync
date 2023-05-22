@@ -23,7 +23,7 @@ import {
   mediaTrackTime,
 } from "@/library/mediaControls";
 
-export default () => {
+export default function MP4Player() {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
     useContext(MPFileContext);
 

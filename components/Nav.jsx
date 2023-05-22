@@ -5,7 +5,7 @@ import styles from "@/styles/nav.module.css";
 import LoadMPFiles from "@/components/LoadMPFiles";
 import { SiMusicbrainz } from "react-icons/si";
 
-export default () => {
+export default function Nav() {
   const router = useRouter(),
     currentPath = router.pathname;
   const isHome = /^\/$/.test(currentPath);

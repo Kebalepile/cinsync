@@ -3,7 +3,7 @@ import MPFileContext from "@/contexts/media/context";
 import styles from "@/styles/mpfilenamesearch.module.css";
 import sanitizeInput from "@/library/sanitizeInput";
 import { MdCancel } from "react-icons/md";
-export default () => {
+export default function MPFileNameSearch() {
   const { mpFileNames, LoadFile, extn } = useContext(MPFileContext);
   const [suggestions, setSuggestions] = useState([]);
 

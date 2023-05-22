@@ -6,7 +6,7 @@ import { TbMoodSearch } from "react-icons/tb";
 import { GiZigzagTune } from "react-icons/gi";
 import MPFileNameSearch from "./MPFileNameSearch";
 
-export default () => {
+export default function MPPlayList() {
   const { LoadFile, mpFileNames, folderName, extn } = useContext(MPFileContext);
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useRef } from "react";
 import MPFileContext from "@/contexts/media/context";
 import styles from "@/styles/loadmpfiles.module.css";
 import { FcOpenedFolder } from "react-icons/fc";
-export default () => {
+export default function LoadMPFiles() {
   const {
     FileInfo,
     MediaType,

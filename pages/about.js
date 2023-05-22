@@ -1,6 +1,6 @@
 import styles from "@/styles/about.module.css";
-import Footer from "@/components/Footer"
-export default () => {
+import Footer from "@/components/Footer";
+export default function about() {
   return (
     <div className={styles.main}>
       <h3>About</h3>
@@ -15,8 +15,8 @@ export default () => {
         constantly working to improve our app and add new features. If you have
         any suggestions or feedback, please don’t hesitate to contact us.
       </p>
-      <br/>
-      <Footer/>
+      <br />
+      <Footer />
     </div>
   );
-};
+}
