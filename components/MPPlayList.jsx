@@ -18,6 +18,7 @@ export default function MPPlayList() {
         LoadFile(arr[0]?.name, arr[0]?.id);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mpFileNames]);
 
   const handleClick = async (e) => {

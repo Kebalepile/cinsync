@@ -17,6 +17,7 @@ export default function Compile() {
   useEffect(() => {
     folderName && extn && !mpFileNames && setCompile(!compile);
     folderName && extn && mpFileNames && router.push("/media");
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mpFileNames, folderName, extn]);
   return (
     <Fragment>
@@ -32,7 +33,7 @@ export default function Compile() {
       )}
       {extn && !folderName && (
         <p className={styles.prompt}>
-          <AiOutlineFolderOpen /> Select Folder inorder to play you're
+          <AiOutlineFolderOpen /> Select Folder inorder to play your {" "}
           {extn?.slice(1)} files.
         </p>
       )}

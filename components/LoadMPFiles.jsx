@@ -18,6 +18,7 @@ export default function LoadMPFiles() {
     if (MediaTypeOk() && FolderInfoAvailable()) {
       SearchMPFileNames();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extn, folderHandle]);
 
   /**

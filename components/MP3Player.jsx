@@ -52,6 +52,7 @@ export default function MP3Player() {
         // console.error(error);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaFile]);
 
   const handleAudioTrackTime = () => {
