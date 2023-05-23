@@ -67,4 +67,8 @@
     max-width: 100px;
     min-width:100px;
   }
+  .button {
+    max-width: 60px;
+    min-width:60px;
+  }
 }
