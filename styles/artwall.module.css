@@ -1,7 +1,7 @@
 .art_wall_image {
   position:absolute;
   right:0;
-  width:50vw;
+  width:20vw;
   height:100vh;
   opacity:0.2;
   animation: fade 3s infinite alternate;
@@ -19,13 +19,13 @@
   }
 }
 /* tablet */
-@media screen and (max-width:932px){
+/* @media screen and (max-width:932px){
   .art_wall_image{
     width:35vw;
   }
-}
+} */
 /* mobile */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 932px) {
   .art_wall_image {
     display: none;
   }

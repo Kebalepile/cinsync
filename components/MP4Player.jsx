@@ -6,6 +6,7 @@ import { mp4MediaSession } from "@/library/mediaSession";
 import { BsFullscreen } from "react-icons/bs";
 import { TbPictureInPictureOn } from "react-icons/tb";
 import { ImVolumeIncrease, ImVolumeDecrease } from "react-icons/im";
+import { RxTrackNext, RxTrackPrevious } from "react-icons/rx";
 import {
   IoSettings,
   IoPlayForwardOutline,
@@ -22,7 +23,7 @@ import {
   mediaTrackTime,
 } from "@/library/mediaControls";
 
-export default () => {
+export default function MP4Player() {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
     useContext(MPFileContext);
 
@@ -37,15 +38,15 @@ export default () => {
 
   useEffect(() => {
     if (mediaFile) {
-      LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
-      mediaRef.current.ondurationchange = () => {
-        startInterval();
-      };
-
-      mediaRef.current.onended = () => stopInterval();
-
-      titleRef.current.textContent = mediaFile.name;
       try {
+        LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
+        mediaRef.current.ondurationchange = () => {
+          startInterval();
+        };
+
+        mediaRef.current.onended = () => stopInterval();
+
+        titleRef.current.textContent = mediaFile.name;
         let setUpDone = mp4MediaSession(mediaFile);
         if (setUpDone) {
           mediaSession.setActionHandler("play", () => play(mediaRef.current));
@@ -60,22 +61,28 @@ export default () => {
           mediaSession.setActionHandler("previoustrack", LoadPreviousFile);
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaFile]);
 
   const handletrackVideoTime = () => {
-    let duration = mediaTrackTime(mediaRef.current.duration),
-      currentTime = mediaTrackTime(mediaRef.current.currentTime);
+    try {
+      let duration = mediaTrackTime(mediaRef.current.duration),
+        currentTime = mediaTrackTime(mediaRef.current.currentTime);
 
-    mediaTimeRef.current.style.width = `${(
-      (Math.floor(mediaRef.current.currentTime) /
-        Math.floor(mediaRef.current.duration)) *
-      100
-    ).toFixed(0)}%`;
+      mediaTimeRef.current.style.width = `${(
+        (Math.floor(mediaRef.current.currentTime) /
+          Math.floor(mediaRef.current.duration)) *
+        100
+      ).toFixed(0)}%`;
 
-    currentTimeRef.current.textContent = `${currentTime} / ${duration}`;
+      currentTimeRef.current.textContent = `${currentTime} / ${duration}`;
+    } catch (error) {
+      stopInterval();
+      // console.error(error);
+    }
   };
 
   const startInterval = () => {
@@ -112,28 +119,28 @@ export default () => {
           <div className={styles.triangle}></div>
         </button>
         <div
+          className={styles.skipForward}
+          onClick={() => skip(mediaRef.current, 10, "forward")}
+        ></div>
+        <div
+          className={styles.skipBackward}
+          onClick={() => skip(mediaRef.current, 10, "backward")}
+        ></div>
+        <button
           className={styles.next}
           onClick={() => {
             LoadNextFile();
           }}
-        ></div>
-        <div
+        >
+          <RxTrackNext />
+        </button>
+        <button
           className={styles.prev}
           onClick={() => {
             LoadPreviousFile();
           }}
-        ></div>
-        <button
-          className={styles.skipForward}
-          onClick={() => skip(mediaRef.current, 10, "forward")}
         >
-          10s
-        </button>
-        <button
-          className={styles.skipBackward}
-          onClick={() => skip(mediaRef.current, 10, "backward")}
-        >
-          10s
+          <RxTrackPrevious />
         </button>
 
         <div
@@ -169,12 +176,13 @@ export default () => {
           >
             auto
           </div>
-
-          <TbPictureInPictureOn
-            onClick={() => {
-              pictureInPicture(mediaRef.current);
-            }}
-          />
+          {document.pictureInPictureEnabled && (
+            <TbPictureInPictureOn
+              onClick={() => {
+                pictureInPicture(mediaRef.current);
+              }}
+            />
+          )}
         </div>
       </section>
     </>

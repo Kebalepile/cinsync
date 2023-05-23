@@ -1,4 +1,4 @@
-import { Tree } from "./binarySearchTree";
+import BST  from "./binarySearchTree";
 import { getMPFileImage } from "./ImageProcessing";
 
 const mediaFilesSymbol = Symbol("mediaFiles"),
@@ -21,8 +21,17 @@ const mediaFilesSymbol = Symbol("mediaFiles"),
         }
       }
     },
+    clearMediaFilessState(){
+      const existingFiles = this[mediaFilesSymbol];
+      if(existingFiles.length){
+        this[mediaFilesSymbol] = [];
+      }
+    }
   };
-async function androidFileNameSearch(fileHandle, extn) {
+export function androidDefualtGlobalState(){
+  mediaFilesState.clearMediaFilessState()
+}
+async function androidFileNameSearch(fileHandle, extn, Tree) {
   try {
     let targetedFiles = [];
     for (let k in fileHandle) {
@@ -53,7 +62,9 @@ async function androidFileNameSearch(fileHandle, extn) {
  * @returns a Binary Search Tree.
  */
 export async function fileNameSearch(directoryPath, extn, id = 1) {
+  const Tree= new BST()
   try {
+   const mediaFilesDetails = async (directoryPath, extn, id, Tree) => {
     if ("showDirectoryPicker" in window) {
       for await (const fileHandle of directoryPath.values()) {
         if (fileHandle.kind === "file" && fileHandle.name.endsWith(extn)) {
@@ -67,14 +78,16 @@ export async function fileNameSearch(directoryPath, extn, id = 1) {
             });
         } else if (fileHandle.kind === "directory") {
           const subDirectoryPath = fileHandle;
-          fileNameSearch(subDirectoryPath, extn, id++);
+          mediaFilesDetails(subDirectoryPath, extn, id++, Tree);
         }
       }
     } else {
-      return androidFileNameSearch(directoryPath, extn);
+      return androidFileNameSearch(directoryPath, extn, Tree);
     }
 
     return Tree;
+   }
+   return mediaFilesDetails(directoryPath, extn, id, Tree);
   } catch (error) {
     console.error(error);
   }

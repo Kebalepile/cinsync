@@ -1,15 +1,18 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import styles from "@/styles/mp3player.module.css";
 import MPFileContext from "@/contexts/media/context";
+import MediaUXContext from "@/contexts/mediaUX/context";
 import { MediaPlayer, LoadMedia } from "@/components/mediaMethods";
 import { play, skip, mediaTrackTime } from "@/library/mediaControls";
 import { mp3MediaSession } from "@/library/mediaSession";
 import { SiMusicbrainz } from "react-icons/si";
 import { HiOutlinePlayPause } from "react-icons/hi2";
 import { RxTrackNext, RxTrackPrevious } from "react-icons/rx";
-export default () => {
+
+export default function MP3Player() {
   const { mediaFile, extn, LoadNextFile, LoadPreviousFile, AutoPlayFiles } =
     useContext(MPFileContext);
+  const { MediaPlaying, DimIcon } = useContext(MediaUXContext);
 
   const mediaRef = useRef(null),
     mediaTimeRef = useRef(null),
@@ -17,16 +20,20 @@ export default () => {
     currentTimeRef = useRef(null),
     titleRef = useRef(null),
     mediaSession = navigator.mediaSession;
-
+  let [playingIconIterator, setPlayingIconIterator] = useState(null);
   useEffect(() => {
+    DimIcon();
     if (mediaFile) {
-      LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
-      mediaRef.current.ondurationchange = () => {
-        startInterval();
-      };
-      mediaRef.current.onended = () => stopInterval();
-      titleRef.current.textContent = mediaFile.name;
       try {
+        LoadMedia(extn, mediaFile, mediaRef.current, AutoPlayFiles);
+        mediaRef.current.ondurationchange = () => {
+          startInterval();
+        };
+        mediaRef.current.onended = async () => {
+          await DimIcon();
+          stopInterval();
+        };
+        titleRef.current.textContent = mediaFile.name;
         let setUpDone = mp3MediaSession(mediaFile);
         if (setUpDone) {
           mediaSession.setActionHandler("play", () => play(mediaRef.current));
@@ -39,24 +46,31 @@ export default () => {
           );
           mediaSession.setActionHandler("nexttrack", LoadNextFile);
           mediaSession.setActionHandler("previoustrack", LoadPreviousFile);
+          setPlayingIconIterator(MediaPlaying(mediaFile.name));
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaFile]);
 
   const handleAudioTrackTime = () => {
-    let duration = mediaTrackTime(mediaRef.current.duration),
-      currentTime = mediaTrackTime(mediaRef.current.currentTime);
+    try {
+      let duration = mediaTrackTime(mediaRef.current.duration),
+        currentTime = mediaTrackTime(mediaRef.current.currentTime);
 
-    mediaTimeRef.current.style.width = `${(
-      (Math.floor(mediaRef.current.currentTime) /
-        Math.floor(mediaRef.current.duration)) *
-      100
-    ).toFixed(0)}%`;
+      mediaTimeRef.current.style.width = `${(
+        (Math.floor(mediaRef.current.currentTime) /
+          Math.floor(mediaRef.current.duration)) *
+        100
+      ).toFixed(0)}%`;
 
-    currentTimeRef.current.textContent = `${currentTime} / ${duration}`;
+      currentTimeRef.current.textContent = `${currentTime} / ${duration}`;
+    } catch (error) {
+      stopInterval();
+      // console.error(error);
+    }
   };
 
   const startInterval = () => {
@@ -83,6 +97,7 @@ export default () => {
           className={styles.next}
           onClick={() => {
             LoadNextFile();
+            playingIconIterator.next(true);
           }}
         >
           <RxTrackNext />
@@ -91,6 +106,7 @@ export default () => {
           className={styles.prev}
           onClick={() => {
             LoadPreviousFile();
+            playingIconIterator.next(true);
           }}
         >
           <RxTrackPrevious />

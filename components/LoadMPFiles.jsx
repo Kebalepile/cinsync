@@ -1,9 +1,8 @@
 import React, { useEffect, useContext, useRef } from "react";
-import { useRouter } from "next/router";
 import MPFileContext from "@/contexts/media/context";
 import styles from "@/styles/loadmpfiles.module.css";
 import { FcOpenedFolder } from "react-icons/fc";
-export default () => {
+export default function LoadMPFiles() {
   const {
     FileInfo,
     MediaType,
@@ -13,12 +12,13 @@ export default () => {
     folderHandle,
     extn,
   } = useContext(MPFileContext);
-  const router = useRouter();
+
   const folderRef = useRef(null);
   useEffect(() => {
     if (MediaTypeOk() && FolderInfoAvailable()) {
       SearchMPFileNames();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extn, folderHandle]);
 
   /**
@@ -29,14 +29,14 @@ export default () => {
     try {
       if ("showDirectoryPicker" in window) {
         const folderHandle = await window.showDirectoryPicker();
-        typeof folderHandle === "object" &&
-          FileInfo(folderHandle) &&
-          router.push("/playlist");
+        if (typeof folderHandle === "object") {
+          FileInfo(folderHandle);
+        }
       } else {
         androidWedkitDirectory();
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -47,12 +47,12 @@ export default () => {
       fileInput.click();
       fileInput.addEventListener("change", () => {
         const filesList = fileInput.files;
-        typeof filesList === "object" &&
-          FileInfo(filesList) &&
-          router.push("/playlist");
+        if (typeof filesList === "object") {
+          FileInfo(filesList);
+        }
       });
     } catch (error) {
-      console.log("Android Error: ", error);
+      // console.log("Android Error: ", error);
     }
   }
 

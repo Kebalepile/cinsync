@@ -38,7 +38,7 @@
   height: 30px;
   margin-left: 5px;
   border-radius: 3px;
-  background-image: linear-gradient(10deg, #084175, #0084ff, #003c74);
+  background-image: linear-gradient(10deg, #3a0b2c, #852b6a, #ad3389);
   text-align: center;
 }
 .searchField {
@@ -98,14 +98,7 @@
   border-radius: 3px 3px 1px 1px;
   margin-top: 3px;
   min-height: 40px;
-  background-image: linear-gradient(
-    70deg,
-    #ff80f944,
-    #b834af73,
-    #f527eb9c,
-    #f527ebc9,
-    #ff5ef4da
-  );
+  background-image: linear-gradient(10deg, #3a0b2c, #852b6a, #ad3389);
   box-shadow: 0 0 50px rgb(233, 17, 168);
   display: flex;
   justify-content: flex-start;

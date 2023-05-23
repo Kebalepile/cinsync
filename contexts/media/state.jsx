@@ -7,8 +7,14 @@ import {
   File_Names,
   MP_File,
   Unique_Id,
+  Default_State,
 } from "../types";
-import { fileNameSearch, mpFile } from "@/library/searchFiles";
+import {
+  fileNameSearch,
+  mpFile,
+  androidDefualtGlobalState,
+} from "@/library/searchFiles";
+
 function MPFileProvider({ children }) {
   const initialState = {
     extn: null,
@@ -31,6 +37,27 @@ function MPFileProvider({ children }) {
   } = state;
 
   /**
+   * @description Rest Media Files global state to initalState.
+   */
+  const DefaultState = () => {
+    if (mpFileNames) {
+      // -------------------------
+      //--For android End-Users---
+      androidDefualtGlobalState();
+      // -------------------------
+
+      //--------------------------
+      //------ Rest State.--------
+      dispatch({
+        type: Default_State,
+        payload: initialState,
+      });
+      //--------------------------
+      //--------------------------
+    }
+  };
+
+  /**
    * @param {Object} handler
    * @description Sets folderName & folderHandle
    */
@@ -42,7 +69,9 @@ function MPFileProvider({ children }) {
         folderHandle: handler,
       },
     });
+    return true;
   };
+  
   /**
    *
    * @param {HTMLElement} htmlElem
@@ -51,11 +80,14 @@ function MPFileProvider({ children }) {
   const MediaType = (htmlElem) => {
     dispatch({
       type: Media_Extension,
-      payload: { extn: htmlElem.target.getAttribute("data-extn") },
+      payload: {
+        extn: htmlElem.target.getAttribute("data-extn"),
+        mpFileNames: null,
+      },
     });
   };
-  /**
- 
+
+  /** 
    * @description Search's for files with given file extension
    * in given folder and sub folders if any.
    */
@@ -124,6 +156,7 @@ function MPFileProvider({ children }) {
         MediaType,
         MediaTypeOk,
         LoadNextFile,
+        DefaultState,
         AutoPlayFiles,
         MediaExtension,
         LoadPreviousFile,
